@@ -194,6 +194,7 @@ void threadsInit()
         using namespace GC;
         //Debug::printf("| starting GC\n");
         while (true) {
+            
                 yield();
                 stopWorld();
                 markPhase();

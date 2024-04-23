@@ -1,0 +1,1029 @@
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 4
+| memSize 0x7fd0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+
+___starting meta data traversal__
+addr 24004c
+___ending meta data traversal__
+
+| switched to new UART
+| physical range 0x600000 0x7fd0000
+
+___starting meta data traversal__
+addr 24004c
+addr 2400a8
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 24004c
+addr 2400a8
+addr 2401a4
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 24004c
+addr 2400a8
+addr 2401a4
+addr 240224
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 24004c
+addr 2400a8
+addr 2401a4
+addr 240224
+addr 240280
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+___ending meta data traversal__
+
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000042284Hz
+| APIT counter=1000042 for 1000Hz
+| initialize 1
+| reset 1
+|      eip:0x8000
+| initialize 2
+| reset 2
+|      eip:0x8000
+| initializing TSS:ss0 for 1
+| initialize 3
+| reset 3
+|      eip:0x8000
+| 1 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 2
+| 2 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 3
+| 3 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+___ending meta data traversal__
+
+vaddr:80000000 memsz:0x402100 filesz:0x20d0 fileoff:80
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+___ending meta data traversal__
+
+*** open and len... Check
+*** read nothing... Check
+*** don't open the kernel... Check
+*** read 4 chars... Check
+*** Did this line output with asterisks??
+*** read some more... Check
+*** to find water
+*** seek start... Check
+*** to find water, you must first find Dirt.
+*** seek 19... Check
+*** you must first find Dirt.
+*** kernel memory intact... Check
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+addr 24f854
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+addr 24f854
+addr 24f950
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+addr 24f854
+addr 24f950
+addr 24f9d0
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+addr 24f854
+addr 24f950
+addr 24f9d0
+addr 251a70
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+addr 24f854
+addr 24f950
+addr 24f9d0
+addr 251a70
+addr 251b6c
+___ending meta data traversal__
+
+
+___starting meta data traversal__
+addr 2402e0
+addr 24034c
+addr 240420
+addr 240538
+addr 2405c4
+addr 240650
+addr 2406dc
+addr 240768
+addr 242804
+addr 2448a0
+addr 2448fc
+addr 2449f8
+addr 244a78
+addr 244ad4
+addr 244b34
+addr 246cec
+addr 246dd4
+addr 246ebc
+addr 246be0
+addr 246fa4
+addr 246c90
+addr 2470a0
+addr 246cc4
+addr 24918c
+addr 249200
+addr 2492fc
+addr 24937c
+addr 24b41c
+addr 24b518
+addr 24b598
+addr 24d638
+addr 24d734
+addr 24d7b4
+addr 24f854
+addr 24f950
+addr 24f9d0
+addr 251a70
+addr 251b6c
+addr 251bec
+___ending meta data traversal__
+
+*** fork, wait, and sem... Check
+core 2 requested shutdown

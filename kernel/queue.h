@@ -51,6 +51,23 @@ public:
         last = nullptr;
         return it;
     }
+
+
+    T* head(){
+        return first;
+    }
+
+
+T* find(uintptr_t addr){ //addr!
+    T* curr = first;
+    while(curr != nullptr){
+        if(curr->addr == (void*)addr){
+            return curr;
+        }
+        curr = curr->next;
+    }
+    return nullptr;
+}
 };
 
 #endif
