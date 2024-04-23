@@ -13,11 +13,36 @@ namespace gheith
     int len;
     int safe = 0;
     static int avail = 0; // head of free list
-    static BlockingLock *theLock = nullptr;
+    static BlockingLock *theLock = new BlockingLock();
     MarkAndSweep *GC = nullptr;
+    //static Atomic<uint64_t> memoryTracker;
+    static uint64_t memoryTracker;
+    static int totalHeapSize;
+
+
 
     void makeTaken(int i, int ints);
     void makeAvail(int i, int ints);
+
+    // Example function to safely modify memoryTracker with debug
+    void adjustMemoryTracker(int64_t value) {
+        using namespace gheith;
+        //LockGuardP lockGuard(theLock);
+       // auto old_value = memoryTracker;
+        auto new_value = memoryTracker+=value;
+        //Debug::printf("Adjusting memoryTracker: old value = %lu, adjustment = %lu, new value = %lu\n", old_value, value, new_value);
+        ASSERT(new_value >= 0); // Ensure that the memory tracker does not underflow
+    }
+
+    // // mem currently allocated?
+    int getMemoryTracker() {
+        return memoryTracker;
+    }
+
+    // // available mem?
+    int getAvailableMemory() {
+        return totalHeapSize - memoryTracker;
+    }
 
     int abs(int x)
     {
@@ -184,16 +209,23 @@ void heapInit(void *base, size_t bytes)
 
     /* can't say new becasue we're initializing the heap */
     array = (int *)base;
-    len = bytes / 4;
+    //len = bytes / 4;
+    len = bytes / sizeof(int);
+    //Debug::printf("WE ARE INITIALIZING MEMORY TRACKER");
+    memoryTracker = 0;
+    //Debug::printf("WE HAVE INITIALIZED MEMORY TRACKER TO THE VALUE OF %d\n", memoryTracker);
+    totalHeapSize = len * sizeof(int);
     makeTaken(0, 2);
     makeAvail(2, len - 4);
     makeTaken(len - 2, 2);
-    theLock = new BlockingLock();
+    //theLock = new BlockingLock();
     GC = new MarkAndSweep(base, bytes); // for now. instantiate mark and sweep GC
 }
 
-void *malloc(size_t bytes)
-{
+
+
+void *malloc(size_t bytes) {
+
     using namespace gheith;
     // Debug::printf("malloc(%d)\n",bytes);
     if (bytes == 0)
@@ -250,13 +282,63 @@ void *malloc(size_t bytes)
             makeTaken(it, mx);
         }
         res = &array[it + 1];
+        adjustMemoryTracker(bytes);
     }
 
     return res;
+
+
+
+
+
+
+
+
+
+
+    // using namespace gheith;
+    // if (bytes == 0) return nullptr;
+
+    // LockGuardP g{theLock};
+
+    // int ints = ((bytes + sizeof(int) - 1) / sizeof(int)) + 2;  // header and footer
+    // void *res = nullptr;
+    // int mx = 0x7FFFFFFF;
+    // int it = 0;
+
+    // for (int p = avail; p != 0 && mx > ints; p = next(p)) {
+    //     if (!isAvail(p)) {
+    //         Debug::panic("block is not available in malloc %p\n", p);
+    //     }
+    //     int sz = size(p);
+    //     if (sz >= ints && sz < mx) {
+    //         mx = sz;
+    //         it = p;
+    //     }
+    // }
+
+    // if (it != 0) {
+    //     remove(it);
+    //     int extra = mx - ints;
+    //     if (extra >= 4) {
+    //         makeTaken(it, ints);
+    //         makeAvail(it + ints, extra);
+    //     } else {
+    //         makeTaken(it, mx);
+    //     }
+    //     res = &array[it + 1];
+    //     //Debug::printf("WE ARE INSIDE OF MALLOC AND WE ARE ABOUT TO ADD TO THE MEM TRACKER, THE CURRENT VALUE OF THE MEM TRACKER IS %d\n", memoryTracker);
+    //     //memoryTracker+=bytes;
+    //     adjustMemoryTracker(bytes);
+    //     //Debug::printf("WE ARE STILL INSIDE OF MALLOC AND NOW THE MEM TRACKER VALUE SHOULD BE UPDATED, THE CURRENT VALUE OF THE MEM TRACKER IS %d\n", memoryTracker);
+    // }
+
+    // return res;
 }
 
-void free(void *p)
-{
+
+void free(void *p) {
+    
     using namespace gheith;
     if (p == 0)
         return;
@@ -274,7 +356,11 @@ void free(void *p)
     }
     // GC->unmarkBlock(idx);
 
-    int sz = size(idx);
+    int blockSize = size(idx);
+    adjustMemoryTracker(-blockSize * sizeof(int));
+
+    Debug::printf("THIS IS THE AMOUNT OF MEMORY ALLOCATED %d", memoryTracker);
+    Debug::printf("THIS IS THE AMOUNT OF MEMORY FREE %d", getAvailableMemory());
 
     int leftIndex = left(idx);
     int rightIndex = right(idx);
@@ -283,17 +369,57 @@ void free(void *p)
     {
         remove(leftIndex);
         idx = leftIndex;
-        sz += size(leftIndex);
+        blockSize += size(leftIndex);
     }
 
     if (isAvail(rightIndex))
     {
         remove(rightIndex);
-        sz += size(rightIndex);
+       blockSize += size(rightIndex);
     }
 
-    makeAvail(idx, sz);
+    makeAvail(idx, blockSize);
+    
+    
+    
+    
+    
+    
+    
+//     using namespace gheith;
+//     if (p == nullptr || p == (void *)array) return;
 
+//     LockGuardP g{theLock};
+
+//     int idx = (((uintptr_t)p - (uintptr_t)array) / sizeof(int)) - 1;
+//     if (!isTaken(idx)) {
+//         Debug::panic("freeing free block, p:%x idx:%d\n", (uint32_t)p, idx);
+//         return;
+//     }
+
+//     int blockSize = size(idx); // Total size in blocks
+//     //Debug::printf("WE ARE INSIDE OF FREE RIGHT NOW AND WE ARE ABOUT TO SUBTRACT FROM THE MEM TRACKER, THE CURRENT VALUE OF MEMORY TRACKER IS %d\n", memoryTracker);
+//     //memoryTracker-=(blockSize * sizeof(int));
+//     adjustMemoryTracker(-blockSize * sizeof(int));
+//    // Debug::printf("WE ARE STILL INSIDE OF FREE  AND WE HAVE SUBTRACTED FROM THE MEM TRACKER, THE CURRENT VALUE OF MEMORY TRACKER IS %d\n", memoryTracker);
+//    // Debug::printf("THE FOLLOWING IS THE TOTAL HEAP MINUS THE MEMORY TRACKER %d\n", getAvailableMemory());
+//    Debug::printf("THIS IS THE AMOUNT OF MEMORY ALLOCATED %d", memoryTracker);
+//    Debug::printf("THIS IS THE AMOUNT OF MEMORY FREE %d", getAvailableMemory());
+
+
+//     int leftIndex = left(idx);
+//     int rightIndex = right(idx);
+//     if (isAvail(leftIndex)) {
+//         remove(leftIndex);
+//         idx = leftIndex;
+//         blockSize += size(leftIndex);
+//     }
+//     if (isAvail(rightIndex)) {
+//         remove(rightIndex);
+//         blockSize += size(rightIndex);
+//     }
+
+//     makeAvail(idx, blockSize);
 }
 
 /*****************/
@@ -336,7 +462,12 @@ void MarkAndSweep::sweep()
 }
 void *operator new(size_t size)
 {
+   // Debug::printf("Allocating %d bytes which should be added to the mem tracker\n", size);
+  // Debug::printf("Request to allocate %d size bytes has been made\n", size);
     void *p = malloc(size); // ptr to data
+    //Debug::printf("This is after the malloc call of %d size and now the memory tracker is at %d\n", size, gheith::memoryTracker);
+    
+    //Debug::printf("The memory tracker is %d bytes so we have total allocated that amount\n", gheith::memoryTracker);
     if (p == 0)
         Debug::panic("out of memory");
     // int block = ((((uintptr_t)p) - ((uintptr_t)gheith::array)) / 4) - 1; // header block
@@ -347,17 +478,21 @@ void *operator new(size_t size)
 
 void operator delete(void *p) noexcept
 {
+   // Debug::printf("delete is called, the mem tracker should decrease");
     return free(p);
 }
 
 void operator delete(void *p, size_t sz)
 {
+  //  Debug::printf("delete is called, the mem tracker should decrease");
     return free(p);
 }
 
 void *operator new[](size_t size)
 {
-    void *p = malloc(size);
+  //Debug::printf("Request to allocate %d size bytes has been made\n", size);
+    void *p = malloc(size); // ptr to data
+    //Debug::printf("This is after the malloc call of %d size and now the memory tracker is at %d\n", size, gheith::memoryTracker);
     if (p == 0)
         Debug::panic("out of memory");
     return p;
@@ -365,10 +500,12 @@ void *operator new[](size_t size)
 
 void operator delete[](void *p) noexcept
 {
+   // Debug::printf("delete is called, the mem tracker should decrease");
     return free(p);
 }
 
 void operator delete[](void *p, size_t sz)
 {
+   // Debug::printf("delete is called, the mem tracker should decrease");
     return free(p);
 }
