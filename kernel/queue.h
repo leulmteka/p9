@@ -2,6 +2,7 @@
 #define _queue_h_
 
 #include "atomic.h"
+#include "debug.h"
 
 template <typename T, typename LockType>
 class Queue {
@@ -44,6 +45,35 @@ public:
         return it;
     }
 
+    T* remove(T* target) {
+        LockGuard g{lock};
+        if (first == nullptr) {
+            return 0;
+        }
+        if (first == target) {
+            first = first->next;
+            if (first == nullptr) {
+                last = nullptr;
+            }
+            return target;
+        }
+
+        T* prev = first;
+        T* curr = first->next;
+        while (curr != nullptr) {
+            if (curr == target) {
+                prev->next = curr->next;
+                if (last == curr) {
+                    last = prev;
+                }
+                return curr;
+            }
+            prev = curr;
+            curr = curr->next;
+        }
+        return 0;
+    }
+
     T* remove_all() {
         LockGuard g{lock};
         auto it = first;
@@ -55,6 +85,11 @@ public:
 
     T* head(){
         return first;
+    }
+    void setHead(T* head){
+        if(first == nullptr){
+        first = head;
+        }else Debug::panic("tried to set head while already head\n");
     }
 
 

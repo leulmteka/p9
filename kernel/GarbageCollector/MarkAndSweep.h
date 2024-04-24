@@ -6,6 +6,8 @@
 #include "atomic.h"
 #include "blocking_lock.h"
 
+using namespace gheith;
+
 class MarkAndSweep : public GarbageCollector
 {
 
@@ -31,6 +33,7 @@ public:
 
 
     void markBlock(void *ptr);
+    //void markChildren(gheith::object_metadata::objectMeta* parent);
     void sweep();
     //     if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int))
     //     {
