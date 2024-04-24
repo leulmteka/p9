@@ -12,7 +12,6 @@ class LinkedList {
 
 public:
     LinkedList() : head(nullptr), tail(nullptr), lock() {}
-    LinkedList(const LinkedList&) = delete;
 
     void monitor_add() {
         monitor((uintptr_t)&tail);
@@ -86,7 +85,7 @@ public:
     T* find(uintptr_t addr) {
         T* curr = head;
         while (curr != nullptr) {
-            if (reinterpret_cast<uintptr_t>(curr) == addr) {
+            if ((uintptr_t)(curr) == addr) {
                 return curr;
             }
             curr = curr->next;

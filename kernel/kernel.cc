@@ -37,24 +37,24 @@ void kernelMain(void) {
    auto argv = new const char* [2];
    argv[0] = "init";
    argv[1] = nullptr;
-   Debug::printf("argv ptr: %x\n", &argv);
+   Debug::printf("argv ptr: %x\n", argv);
    Debug::printf("*** Start of Test\n");
    int i;
-   void* ptrs[1000];
+   int* ptrs[1000];
 
 
 
   
    // Allocating memory 1000 times
    for (i = 0; i < 1000; i++) {
-       ptrs[i] = operator new(32);  // Assume each allocation is for 32 bytes
+       ptrs[i] = new int(32);  // Assume each allocation is for 32 bytes
    }
 
 
    Debug::printf("*** First item of ptrs %x\n", ptrs);
-     n* en = new n(1, (void*) ptrs);
+     n* en = new n(1, 0);
      //en += 1;
-    Debug::printf("en %x\n", (void*)en);
+    Debug::printf("en %x\n", en);
     // Debug::printf("en addr %x\n", &en);
     // Debug::printf("whats inside n %d\n", *en);
 

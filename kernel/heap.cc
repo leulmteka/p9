@@ -13,133 +13,6 @@ namespace gheith
 
     MarkAndSweep *GC = nullptr;
 
-//     //LL
-//template <typename T>
-// struct Node {
-//         T* data;
-//         Node<T>* next;
-
-//         Node(T* data, Node<T>* next = nullptr) : data(data), next(next) {}
-//     };
-
-
-// template <typename T, typename LockType>
-// class LinkedList {
-
-//     Node<T>*  head = nullptr;
-//     Node<T>*  tail = nullptr;
-//     LockType lock;
-
-// public:
-//     LinkedList() : head(nullptr), tail(nullptr), lock() {}
-
-//     void monitor_add() {
-//         monitor((uintptr_t)&tail);
-//     }
-
-//     void monitor_remove() {
-//         monitor((uintptr_t)&head);
-//     }
-
-//     void append(T* t) {
-//         LockGuard g{lock};
-//         if(GC){
-//             Debug::printf("%x\n", GC);
-//             Node<T>* newNode = new Node(t);
-//         if (head == nullptr) {
-//             head = newNode;
-//         } else {
-//             tail->next = newNode;
-//         }
-//         tail = newNode;
-//         }
-//     }
-    
-
-//     T* remove() {
-//         LockGuard g{lock};
-//         if (head == nullptr) {
-//             return nullptr;
-//         }
-//         Node<T>* nodeToRemove = head;
-//         head = head->next;
-//         if (head == nullptr) {
-//             tail = nullptr;
-//         }
-//         T* data = nodeToRemove->data;
-//         delete nodeToRemove;
-//         return data;
-//     }
-
-//     T* remove(T* target) {
-//         LockGuard g{lock};
-//         if (head == nullptr) {
-//             return nullptr;
-//         }
-//         if (head->data == target) {
-//             return remove(); // Reuse remove() to handle head case
-//         }
-
-//         Node<T>* prev = head;
-//         Node<T>* curr = head->next;
-//         while (curr != nullptr) {
-//             if (curr->data == target) {
-//                 prev->next = curr->next;
-//                 if (tail == curr) {
-//                     tail = prev;
-//                 }
-//                 T* data = curr->data;
-//                 delete curr;
-//                 return data;
-//             }
-//             prev = curr;
-//             curr = curr->next;
-//         }
-//         return nullptr;
-//     }
-
-//     T* removeAll() {
-//         LockGuard g{lock};
-//         Node<T>* current = head;
-//         while (current != nullptr) {
-//             Node<T>* next = current->next;
-//             //delete current;
-//             current = next;
-//         }
-//         head = nullptr;
-//         tail = nullptr;
-//         return nullptr; // No data returned as all are deleted
-//     }
-
-//     T* find(uintptr_t addr) {
-//         Node<T>* current = head;
-//         while (current != nullptr) {
-//             if ((uintptr_t)(current->data) == addr) {
-//                 return current->data;
-//             }
-//             current = current->next;
-//         }
-//         return nullptr;
-//     }
-
-//     bool isEmpty() {
-//         return head == nullptr;
-//     }
-
-//     Node<T>* getHead() {
-//         return head ? head : nullptr;
-//     }
-
-//     void setHead(T* newHead) {
-//         LockGuard g{lock};
-//         if (head == nullptr) {
-//             head = new Node(newHead);
-//             tail = head;  // Ensure tail points correctly if list was empty
-//         } else {
-//             Debug::panic("tried to set head while already head\n");
-//         }
-//     }
-// };
 
     namespace object_metadata
     {
@@ -169,7 +42,7 @@ namespace gheith
     static BlockingLock *theLock = nullptr;
 
     //static Queue<objMeta, NoLock> all_objects{}; // no lock for now
-    static LinkedList<objMeta, NoLock> all_objects{};
+    static LinkedList<objMeta, InterruptSafeLock> all_objects{};
 
     static uint64_t memoryTracker;
     static int totalHeapSize;
@@ -185,49 +58,7 @@ namespace gheith
         ASSERT(new_value >= 0); // Ensure that the memory tracker does not underflow
     }
 
-    // get references of parent here, and add it to children linked list
-    //     void init_get_potential_children(objectMeta* parent) {
-    //         uintptr_t* potentialPointer = (uintptr_t*) parent->addr;
-    //         uintptr_t* end = (uintptr_t*)((char*)parent->addr + parent->size);
-    //         objectMeta* last_child = nullptr;
 
-    //         while (potentialPointer < end) {
-    //             uintptr_t possibleAddr = (uintptr_t) potentialPointer; //*?
-    //             objectMeta* childMeta = all_objects.find(possibleAddr);
-    //             if (childMeta) {
-    //                 if (parent->first_children == nullptr) {
-    //                     parent->first_children = childMeta; // First child
-    //                     last_child = childMeta;
-    //                 } else {
-    //                     last_child->child_next = childMeta; // Append new child
-    //                     last_child = childMeta;
-    //                 }
-    //             }
-    //         potentialPointer++;
-    //     }
-    // }
-    void init_get_potential_children(objectMeta *parent)
-    {
-        uintptr_t *potentialPointer = (uintptr_t *)parent->addr;
-        uintptr_t *end = (uintptr_t *)((char *)parent->addr + parent->size);
-
-        while (potentialPointer < end)
-        {
-            uintptr_t possibleAddr = *potentialPointer; // Dereference potentialPointer to check its content as an address
-            objectMeta *childMeta = all_objects.find(possibleAddr);
-            if (childMeta)
-            {
-                // parent->children.append(childMeta);
-                if(parent->child_next == nullptr){
-                    parent->child_next = childMeta;
-                }else{
-                    childMeta->child_next = parent->child_next;
-                    parent->child_next = childMeta;
-                }
-            }
-            potentialPointer++;
-        }
-    }
     void makeTaken(int i, int ints);
     void makeAvail(int i, int ints);
 
@@ -552,52 +383,26 @@ void free(void *p)
 /*****************/
 /* C++ operators */
 /*****************/
-// void markChildren(objectMeta* parent){
-//     objectMeta* child = parent->first_children;
-//     while(child != nullptr){
-//         if(!child->marked){
-//             child->marked = true;
-//             markChildren(child); //recursively mark children; DFS
-//         }
-//     }
-// }
+
+//recursively mark children; DFS
 void markChildren(gheith::objectMeta *parent)
 {
     using namespace gheith;
-    // for (gheith::objectMeta *child = parent->child; child != nullptr; child = child->next)
-    // {
-    //     if (!child->marked)
-    //     {
-    //         child->marked = true;
-    //         Debug::printf("fouhdn children as well, parent: %x\n", parent);
-    //         markChildren(child); // Recursively mark children
-    //     }
-    // }
-    
-    // LinkedList<objectMeta, NoLock> children = parent->children;
-    // Node<objectMeta>* head = children.getHead();
-    // while(head != nullptr){
-    //     if(!head->data->marked){
-    //         head->data->marked = true;
-    //         Debug::printf("fouhdn children as well. parent: %x, child: %x\n", parent->addr, head->data->addr);
-    //         //markChildren(head->data);
-    //     }
-    // }
     objectMeta* child = parent->child_next;
     Debug::printf("chi\n");
     while(child != nullptr){
         if(!child->marked){
             child->marked = true;
             Debug::printf("fouhdn children as well. parent: %x, child: %x\n", parent->addr, child->addr);
-            markChildren(child);
-            child = child->child_next;
+            
         }
+        markChildren(child);
+        child = child->child_next;
     }
 
 }
 void MarkAndSweep::markBlock(void *ptr)
 {
-
     // uintptr_t index = (((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int)) - 1; //header
 
     // if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int)) //valid?
@@ -612,17 +417,17 @@ void MarkAndSweep::markBlock(void *ptr)
     if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int))
     {
         // Calculate index to see if the pointer is pointing to a valid object start
-        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int) -1 ; //-1?
+        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int)  ; //-1?
 
         // Check if the index is within bounds and the slot is marked as taken
         if (gheith::isTaken(index))
         {   
-                Debug::printf("found a match %x\n", ptr);
 
             // Find the metadata for the object at the pointer address
             gheith::objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
             if (meta && !meta->marked) // Check if metadata exists and object is not already marked
             {
+                //Debug::printf("found a match %x\n", ptr);
 
                 meta->marked = true; // Mark the object as reachable
                 markChildren(meta);  // Recursively mark all reachable children
@@ -633,6 +438,7 @@ void MarkAndSweep::markBlock(void *ptr)
 
 void MarkAndSweep::sweep()
 {
+    
     gheith::objectMeta *current = gheith::all_objects.getHead();
     gheith::objectMeta *prev = nullptr;
     while (current != nullptr)
@@ -649,7 +455,7 @@ void MarkAndSweep::sweep()
             // Remove from the queue
             if (prev != nullptr)
             {
-                Debug::printf("to remove: %x\n", addr);
+                //Debug::printf("to remove: %x\n", addr);
                 prev->next = current; // Bypass the deleted node
                 if(prev->next)
                 Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
@@ -658,8 +464,8 @@ void MarkAndSweep::sweep()
             }
             else
             {
-                Debug::printf("to remove: %x\n", addr);
-                Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
+                //Debug::printf("to remove: %x\n", addr);
+                //Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
                 
             }
             //Debug::printf("deleting.. %x\n",addr );
@@ -679,7 +485,28 @@ void MarkAndSweep::sweep()
 }
 
 using namespace gheith;
+    void init_get_potential_children(objectMeta *parent)
+    {
+        uintptr_t *potentialPointer = (uintptr_t *)parent->addr;
+        uintptr_t *end = (uintptr_t *)((char *)parent->addr + parent->size);
 
+        while (potentialPointer < end)
+        {
+            uintptr_t possibleAddr = *potentialPointer; // Dereference potentialPointer to check its content as an address
+            objectMeta *childMeta = all_objects.find(possibleAddr);
+            if (childMeta)
+            {
+                Debug::printf("finding children..\n");
+                if(parent->child_next == nullptr){
+                    parent->child_next = childMeta;
+                }else{
+                    childMeta->child_next = parent->child_next;
+                    parent->child_next = childMeta;
+                }
+            }
+            potentialPointer++;
+        }
+    }
 // every dynamically allocated object has to go through here
 void *operator new(size_t size)
 {
@@ -692,11 +519,12 @@ void *operator new(size_t size)
     if (GC)
     {                                                              // heapInit has been called
         objMeta *metadata = (objMeta *)malloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
-
         metadata->addr = p;
         metadata->marked = false;
         metadata->size = size;
         metadata->theLock = theLock;
+        metadata->child_next = nullptr;
+        
 
         init_get_potential_children(metadata);
         all_objects.append(metadata);
@@ -729,6 +557,27 @@ void *operator new[](size_t size)
     void *p = malloc(size);
     if (p == 0)
         Debug::panic("out of memory");
+            if (GC)
+    {                                                              // heapInit has been called
+    objMeta *metadata = (objMeta *)malloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
+
+    metadata->addr = p;
+    metadata->marked = false;
+    metadata->size = size;
+    metadata->theLock = theLock;
+
+    init_get_potential_children(metadata);
+    all_objects.append(metadata);
+
+
+        // Debug::printf("\n___starting meta data traversal__\n");
+        // while (head != nullptr)
+        // {
+        //     Debug::printf("addr %x\n", head->addr);
+        //     head = head->next;
+        // }
+        // Debug::printf("___ending meta data traversal__\n\n");
+    }
     return p;
 }
 

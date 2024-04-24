@@ -140,7 +140,7 @@ namespace GC{
             schedule(tcb);
             tcb = waitQ.remove();
         }
-        Interrupts::restore(true);
+        Interrupts::restore(false);
     }
     // void markPhase()
     // {
@@ -197,8 +197,10 @@ namespace GC{
 
                 // Checking if the candidate pointer points inside the heap
                     if ((void *)candidate >= gheith::array && (void *)candidate < gheith::array + gheith::len * sizeof(int)) {
-                        Debug::printf("s %x\n", candidate);
+                        //Debug::printf("s %x\n", candidate);
                         gheith::GC->markBlock((void*)candidate);
+                        //gheith::init_get_potential_children(candidate);
+
                     }
                 }
             }
