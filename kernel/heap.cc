@@ -649,13 +649,17 @@ void MarkAndSweep::sweep()
             // Remove from the queue
             if (prev != nullptr)
             {
-                //Debug::printf("to remove: %x\n", addr);
+                Debug::printf("to remove: %x\n", addr);
                 prev->next = current; // Bypass the deleted node
+                if(prev->next)
+                Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
+                else
+                Debug::printf("removed %x. prev next is null\n", addr);
             }
             else
             {
-                // Debug::printf("to remove: %x\n", addr);
-                // Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
+                Debug::printf("to remove: %x\n", addr);
+                Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
                 
             }
             //Debug::printf("deleting.. %x\n",addr );
@@ -697,8 +701,6 @@ void *operator new(size_t size)
         init_get_potential_children(metadata);
         all_objects.append(metadata);
 
-        //objMeta *head = all_objects.head();
-        // objMeta* head = all_objects.head()->first_children;
 
         // Debug::printf("\n___starting meta data traversal__\n");
         // while (head != nullptr)

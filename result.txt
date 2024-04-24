@@ -76,7 +76,8 @@ iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | What just happened? Why am I here?
 | Discovering my identity and features
 |     CPUID: AuthenticAMD
@@ -93,277 +94,237 @@ sz1310720
 | physical range 0x600000 0x7fd0000
 | pitInit freq 1000Hz
 | pitInit divider 59659
-| APIT running at 1000046019Hz
-| APIT counter=1000046 for 1000Hz
+| APIT running at 1000044364Hz
+| APIT counter=1000044 for 1000Hz
 | initialize 1
 | reset 1
 |      eip:0x8000
 | initialize 2
 | reset 2
 |      eip:0x8000
-| initializing TSS:ss0 for 1
 | initialize 3
-| 1 enabling interrupts, I'm scared
 | initializing TSS:ss0 for 2
-| 2 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 1
 | reset 3
 |      eip:0x8000
+| 2 enabling interrupts, I'm scared
+| 1 enabling interrupts, I'm scared
 | initializing TSS:ss0 for 3
-| 3 enabling interrupts, I'm scared
 | initializing TSS:ss0 for 0
 | 0 enabling interrupts, I'm scared
+| 3 enabling interrupts, I'm scared
+s 2445f3
+s 2425c8
+found a match 2425c8
+s 2425c8
+found a match 2425c8
+s 242563
 s 242583
-s 240438
-found a match 240438
-s 242583
+s 240558
+found a match 240558
+s 242588
 s 240558
 found a match 240558
 s 240558
 found a match 240558
+to remove: 240204
+removed 240224
+to remove: 240244
+removed 240274
+to remove: 2402ec
+removed 240388
+to remove: 2403d8
+removed 240418
+to remove: 240438
+removed 240478
+to remove: 240498
+removed 2404d8
+to remove: 2404f8
+removed 240538
+to remove: 240558
+removed 2405a0
+to remove: 2425c8
+removed 242610
+to remove: 244638
+removed 244648
+to remove: 244668
+removed 244718
+to remove: 244738
+removed 24476c
+to remove: 24478c
+removed 24479c
+to remove: 2447bc
+removed 2447d0
+to remove: 2447f0
+removed 244838
 s 24004c
 found a match 24004c
-s 244410
+argv ptr: 245868
+s 244420
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
-s 244498
+s 2444a8
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
-s 244538
-s 24453c
-s 244538
-s 244568
-s 24456c
-s 244568
-s 24004c
-found a match 24004c
-s 24453c
 s 244548
-s 100034
-found a match 100034
-s 100034
-found a match 100034
-s 100034
-found a match 100034
+s 24454c
+s 244548
+s 244578
+s 24457c
+s 244578
+s 24004c
+found a match 24004c
+s 24454c
+s 24454c
+s 24455c
+s 24455c
 s 244630
-s 2425c8
-found a match 2425c8
-s 240498
-found a match 240498
+s 100034
+found a match 100034
+s 100034
+found a match 100034
 s 2445f3
 s 2425c8
 found a match 2425c8
 s 2425c8
 found a match 2425c8
-s 24004c
-found a match 24004c
-s 244410
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 244498
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 244538
-s 24453c
-s 244538
-s 244568
-s 24456c
-s 244568
-s 24004c
-found a match 24004c
-s 24453c
-s 244548
-s 100034
-found a match 100034
-s 100034
-found a match 100034
-s 100034
-found a match 100034
-s 244630
-s 2425c8
-found a match 2425c8
-s 240498
-found a match 240498
-s 2445f3
-s 2425c8
-found a match 2425c8
-s 2425c8
-found a match 2425c8
-argv ptr: 245880
-s 24004c
-found a match 24004c
-s 244410
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 244498
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 244538
-s 24453c
-s 244538
-s 244568
-s 24456c
-s 244568
-s 24004c
-found a match 24004c
-s 24453c
-s 244548
-s 100034
-found a match 100034
-s 100034
-found a match 100034
-s 2425d8
-s 240568
-s 240568
-s 244630
-s 2425c8
-found a match 2425c8
-s 2403d8
-found a match 2403d8
-s 2445f3
-s 2425c8
-found a match 2425c8
-s 2425c8
-found a match 2425c8
-s 24004c
-found a match 24004c
-s 245740
-s 24004c
-found a match 24004c
-s 24004c
-found a match 24004c
-s 2457c8
-s 24004c
-found a match 24004c
-s 245868
-s 100014
-s 2457f4
-s 245868
-s 245814
-s 244808
-found a match 244808
-s 245884
-s 246824
-s 245884
-s 245880
-s 246890
-found a match 246890
-s 244808
-found a match 244808
-s 244808
-found a match 244808
-*** Start of Test
-s 2424bf
-s 240558
-found a match 240558
-s 244818
-s 2424e4
-s 244818
 s 242504
-s 240568
-s 244818
 s 242583
-s 240498
-found a match 240498
+s 242524
 s 242583
+s 240558
+found a match 240558
+s 242583
+s 242588
 s 240558
 found a match 240558
 s 240558
 found a match 240558
 s 24004c
 found a match 24004c
-s 244410
+s 245728
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
-s 244498
+s 2457b0
+s 24004c
+found a match 24004c
+s 2457bb
+s 2447f0
+found a match 2447f0
+s 245850
+s 100014
+s 2457e0
+s 245850
+s 2457fc
+s 2447f0
+found a match 2447f0
+s 24586c
+s 24680c
+s 24586c
+s 245868
+s 246860
+found a match 246860
+s 2447f0
+found a match 2447f0
+s 2447f0
+found a match 2447f0
+*** Start of Test
+s 24004c
+found a match 24004c
+s 244420
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 2444a8
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
-s 244538
-s 24453c
-s 244538
-s 244568
-s 24456c
-s 244568
-s 24004c
-found a match 24004c
-s 24453c
 s 244548
-s 100034
-found a match 100034
-s 100034
-found a match 100034
-s 2425d8
-s 240568
-s 240568
+s 24454c
+s 244548
+s 244578
+s 24457c
+s 244578
+s 24004c
+found a match 24004c
+s 24454c
+s 24454c
+s 24455c
+s 24455c
 s 244630
-s 2425c8
-found a match 2425c8
-s 2403d8
-found a match 2403d8
+s 100034
+found a match 100034
+s 100034
+found a match 100034
 s 2445f3
 s 2425c8
 found a match 2425c8
 s 2425c8
 found a match 2425c8
+s 2424f8
+s 242518
+s 242583
+s 240558
+found a match 240558
+s 242583
+s 242588
+s 240558
+found a match 240558
+s 240558
+found a match 240558
 s 24004c
 found a match 24004c
-s 245740
+s 245728
 s 24004c
 found a match 24004c
 s 24004c
 found a match 24004c
-s 2457c8
+s 2457b0
 s 24004c
 found a match 24004c
+s 2457bb
+s 2447f0
+found a match 2447f0
 s 100014
 s 100014
-s 24f7d8
-found a match 24f7d8
+s 24ecc8
+found a match 24ecc8
 chi
 s 13fffd
 s 10000c
 found a match 10000c
-s 245808
-s 24ff68
-s 24ff48
-found a match 24ff48
-s 245828
-s 250068
-found a match 250068
-s 245884
-s 244808
-found a match 244808
-s 245884
-s 246824
-s 246160
-s 246824
-s 245884
-s 245880
-s 246890
-found a match 246890
+s 2457f0
+s 24ee28
+s 24ee08
+found a match 24ee08
+s 245810
+s 24f8b8
+found a match 24f8b8
+s 24586c
+s 2447f0
+found a match 2447f0
+s 24586c
+s 24680c
+s 2460e0
+s 24680c
+s 24586c
+s 245868
+s 246860
+found a match 246860
+s 246870
+found a match 246870
 s 2468b8
 found a match 2468b8
 s 246900
@@ -500,20 +461,38 @@ s 247b48
 found a match 247b48
 s 247b90
 found a match 247b90
-*** First item of ptrs 245884
 s 247bd8
 found a match 247bd8
 s 247c20
 found a match 247c20
-en 258210
 s 247c68
 found a match 247c68
-*** Total Memory Still Allocated After The Test (memory tracker): 82329
 s 247cb0
 found a match 247cb0
-*** Total Memory Free After The Test (heap size - mem tracker): 5160551
 s 247cf8
 found a match 247cf8
-core 1 requested shutdown
+*** First item of ptrs 24586c
 s 247d40
 found a match 247d40
+s 247d88
+found a match 247d88
+s 247dd0
+found a match 247dd0
+en 2581b0
+s 247e18
+found a match 247e18
+*** Total Memory Still Allocated After The Test (memory tracker): 82265
+s 247e60
+found a match 247e60
+s 247ea8
+found a match 247ea8
+s 247ef0
+found a match 247ef0
+*** Total Memory Free After The Test (heap size - mem tracker): 5160615
+s 247f38
+found a match 247f38
+s 247f80
+found a match 247f80
+core 3 requested shutdown
+s 247fc8
+found a match 247fc8

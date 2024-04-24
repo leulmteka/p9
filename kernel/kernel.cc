@@ -52,7 +52,7 @@ void kernelMain(void) {
 
 
    Debug::printf("*** First item of ptrs %x\n", ptrs);
-     n* en = new n(1, (void*) argv);
+     n* en = new n(1, (void*) ptrs);
      //en += 1;
     Debug::printf("en %x\n", (void*)en);
     // Debug::printf("en addr %x\n", &en);
