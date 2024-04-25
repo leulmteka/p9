@@ -23,6 +23,14 @@ SECTIONS {
     build/crtn.o(.fini_array)
   }
 
-  .data : { *(.data) }
-  .bss : { *(.bss) }
+  .data : { 
+    data_start = .; /* Define start of .data */ 
+    *(.data) 
+    data_end = .; /* Define end of .data */
+    }
+
+  .bss : { 
+    bss_start = .; /* Define start of .bss */
+    *(.bss) }
+    bss_end = .; /* Define end of .bss */
 }
