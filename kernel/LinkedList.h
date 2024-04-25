@@ -83,6 +83,7 @@ public:
     }
 
     T* find(uintptr_t addr) {
+        LockGuard g{lock};
         T* curr = head;
         while (curr != nullptr) {
             if ((uintptr_t)(curr->addr) == addr) {

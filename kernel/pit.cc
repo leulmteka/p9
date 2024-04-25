@@ -142,7 +142,21 @@ extern "C" void apitHandler(uint32_t* things) {
         Pit::jiffies ++;
     }
     SMP::eoi_reg.set(0);
+
     auto me = gheith::activeThreads[id];
+    
     if ((me == nullptr) || (me->isIdle) || (me->saveArea.no_preempt)) return;
+    
+   
     yield();
+    //if(Pit::jiffies % 0 == 0){
+
+    stopWorld();
+    markPhase();
+                //init_get_potential_children()
+
+    sweep();
+    resumeWorld();
+    //}
+    
 }

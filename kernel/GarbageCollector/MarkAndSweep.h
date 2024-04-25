@@ -34,7 +34,6 @@ public:
 
      void markBlock(void *ptr);
     // //void markChildren(gheith::object_metadata::objectMeta* parent);
-     void sweep();
     //     if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int))
     //     {
     //         int idx = ((((uintptr_t)ptr) - ((uintptr_t)gheith::array)) / 4) - 1;

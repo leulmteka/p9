@@ -179,4 +179,12 @@ void thread(Process* process, T work)
     schedule(tcb);
 }
 
+extern void stopWorld();
+extern     void resumeWorld();
+extern   void markThreadStack(gheith::TCBWithStack *tcb);
+extern     void markPhase();
+
+extern void sweep();
+
+
 #endif

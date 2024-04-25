@@ -1,0 +1,32 @@
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 1
+| memSize 0x7fe0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+| switched to new UART
+| physical range 0x600000 0x7fe0000
+addr of idle: 100470
+addr of ready: 100440
+addr of idle: 1004a0
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000043370Hz
+| APIT counter=1000043 for 1000Hz
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared

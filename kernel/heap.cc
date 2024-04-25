@@ -4,14 +4,14 @@
 #include "blocking_lock.h"
 #include "atomic.h"
 #include "GarbageCollector/MarkAndSweep.h"
+#include "threads.h"
 //#include "LinkedList.h"
 /* A first-fit heap */
-
 namespace gheith
 {
 
-
     MarkAndSweep *GC = nullptr;
+
 
 
 
@@ -305,7 +305,9 @@ void *malloc(size_t bytes)
             makeTaken(it, mx);
         }
         res = &array[it + 1];
-        adjustMemoryTracker(bytes);
+        //adjustMemoryTracker(bytes);
+         adjustMemoryTracker(ints * sizeof(int)); //5221319
+
         justAllocated+=bytes;
     }
 
@@ -333,9 +335,10 @@ void free(void *p)
 
     int blockSize = size(idx);
     adjustMemoryTracker(-blockSize * sizeof(int));
+    //adjustMemoryTracker(-(blockSize * sizeof(int)));
 
-    //    Debug::printf("THIS IS THE AMOUNT OF MEMORY ALLOCATED! %d\n", memoryTracker);
-    //     Debug::printf("THIS IS THE AMOUNT OF MEMORY FREE! %d\n", getAvailableMemory());
+       //Debug::printf("THIS IS THE AMOUNT OF MEMORY ALLOCATED! %d\n", memoryTracker);
+        //Debug::printf("THIS IS THE AMOUNT OF MEMORY FREE! %d\n", getAvailableMemory());
 
     int sz = size(idx);
 
@@ -373,9 +376,10 @@ void markChildren(objectMeta *parent)
     while(child != nullptr){
         if(!child->marked){
             child->marked = true;
-            Debug::printf("fouhdn children as well. parent: %x, child: %x\n", parent->addr, child->addr);
-            
-        }else Debug::printf("child alr marked\n");
+            //Debug::printf("fouhdn children as well. parent: %x, child: %x\n", parent->addr, child->addr);
+            // markChildren(child);
+            // child = child->child_next; //prob, times out
+        }//else Debug::printf("child alr marked\n");
         markChildren(child);
         child = child->child_next;
     }
@@ -405,11 +409,11 @@ void MarkAndSweep::markBlock(void *ptr)
 
             // Find the metadata for the object at the pointer address
             objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
-            if(meta)           init_get_potential_children(meta);
+            if(meta)           init_get_potential_children(meta); //times out
 
             if (meta && !meta->marked) // Check if metadata exists and object is not already marked
             {
-                Debug::printf("found a match %x\n", ptr);
+                //Debug::printf("found a match %x\n", ptr);
 
                 meta->marked = true; // Mark the object as reachable
                 markChildren(meta);  // Recursively mark all reachable children
@@ -418,54 +422,60 @@ void MarkAndSweep::markBlock(void *ptr)
     }
 }
 
-void MarkAndSweep::sweep()
-{
+// void MarkAndSweep::sweep()
+// {
     
-    objectMeta *current = gheith::all_objects.getHead();
-    objectMeta *prev = nullptr;
-    while (current != nullptr)
-    {
-        if (!current->marked)
-        {
-            // Object not marked: it's unreachable, so free it
-            objectMeta *toDelete = current;
-            void *addr = current->addr; // Save address to free
+//     objectMeta *current = gheith::all_objects.getHead();
+//     objectMeta *prev = nullptr;
+//     while (current != nullptr)
+//     {
+//         if (!current->marked)
+//         {
+//             // Object not marked: it's unreachable, so free it
+//             objectMeta *toDelete = current;
+//              void *addr = current->addr; // Save address to free
 
-            // Advance the list before removing the current node
-            current = current->next;
+//             // Advance the list before removing the current node
+//             current = current->next;
 
-            // Remove from the list
-            if (prev != nullptr)
-            {
-                Debug::printf("to remove: %x\n", addr);
-                prev->next = current; // Bypass the deleted node
-                if(prev->next)
-                Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
-                else
-                Debug::printf("removed %x. prev next is null\n", addr);
-            }
-            else
-            {
-                Debug::printf("to remove: %x\n", addr);
-                Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
-                //gheith::all_objects.remove(toDelete);
-                }
-            Debug::printf("deleting.. %x\n",addr );
-            // Free the actual object memory
+//             // Remove from the queue
+//             if (prev != nullptr)
+//             {
+//                 //Debug::printf("to remove: %x\n", addr);
+//                 prev->next = current; // Bypass the deleted node
+//                 //if(prev->next)
+//                 //Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
+//                 //else
+//                 //Debug::printf("removed %x. prev next is null\n", addr);
+//             }
+//             else
+//             {
+//                 //Debug::printf("to remove: %x\n", addr);
+//                 //Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
+//                 gheith::all_objects.remove(toDelete);
+//                 }
+//             //Debug::printf("deleting.. %x\n",addr );
+//             // Free the actual object memory
 
-            if(addr != nullptr && addr > (void*) 0x200314U) free(addr);
-            // // Free the metadata
-             free(toDelete);
-        }
-        else
-        {
-            // Object was marked: unmark for next GC cycle
-            current->marked = false;
-            prev = current;          // Update prev only if not deleting the current node
-            current = current->next; // Move to the next node
-        }
-    }
-}
+//             if(addr != nullptr && addr > (void*) 0x200314U){ free(addr);
+//                // Debug::printf("deleted address %x\n", addr);
+//             }
+//              //to avoid idles (fix) //
+// //*** Total Memory Free After The Test (heap size - mem tracker): 5200860
+// //*** Total Memory Still Allocated After The Test (memory tracker): 17532
+// //*** Total Memory Free After The Test (heap size - mem tracker): 5225348
+//             // // Free the metadata
+//              free(toDelete);
+//         }
+//         else
+//         {
+//             // Object was marked: unmark for next GC cycle
+//             current->marked = false;
+//             prev = current;          // Update prev only if not deleting the current node
+//             current = current->next; // Move to the next node
+//         }
+//     }
+// }
 
 using namespace gheith;
 void init_get_potential_children(objectMeta *parent) {
@@ -489,7 +499,7 @@ void init_get_potential_children(objectMeta *parent) {
                         last_child = childMeta;
                     }
                 }
-                childMeta->child_next = nullptr;  // Ensure the newly added child points to null
+                childMeta->child_next = nullptr;  // Ensure the newly added child points to null. prob spot, times out
             }
         }
         potentialPointer++;
