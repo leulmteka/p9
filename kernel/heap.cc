@@ -339,8 +339,6 @@ void *malloc(size_t bytes)
 void *gcMalloc(size_t bytes) {
     using namespace gheith;
 
-    using namespace gheith;
-
     if (bytes == 0) {
         return (void *)array;
     }
@@ -391,6 +389,8 @@ void *gcMalloc(size_t bytes) {
 
     return res;
 }
+
+
 
 void free(void *p)
 {
@@ -510,6 +510,8 @@ void CopyingCollector::sweep() {
    // bzero(fromSpace,    ( (heapSize * sizeof(uint32_t)) /2 )    );
 
     // Traverse all_objects to find and free any resources for objects not copied
+    Debug::printf("WE ARE IN sweep\n");
+    gheith::printHeapLayout();
     objectMeta *current = gheith::all_objects.getHead();
     objectMeta *prev = nullptr;
 
@@ -543,50 +545,50 @@ void CopyingCollector::sweep() {
 
 void CopyingCollector::copy()
 {
-    // Reset the toSpace allocation pointer
     using namespace gheith;
-    toSpaceFree = toSpace;
+    Debug::printf("WE ARE IN copy\n");
+    printHeapLayout();
 
-    auto curr = all_objects.getHead();
+    objectMeta *curr = all_objects.getHead();
     
-    int iter = 0;
     while (curr != nullptr)
     {
-        if (curr->marked)
+        if (curr->marked && !curr->forwarded)
         {
             // Calculate the size to copy
-            size_t sizeInBytes = curr->size * sizeof(uint32_t); // Assuming size is in units of uint32_t
+            size_t sizeInBytes = curr->size; // Assuming size is already in bytes as calculated elsewhere
 
-            // Debug::printf("fromSpace starts at: %p, ends at: %p\n", fromSpace, fromSpace + heapSize / sizeof(uint32_t) - 1);
-            // Debug::printf("toSpace starts at: %p, ends at: %p\n", toSpace, toSpace + heapSize / sizeof(uint32_t) - 1);
-            // Debug::printf("Total heap size: %lu bytes\n", totalHeapSize);
-            // Check if there is enough space in toSpace
-            if (toSpaceFree + sizeInBytes > toSpace + (halfHeapSize / 2))
-            {
+            // Allocate new space in toSpace using gcMalloc()
+            void *newLocation = gcMalloc(sizeInBytes);
+            if (!newLocation) {
                 Debug::panic("Out of memory in toSpace during GC copy phase");
             }
 
-            // Copy the object to toSpace
-            uint32_t *newLocation = toSpaceFree;
-            memcpy(newLocation, curr->addr, sizeInBytes);
-
-            // Update the toSpace allocation pointer
-            toSpaceFree += curr->size;
+            // Copy the object to the new location allocated by gcMalloc
+           // memcpy(newLocation, curr->addr, sizeInBytes);
 
             // Set the new address and mark it as forwarded
-            curr->newAddr = newLocation;
+            curr->newAddr = (uint32_t *)newLocation;
             curr->forwarded = true;
+            curr->size = sizeInBytes;
+            curr->marked = true;
+            curr->theLock = theLock;
+            // curr->child_next = nullptr;
+            // curr->addr = nullptr;
+
+
+
 
             // Update the forwarding address at the old location
-            setForwardingAddress(reinterpret_cast<uint32_t *>(curr->addr), newLocation);
+            setForwardingAddress(reinterpret_cast<uint32_t *>(curr->addr), (uint32_t *)newLocation);
 
             // Update references within the object
-            updateInternalReferences(curr, newLocation);
-            iter++;
+            updateInternalReferences(curr, (uint32_t *)newLocation);
         }
         curr = curr->next;
     }
 }
+
 
 void CopyingCollector::updateInternalReferences(objectMeta *meta, uint32_t *newLocation)
 {
@@ -613,6 +615,8 @@ void CopyingCollector::markBlock(void *ptr)
 {
     // Check the bounds to ensure 'ptr' points within the managed array space
     using namespace gheith;
+    Debug::printf("WE ARE IN MARK BLOCK\n");
+    gheith::printHeapLayout();
     if (ptr >= fromSpace && ptr < toSpace)
     {
         // Calculate index to see if the pointer is pointing to a valid object start
@@ -669,7 +673,7 @@ void *operator new(size_t size)
 
     void *p = gcMalloc(size); // ptr to data
     if (p == 0)
-        Debug::panic("out of memory");
+        Debug::panic("out of memory in new 1");
     if (GC)
     {                                                              // heapInit has been called
         objMeta *metadata = (objMeta *)malloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
@@ -694,7 +698,7 @@ void *operator new[](size_t size)
 {
     void *p = gcMalloc(size);
     if (p == 0)
-        Debug::panic("out of memory");
+        Debug::panic("out of memory in new 2");
     if (GC)
     {                                                              // heapInit has been called
         objMeta *metadata = (objMeta *)malloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper

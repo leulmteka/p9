@@ -5,7 +5,8 @@ iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | What just happened? Why am I here?
 | Discovering my identity and features
 |     CPUID: AuthenticAMD
@@ -21,13 +22,135 @@ Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | physical range 0x600000 0x7fe0000
 | pitInit freq 1000Hz
 | pitInit divider 59659
-| APIT running at 1000050980Hz
-| APIT counter=1000050 for 1000Hz
+| APIT running at 1000051636Hz
+| APIT counter=1000051 for 1000Hz
 | initializing TSS:ss0 for 0
 | 0 enabling interrupts, I'm scared
+argv ptr: 106968
 WE HAVE STOPPED THE WORLD
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
+WE ARE IN MARK BLOCK
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
 LEFT MARK PHASE
+WE ARE IN copy
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
 LEFT copy PHASE
+WE ARE IN sweep
+Heap Layout at Initialization:
+Total heap size: 5242880 bytes
+fromSpace: starts at 100008, ends at 37ffff, size: 2621432 bytes
+toSpace: starts at 380000, ends at 5ffff7, size: 2621432 bytes
 LEFT flip PHASE
+*** Start of Test
+in test case still
 Out of memory HERE
-out of memory| processor 0 halting
