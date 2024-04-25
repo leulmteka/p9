@@ -63,3 +63,44 @@ compiling  crtn.cc
 g++ -I. -c -MD -MF build/crtn.d -o build/crtn.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse crtn.cc
 linking    kernel.kernel
 ld -T script.ld -N -m elf_i386 -e start -o build/kernel.kernel build/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/32/crtbegin.o build/ide.o build/snprintf.o build/idt.o build/u8250.o build/block_io.o build/future.o build/blocking_lock.o build/pit.o build/physmem.o build/process.o build/libk.o build/atomic.o build/debug.o build/threads.o build/ext2.o build/sys.o build/barrier.o build/elf.o build/config.o build/heap.o build/init.o build/smp.o build/kernel.o build/vmm.o build/mbr.o build/machine.o build/context.o /usr/lib/gcc/x86_64-linux-gnu/9/32/crtend.o build/crtn.o
+producing  build/kernel.bin
+objcopy -O binary build/kernel.kernel build/kernel.bin
+producing  build/kernel.img
+dd if=build/kernel.bin of=build/kernel.img bs=512 conv=sync > /dev/null 2>&1
+---------------------------------
+mkfs.ext2 -q -b 1024 -i 1024 -d ./t0.dir  -I 128 -r 0 -t ext2 t0.data 10m
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 1
+| memSize 0x7fe0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+| switched to new UART
+| physical range 0x600000 0x7fe0000
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000044037Hz
+| APIT counter=1000044 for 1000Hz
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+start 18920, end 19932
+ start 18920, end 19932
+ freeing free block, p:10689c idx:6694
+| processor 0 halting
+start 18920, end 19932
+ 

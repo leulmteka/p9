@@ -5,6 +5,7 @@
 #include "atomic.h"
 #include "GarbageCollector/MarkAndSweep.h"
 #include "threads.h"
+#include "globals.h"
 //#include "LinkedList.h"
 /* A first-fit heap */
 namespace gheith
@@ -420,6 +421,30 @@ void MarkAndSweep::markBlock(void *ptr)
             }
         }
     }
+    if(ptr >= &data_start && ptr < &data_end){
+         objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+            if(meta)           init_get_potential_children(meta); //times out
+
+            if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+            {
+                //Debug::printf("found a match %x\n", ptr);
+
+                meta->marked = true; // Mark the object as reachable
+                markChildren(meta);  // Recursively mark all reachable children
+            }
+    }
+    if(ptr >= &bss_start && ptr < &bss_end){
+         objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+            if(meta)           init_get_potential_children(meta); //times out
+
+            if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+            {
+                //Debug::printf("found a match %x\n", ptr);
+
+                meta->marked = true; // Mark the object as reachable
+                markChildren(meta);  // Recursively mark all reachable children
+            }
+    }
 }
 
 void MarkAndSweep::sweep()
@@ -457,7 +482,10 @@ void MarkAndSweep::sweep()
             //Debug::printf("deleting.. %x\n",addr );
             // Free the actual object memory
 
-            if(addr != nullptr && addr > (void*) 0x105000U){ free(addr);
+            if(addr != nullptr ){ 
+                uintptr_t index = ((uintptr_t)addr - (uintptr_t)gheith::array) / sizeof(int) ;
+                if(isTaken(index)  )
+                    free(addr);
                // Debug::printf("deleted address %x\n", addr);
             }
              //to avoid idles (fix) //
@@ -469,6 +497,8 @@ void MarkAndSweep::sweep()
         }
         else
         {
+            if((current->addr >= &data_start && current->addr < &data_end) ||  (current->addr >= &bss_start && current->addr < &bss_end)) continue;
+
             // Object was marked: unmark for next GC cycle
             current->marked = false;
             prev = current;          // Update prev only if not deleting the current node
@@ -486,20 +516,25 @@ void init_get_potential_children(objectMeta *parent) {
 
     while (potentialPointer < end) {
         uintptr_t possibleAddr = *potentialPointer; // Dereference potentialPointer to check its content as an address
-        if (possibleAddr >= (uintptr_t)gheith::array && possibleAddr < (uintptr_t)gheith::array + gheith::len * sizeof(int)) {
+
+        // Check if the address falls within any of the managed object areas (heap, data, BSS)
+        if ((possibleAddr >= (uintptr_t)gheith::array && possibleAddr < (uintptr_t)gheith::array + gheith::len * sizeof(int)) ||
+            (possibleAddr >= (uintptr_t)&data_start && possibleAddr < (uintptr_t)&data_end) ||
+            (possibleAddr >= (uintptr_t)&bss_start && possibleAddr < (uintptr_t)&bss_end)) {
+            
             objectMeta *childMeta = all_objects.find(possibleAddr);
             if (childMeta) {
-                //Debug::printf("finding children..\n");
+                // Debug::printf("finding children..\n");
                 if (parent->child_next == nullptr) {
-                    parent->child_next = childMeta;  // First child
+                    parent->child_next = childMeta; // First child
                     last_child = childMeta;
                 } else {
                     if (last_child != nullptr) {
-                        last_child->child_next = childMeta;
+                        last_child->child_next = childMeta; // Linking children in a list
                         last_child = childMeta;
                     }
                 }
-                childMeta->child_next = nullptr;  // Ensure the newly added child points to null. prob spot, times out
+                childMeta->child_next = nullptr; // Ensure the newly added child points to null
             }
         }
         potentialPointer++;

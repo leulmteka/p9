@@ -10,6 +10,7 @@
 #include "process.h"
 #include "GarbageCollector/MarkAndSweep.h"
 #include "tss.h"
+#include "globals.h"
 
 namespace gheith
 {
@@ -235,11 +236,24 @@ namespace GC{
             // }
         }
 
-        for(uint32_t i = 0; i < kConfig.totalProcs; i++){
-            //uint32_t esp = tss[i].esp0;
-            //uint32_t ss = tss[i].ss0;
+            uint32_t* dataStart = (uint32_t*)&data_start;
+            uint32_t* dataEnd = (uint32_t*)&data_end;
+            uint32_t* bssStart = (uint32_t*)&bss_start;
+            uint32_t* bssEnd = (uint32_t*)&bss_end;
+            
+            while(dataStart < dataEnd){
+                if(dataStart != 0){
+                    gheith::GC->markBlock((void *)dataStart);
+                }
+                dataStart++;
+            }
+            while(bssStart < bssEnd){
+                if(bssStart != 0){
+                    gheith::GC->markBlock((void *)bssStart);
+                } 
+                bssStart++;
 
-        }
+            }
     }
 
   
