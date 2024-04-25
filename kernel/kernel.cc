@@ -5,6 +5,8 @@
 #include "sys.h"
 #include "threads.h"
 #include "heap.h"
+#include "machine.h"
+#include "globals.h"
 
 const char* initName = "/sbin/init";
 
@@ -33,66 +35,31 @@ struct  n{
 //     Debug::panic("*** rc = %d",rc);
 // }
 
-void kernelMain(void) {
-   Debug::printf("WE ARE IN KERNEL MAIN %x\n");
-   auto argv = new const char* [2];
-   argv[0] = "init";
-   argv[1] = nullptr;
-   Debug::printf("argv ptr: %x\n", argv);
-   Debug::printf("*** Start of Test\n");
-   int i;
-   int* ptrs[1000];
-
-
-
-  
-   // Allocating memory 1000 times
-   for (i = 0; i < 1000; i++) {
-       ptrs[i] = new int(32);  // Assume each allocation is for 32 bytes
-   }
-
-
-   Debug::printf("*** First item of ptrs %x\n", ptrs);
-     n* en = new n(ptrs[5]);
-     //en += 1;
-    Debug::printf("en %x\n", en);
-    // Debug::printf("en addr %x\n", &en);
-    // Debug::printf("whats inside n %d\n", *en);
-
-
-
-
-
-
-   // You can add more debug prints or checks here to verify the state of the heap
-
-  
-//   for(uint32_t i = 0; i < kConfig.totalProcs; i++){
-//     delete gheith::idleThreads[i];
-//   }
-     Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
-   Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
-   // int rc = SYS::exec(initName,1,argv);
-   // Debug::panic("*** rc = %d",rc);
-}
 // void kernelMain(void) {
-//    //Debug::printf("WE ARE IN KERNEL MAIN\n");
+//    Debug::printf("WE ARE IN KERNEL MAIN %x\n");
 //    auto argv = new const char* [2];
 //    argv[0] = "init";
 //    argv[1] = nullptr;
+//    Debug::printf("argv ptr: %x\n", argv);
 //    Debug::printf("*** Start of Test\n");
 //    int i;
 //    int* ptrs[1000];
 
 
+
   
 //    // Allocating memory 1000 times
 //    for (i = 0; i < 1000; i++) {
-//        ptrs[i] =  new int(32);  // Assume each allocation is for 32 bytes
+//        ptrs[i] = new int(32);  // Assume each allocation is for 32 bytes
 //    }
 
 
-//    Debug::printf("*** First item of ptrs %d\n", ptrs[0]);
+//    Debug::printf("*** First item of ptrs %x\n", ptrs);
+//      n* en = new n(ptrs[5]);
+//      //en += 1;
+//     Debug::printf("en %x\n", en);
+//     // Debug::printf("en addr %x\n", &en);
+//     // Debug::printf("whats inside n %d\n", *en);
 
 
 
@@ -100,10 +67,26 @@ void kernelMain(void) {
 
 
 //    // You can add more debug prints or checks here to verify the state of the heap
-//    Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
-//    Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
-//    Debug::printf("*** Total Memory Allocated During The Entire Test (just allocated): %d\n", getJustAllocated());
+
   
+// //   for(uint32_t i = 0; i < kConfig.totalProcs; i++){
+// //     delete gheith::idleThreads[i];
+// //   }
+//      Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
+//    Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
 //    // int rc = SYS::exec(initName,1,argv);
 //    // Debug::panic("*** rc = %d",rc);
 // }
+void kernelMain(void) {
+//     uint32_t* ds = (uint32_t*) getKernelDS();
+//    Debug::printf("kernelDS %x\n", *ds);
+        Debug::printf("hello word\n");
+
+    // char* start = (char*)data_start;
+    // char* end = (char*)data_end;
+    // Debug::printf("sstart %x and stop %x\n", start, *end);
+    // while(start < end){
+    //     Debug::printf("hello %x\n", *start);
+    //     start++;
+    // }
+}

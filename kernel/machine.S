@@ -157,6 +157,12 @@ cpuid:
     pop %ebx
     ret
 
+    .global getKernelDS
+getKernelDS:
+    mov %ds, %eax
+    mov (%eax) , %eax
+    ret
+
 /* invlpg(uint32_t va) */
     .global invlpg
 invlpg:

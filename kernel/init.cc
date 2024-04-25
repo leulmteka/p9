@@ -17,6 +17,7 @@
 #include "tss.h"
 #include "sys.h"
 #include "process.h"
+#include "globals.h"
 
 struct Stack {
     static constexpr int BYTES = 4096;
@@ -29,8 +30,10 @@ static bool smpInitDone = false;
 
 extern "C" uint32_t pickKernelStack(void) {
     return (uint32_t) &stacks.forCPU(smpInitDone ? SMP::me() : 0).bytes[Stack::BYTES];
+    
 }
 
+ char y[] = "leul";
 static Atomic<uint32_t> howManyAreHere(0);
 
 bool onHypervisor = true;
@@ -60,6 +63,11 @@ extern "C" void kernelInit(void) {
                     q = q >> 8;
                 }
             };
+            
+
+    
+            
+
             one(out.b);
             one(out.d);
             one(out.c);
@@ -81,7 +89,6 @@ extern "C" void kernelInit(void) {
             }
 
         }
-
         /* discover configuration */
         configInit(&kConfig);
         Debug::printf("| totalProcs %d\n",kConfig.totalProcs);
@@ -103,7 +110,7 @@ extern "C" void kernelInit(void) {
 
         /* running global constructors */
         //CRT::init();
-
+        
         /* initialize VMM */
         VMM::global_init();
 
@@ -119,7 +126,7 @@ extern "C" void kernelInit(void) {
         /* initialize LAPIC */
         SMP::init(true);
         smpInitDone = true;
-  
+ 
         /* initialize IDT */
         IDT::init();
         Pit::calibrate(1000);
@@ -156,7 +163,18 @@ extern "C" void kernelInit(void) {
 
     Debug::printf("| %d enabling interrupts, I'm scared\n",id);
     sti();
+            uint32_t* s = (uint32_t*)&data_start;
+            uint32_t* e = (uint32_t*)&data_end;
+            uint32_t* bs = (uint32_t*)&bss_start;
+            uint32_t* be = (uint32_t*)&bss_end;
+            Debug::printf("start %x, end %x\n ", s, e);
+            while(s < e && bs < be){
+                if(*s != 0) Debug::printf("data %d\n", *s);
+                if(*bs != 0) Debug::printf("data %d\n", *bs);
 
+                s++;
+                bs++;
+            }
     auto myOrder = howManyAreHere.add_fetch(1);
     if (myOrder == kConfig.totalProcs) {
         //auto initProc = Shared<Process>::make(true);
