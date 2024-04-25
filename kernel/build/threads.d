@@ -4,4 +4,4 @@ build/threads.o: threads.cc debug.h \
  threads.h queue.h heap.h LinkedList.h vmm.h tss.h process.h \
  blocking_lock.h semaphore.h future.h file.h u8250.h \
  GarbageCollector/CopyingCollector.h GarbageCollector/GarbageCollector.h \
- stdint.h atomic.h debug.h blocking_lock.h threads.h machine.h
+ stdint.h atomic.h debug.h blocking_lock.h threads.h machine.h globals.h

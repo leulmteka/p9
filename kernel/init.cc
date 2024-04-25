@@ -1,4 +1,3 @@
-
 #include "init.h"
 
 #include "debug.h"
@@ -33,7 +32,6 @@ extern "C" uint32_t pickKernelStack(void) {
     return (uint32_t) &stacks.forCPU(smpInitDone ? SMP::me() : 0).bytes[Stack::BYTES];
     
 }
-
  char y[] = "leul";
 static Atomic<uint32_t> howManyAreHere(0);
 
@@ -44,7 +42,6 @@ static constexpr uint32_t HEAP_SIZE = 5 * 1024 * 1024;
 static constexpr uint32_t VMM_FRAMES = HEAP_START + HEAP_SIZE;
 
 extern "C" void kernelInit(void) {
-
     U8250 uart;
 
     if (!smpInitDone) {
@@ -164,18 +161,7 @@ extern "C" void kernelInit(void) {
 
     Debug::printf("| %d enabling interrupts, I'm scared\n",id);
     sti();
-            uint32_t* s = (uint32_t*)&data_start;
-            uint32_t* e = (uint32_t*)&data_end;
-            uint32_t* bs = (uint32_t*)&bss_start;
-            uint32_t* be = (uint32_t*)&bss_end;
-            Debug::printf("start %x, end %x\n ", s, e);
-            while(s < e && bs < be){
-                if(*s != 0) Debug::printf("data %d\n", *s);
-                if(*bs != 0) Debug::printf("data %d\n", *bs);
-
-                s++;
-                bs++;
-            }
+  
     auto myOrder = howManyAreHere.add_fetch(1);
     if (myOrder == kConfig.totalProcs) {
         //auto initProc = Shared<Process>::make(true);
