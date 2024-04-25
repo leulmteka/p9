@@ -5,6 +5,8 @@
 #include "sys.h"
 #include "threads.h"
 #include "heap.h"
+#include "machine.h"
+#include "globals.h"
 
 const char* initName = "/sbin/init";
 
@@ -15,9 +17,10 @@ namespace gheith {
 
 }
 struct  n{
-    int x;
+    //int x;
     void* next;
-    n(int x, void* next) : x(x), next(next){}
+    //n(void* next) :next(next){}
+    n(void* x ) : next(x) {}
 }typedef n;
 
 // void kernelMain(void) {
@@ -33,7 +36,7 @@ struct  n{
 // }
 
 void kernelMain(void) {
-   //Debug::printf("WE ARE IN KERNEL MAIN\n");
+   Debug::printf("WE ARE IN KERNEL MAIN %x\n");
    auto argv = new const char* [2];
    argv[0] = "init";
    argv[1] = nullptr;
@@ -52,7 +55,7 @@ void kernelMain(void) {
 
 
    Debug::printf("*** First item of ptrs %x\n", ptrs);
-     n* en = new n(1, 0);
+     n* en = new n(ptrs[5]);
      //en += 1;
     Debug::printf("en %x\n", en);
     // Debug::printf("en addr %x\n", &en);
@@ -64,9 +67,33 @@ void kernelMain(void) {
 
 
    // You can add more debug prints or checks here to verify the state of the heap
-   Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
-   Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
+
   
+//   for(uint32_t i = 0; i < kConfig.totalProcs; i++){
+//     delete gheith::idleThreads[i];
+//   }
+     Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
+   Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
    // int rc = SYS::exec(initName,1,argv);
    // Debug::panic("*** rc = %d",rc);
 }
+//void kernelMain(void) {
+//     uint32_t* ds = (uint32_t*) getKernelDS();
+//    Debug::printf("kernelDS %x\n", *ds);
+        // Debug::printf("hello word\n");
+
+        //       uint32_t* s = (uint32_t*)&data_start;
+        //     uint32_t* e = (uint32_t*)&data_end;
+        //     uint32_t* bs = (uint32_t*)&bss_start;
+        //     uint32_t* be = (uint32_t*)&bss_end;
+        //     Debug::printf("start %x, end %x\n ", s, e);
+        //     while(s < e){
+        //         if(*s != 0) Debug::printf("data %x\n", *s);
+        //         s++;
+        //     }
+        //     while(bs < be){
+        //         if(*bs != 0) Debug::printf("bs %x\n", *bs);
+        //         bs++;
+
+        //     }
+//}
