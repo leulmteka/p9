@@ -78,15 +78,26 @@ struct  n{
 //    // Debug::panic("*** rc = %d",rc);
 // }
 void kernelMain(void) {
-//     uint32_t* ds = (uint32_t*) getKernelDS();
-//    Debug::printf("kernelDS %x\n", *ds);
-        Debug::printf("hello word\n");
+  //Debug::printf("WE ARE IN KERNEL MAIN\n");
+  auto argv = new const char* [2];
+  argv[0] = "init";
+  argv[1] = nullptr;
+  Debug::printf("argv ptr: %x\n", argv);
+  Debug::printf("*** Start of Test\n");
+   int i;
+  int* ptrs[1000];
 
-    // char* start = (char*)data_start;
-    // char* end = (char*)data_end;
-    // Debug::printf("sstart %x and stop %x\n", start, *end);
-    // while(start < end){
-    //     Debug::printf("hello %x\n", *start);
-    //     start++;
-    // }
+ Debug::printf("in test case still\n");
+
+  for (i = 0; i < 1000; i++) {
+      ptrs[i] = new int(32);
+  }
+
+  Debug::printf("*** First item of ptrs %x\n", ptrs);
+
+  // You can add more debug prints or checks here to verify the state of the heap
+  Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
+  Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
+   // int rc = SYS::exec(initName,1,argv);
+  // Debug::panic("*** rc = %d",rc);
 }

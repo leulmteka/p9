@@ -1,4 +1,9 @@
-0a1,53
+1,4c1,53
+< *** Start of Test
+< *** First item of ptrs 105924
+< *** Total Memory Still Allocated After The Test (memory tracker): 90724
+< *** Total Memory Free After The Test (heap size - mem tracker): 5152156
+---
 > *** 1
 > *** init
 > *** fd = 3
