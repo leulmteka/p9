@@ -94,6 +94,8 @@ public:
     }
 
     T* getHead() {
+        LockGuard g{lock};
+
         return head;
     }
 

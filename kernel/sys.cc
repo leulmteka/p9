@@ -60,7 +60,7 @@ int SYS::exec(const char *path, int argc, const char *argv[])
         return -1;
     }
 
-    if (hdr.maigc0 != 0x7F || hdr.magic1 != 'E' || hdr.magic2 != 'L' || hdr.magic3 != 'F')
+        if (nodeForElf == nullptr || hdr.phoff == 0 || hdr.phnum == 0 || hdr.ehsize != sizeof(ElfHeader) || hdr.maigc0 != 0x7F || hdr.magic1 != 'E' || hdr.magic2 != 'L' || hdr.magic3 != 'F' || hdr.cls != 1 || hdr.encoding != 1 || hdr.version != 1 || hdr.type != 2 || hdr.abi != 0)
     {
         //   Debug::printf("*** HELLO 8\n");
         MeProcess->exit(-1);
@@ -96,6 +96,7 @@ int SYS::exec(const char *path, int argc, const char *argv[])
         MeProcess->exit(-1);
         return -1;
     }
+    //current()->process->clear_private();
 
     uint32_t *sp = (uint32_t*)0xefffe000;
 

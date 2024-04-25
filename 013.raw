@@ -1,0 +1,90 @@
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 4
+| memSize 0x7fd0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+| switched to new UART
+| physical range 0x600000 0x7fd0000
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000055328Hz
+| APIT counter=1000055 for 1000Hz
+| initialize 1
+| reset 1
+|      eip:0x8000
+| initialize 2
+| reset 2
+|      eip:0x8000
+| initialize 3
+| reset 3
+|      eip:0x8000
+| initializing TSS:ss0 for 2
+| initializing TSS:ss0 for 3
+| initializing TSS:ss0 for 1
+| 3 enabling interrupts, I'm scared
+| 2 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+| 1 enabling interrupts, I'm scared
+vaddr:80000000 memsz:0x402400 filesz:0x23c8 fileoff:80
+*** argc: 1
+*** argv: init
+*** let's begin our test
+
+*** testing open
+*** open test complete 
+
+*** testing reads
+*** in file 1
+*** read test complete 
+
+*** let's check some harder reads
+*** harder read test complete 
+*** harder read test complete 
+*** harder read test complete 
+
+*** testing seeks
+*** in file 1
+*** seek test complete 
+
+*** time to start forking
+*** child running 
+*** child2 running 
+vaddr:80000000 memsz:0x401e20 filesz:0x1de8 fileoff:80
+*** argc: 2
+*** in file 2
+*** another fork?? 
+*** child2 running 
+vaddr:80000000 memsz:0x401d40 filesz:0x1d1c fileoff:80
+*** argc: 2
+*** in file 3
+*** child1 resuming 
+*** parent resuming 
+*** fork test complete 
+
+*** random test
+*** closing reserved entries...
+*** random 1 complete
+*** in file 1
+*** random 2 complete
+*** in file 2
+*** random 3 complete
+*** in file 3
+*** num tests passed: 10 
+core 1 requested shutdown

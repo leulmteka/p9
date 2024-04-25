@@ -1,0 +1,98 @@
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 4
+| memSize 0x7fd0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+| switched to new UART
+| physical range 0x600000 0x7fd0000
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000044265Hz
+| APIT counter=1000044 for 1000Hz
+| initialize 1
+| reset 1
+|      eip:0x8000
+| initialize 2
+| reset 2
+|      eip:0x8000
+| initialize 3
+| reset 3
+|      eip:0x8000
+| initializing TSS:ss0 for 2
+| 2 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 3
+| initializing TSS:ss0 for 1
+| 3 enabling interrupts, I'm scared
+| 1 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+vaddr:80000000 memsz:0x4023c0 filesz:0x2398 fileoff:80
+*** argc Val:1
+*** argv Val:init
+*** open and close tests
+*** fd1 = 3
+*** fd2 = 4
+*** fd3 = 5
+*** close = 0
+*** close = 0
+*** close = 0
+*** done with those!
+*** quick test of len 
+***len = -1
+*** testing read 
+*** Before OS
+***     .-""""""-.
+***   .'          '.
+***  /   O      O   \
+*** :           `    :
+*** |                |   sad
+*** :    .------.    :
+***  \  '        '  /
+***   '.          .'
+***     '-......-'
+*** After OS
+***     .-""""""-.  
+***   .'          '. 
+***  /   O      O   \ 
+*** :                :
+*** |                |  goofy
+*** : ',          ,' :
+***  \  '-.____.-'  / 
+***   '.     U    .'
+***     '-...
+*** error test result:-1 
+*** done with read test! 
+*** testing seek now 
+*** seek1: 4
+*** seek2 2
+*** seek test done 
+*** Starting semaphore tests
+*** Child process waiting on semaphore
+*** Child process acquired semaphore
+*** Child process working 0
+*** Child process working 1
+*** Child process released semaphore
+*** Parent process working before semaphore
+*** Parent process acquired semaphore
+*** Parent process working 0
+*** Parent process working 1
+*** Parent process released semaphore
+*** Semaphore tests done
+*** All tests done
+core 1 requested shutdown

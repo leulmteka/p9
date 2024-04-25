@@ -1,0 +1,74 @@
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 4
+| memSize 0x7fd0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+| switched to new UART
+| physical range 0x600000 0x7fd0000
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000045409Hz
+| APIT counter=1000045 for 1000Hz
+| initialize 1
+| reset 1
+|      eip:0x8000
+| initialize 2
+| reset 2
+|      eip:0x8000
+| initialize 3
+| reset 3
+|      eip:0x8000
+| initializing TSS:ss0 for 1
+| initializing TSS:ss0 for 2
+| initializing TSS:ss0 for 3
+| 1 enabling interrupts, I'm scared
+| 2 enabling interrupts, I'm scared
+| 3 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+vaddr:80000000 memsz:0x402420 filesz:0x23f4 fileoff:80
+*** Parent process started
+*** Parent process doing some work
+*** Parent process working: 0
+*** Parent process working: 1
+*** Parent process working: 2
+*** Parent process working: 3
+*** Parent process working: 4
+*** Parent process releasing semaphore 1
+*** Child process 1 started
+*** Child process 1 doing some work
+*** Child process 1 working: 0
+*** Child process 1 working: 1
+*** Child process 1 working: 2
+*** Child process 1 finished, releasing semaphore 2
+*** Child process 2 started
+*** Child process 2 doing some work
+*** Child process 2 working: 0
+*** Child process 2 working: 1
+*** Child process 2 working: 2
+*** Child process 2 working: 3
+*** Child process 2 finished, releasing semaphore 3
+*** Parent process finished waiting for child process 1, status: 0
+*** Parent process finished waiting for child process 2, status: 0
+*** Parent process finished
+*** Creating more semaphores to check for proper error return value
+*** Error return value for creating many semaphores is < 0: -1
+*** Error return value for down is < 0 which indicates a failure: -1
+*** Error return value for up is < 0 which indicates a failure: -1
+core 1 requested shutdown
