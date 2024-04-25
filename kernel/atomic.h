@@ -98,17 +98,81 @@ public:
 
 template <>
 class Atomic<uint64_t> {
+    volatile uint64_t value;
 public:
-    Atomic() = delete;
-    Atomic(uint64_t) = delete;
+    Atomic(uint64_t x = 0) : value(x) {} // Provide default constructor with initializer
+
+    Atomic<uint64_t>& operator= (uint64_t v) {
+        __atomic_store_n(&value, v, __ATOMIC_SEQ_CST);
+        return *this;
+    }
+
+    operator uint64_t () const {
+        return __atomic_load_n(&value, __ATOMIC_SEQ_CST);
+    }
+
+    uint64_t fetch_add(uint64_t inc) {
+        return __atomic_fetch_add(&value, inc, __ATOMIC_SEQ_CST);
+    }
+
+    uint64_t add_fetch(uint64_t inc) {
+        return __atomic_add_fetch(&value, inc, __ATOMIC_SEQ_CST);
+    }
+
+    void set(uint64_t v) {
+        __atomic_store_n(&value, v, __ATOMIC_SEQ_CST);
+    }
+
+    uint64_t get(void) const {
+        return __atomic_load_n(&value, __ATOMIC_SEQ_CST);
+    }
+
+    uint64_t exchange(uint64_t v) {
+        uint64_t ret;
+        __atomic_exchange(&value, &v, &ret, __ATOMIC_SEQ_CST);
+        return ret;
+    }
 };
+
 
 template <>
 class Atomic<int64_t> {
+    volatile int64_t value;
 public:
-    Atomic() = delete;
-    Atomic(int64_t) = delete;
+    Atomic(int64_t x = 0) : value(x) {} // Provide default constructor with initializer
+
+    Atomic<int64_t>& operator= (int64_t v) {
+        __atomic_store_n(&value, v, __ATOMIC_SEQ_CST);
+        return *this;
+    }
+
+    operator int64_t () const {
+        return __atomic_load_n(&value, __ATOMIC_SEQ_CST);
+    }
+
+    int64_t fetch_add(int64_t inc) {
+        return __atomic_fetch_add(&value, inc, __ATOMIC_SEQ_CST);
+    }
+
+    int64_t add_fetch(int64_t inc) {
+        return __atomic_add_fetch(&value, inc, __ATOMIC_SEQ_CST);
+    }
+
+    void set(int64_t v) {
+        __atomic_store_n(&value, v, __ATOMIC_SEQ_CST);
+    }
+
+    int64_t get(void) const {
+        return __atomic_load_n(&value, __ATOMIC_SEQ_CST);
+    }
+
+    int64_t exchange(int64_t v) {
+        int64_t ret;
+        __atomic_exchange(&value, &v, &ret, __ATOMIC_SEQ_CST);
+        return ret;
+    }
 };
+
 
 class Interrupts {
 public:

@@ -6,6 +6,8 @@
 #include "atomic.h"
 #include "blocking_lock.h"
 
+using namespace gheith;
+
 class MarkAndSweep : public GarbageCollector
 {
 
@@ -14,7 +16,7 @@ public:
     bool *marks;
     MarkAndSweep(void *heapStart, size_t bytes)
     {
-        marks = new bool[bytes / 4];
+        //marks = new bool[bytes / 4];
         // marks[bytes/sizeof(uint32_t)];
         //  for(uint32_t i = 0; i < bytes/sizeof(uint32_t); i++){
         Debug::printf("sz%d\n", bytes / 4);
@@ -22,16 +24,9 @@ public:
     }
     ~MarkAndSweep(){};
 
-    void *allocate(size_t size) override { return nullptr; };
-    void free(void *ptr) override{};
-    void beginCollection() override{};
-    void garbageCollect() override{};
-    void endCollection() override{};
-
-
-
-    void markBlock(void *ptr);
-    void sweep();
+     void markBlock(void *ptr);
+    // //void markChildren(gheith::object_metadata::objectMeta* parent);
+     void sweep();
     //     if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int))
     //     {
     //         int idx = ((((uintptr_t)ptr) - ((uintptr_t)gheith::array)) / 4) - 1;

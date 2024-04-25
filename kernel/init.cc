@@ -92,28 +92,35 @@ extern "C" void kernelInit(void) {
         Debug::printf("| ioAPIC %x\n",kConfig.ioAPIC);
 
         /* initialize the heap */
+        //Debug::printf("Heap init is called\n");
         heapInit((void*)HEAP_START,HEAP_SIZE);
 
         /* switch to dynamically allocated UART */
+        //Debug::printf("uart is called\n");
         Debug::init(new U8250);
         Debug::printf("| switched to new UART\n");
 
         /* initialize physmem */
+       // Debug::printf("PhysMem init is called\n");
         PhysMem::init(VMM_FRAMES, kConfig.memSize - VMM_FRAMES);
 
         /* running global constructors */
         //CRT::init();
 
         /* initialize VMM */
+        //Debug::printf("global init is called\n");
         VMM::global_init();
 
         /* global constructors */
+       // Debug::printf("crt init is called\n");
         CRT::init();
 
         /* initialize system calls */
+        //Debug::printf("sys init is called\n");
         SYS::init();
 
         /* initialize the thread module */
+        //Debug::printf("threads init is called\n");
         threadsInit();
 
         /* initialize LAPIC */

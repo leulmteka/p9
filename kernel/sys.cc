@@ -96,7 +96,7 @@ int SYS::exec(const char *path, int argc, const char *argv[])
         MeProcess->exit(-1);
         return -1;
     }
-    current()->process->clear_private();
+
     uint32_t *sp = (uint32_t*)0xefffe000;
 
     sp = sp - (argc + 1);
@@ -264,7 +264,6 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
     }
     case 9: /* execl */
     {
-
         char *path = (char*)userEsp[1];
 
         if (path == nullptr || !canAccess((uint32_t)path))
@@ -435,5 +434,4 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
 
 void SYS::init(void)
 {
-    IDT::trap(48, (uint32_t)sysHandler_, 3);
-}
+    IDT::trap(48, (uint32_t)sysHandler_, 3);}

@@ -1,0 +1,15 @@
+*** Simple heap test
+*** Memory before any allocation: 1024 bytes
+*** About to allocate 250 bytes
+*** Allocated 250 bytes, memory now: 774 bytes free
+*** About to allocate another 250 bytes
+*** Allocated another 250 bytes, memory now: 524 bytes free
+*** About to free the first 250 bytes
+*** Freed 250 bytes, memory now: 774 bytes free
+*** About to free the second 250 bytes
+*** Freed another 250 bytes, memory now: 1024 bytes free
+*** About to allocate 500 bytes
+*** Allocated 500 bytes, memory now: 524 bytes free
+*** About to free the 500 bytes
+*** Freed 500 bytes, memory now: 1024 bytes free
+*** Simple heap test end

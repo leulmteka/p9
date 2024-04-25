@@ -7,17 +7,17 @@
 class GarbageCollector
 {
 public:
-        virtual ~GarbageCollector() {}
+        // virtual ~GarbageCollector() {}
 
-        virtual void *allocate(size_t size) = 0;
+        // virtual void *allocate(size_t size) = 0;
 
-        virtual void free(void *ptr) = 0;
+        // virtual void free(void *ptr) = 0;
 
-        virtual void beginCollection() = 0;
+        // virtual void beginCollection() = 0;
 
-        virtual void garbageCollect() = 0;
+        // virtual void garbageCollect() = 0;
 
-        virtual void endCollection() = 0;
+        // virtual void endCollection() = 0;
 
         // We can also use methods from heap.cc such as new and delete here.
 };

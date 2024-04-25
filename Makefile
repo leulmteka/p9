@@ -28,7 +28,7 @@ GIT_SERVER=${shell echo ${ORIGIN_URL} | sed -e 's/:.*//'}
 # customize by setting environment variables
 QEMU_ACCEL ?= tcg,thread=multi
 QEMU_CPU ?= max
-QEMU_SMP ?= 4
+QEMU_SMP ?= 1
 QEMU_MEM ?= 128m
 QEMU_TIMEOUT ?= 10
 QEMU_TIMEOUT_CMD ?= timeout
@@ -264,4 +264,3 @@ HISTORY_TESTS=${shell touch history; (cat history | cut -d ' ' -f 1 | tr ':' 'X'
 history: ${addsuffix .history,${HISTORY_TESTS}};
 
 -include *.d
-
