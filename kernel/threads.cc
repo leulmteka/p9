@@ -9,6 +9,7 @@
 #include "vmm.h"
 #include "process.h"
 #include "GarbageCollector/MarkAndSweep.h"
+#include "tss.h"
 
 namespace gheith
 {
@@ -115,8 +116,7 @@ namespace GC{
     using namespace gheith;
     void stopWorld()
     {
-       //bool was = 
-        Interrupts::disable();
+       bool was = Interrupts::disable();
 
         worldStopped.set(true);
 
@@ -126,11 +126,11 @@ namespace GC{
             waitQ.add(tcb);
             tcb = readyQ.remove();
         }
-        //Interrupts::restore(was);
+        Interrupts::restore(was);
     }
     void resumeWorld()
     {
-        //bool was = Interrupts::disable();
+        bool was = Interrupts::disable();
 
         worldStopped.set(false);
 
@@ -140,52 +140,16 @@ namespace GC{
             schedule(tcb);
             tcb = waitQ.remove();
         }
-        Interrupts::restore(false);
+        Interrupts::restore(was);
     }
-    // void markPhase()
-    // {
-    //     for (uint32_t i = 0; i < kConfig.totalProcs; i++)
-    //     {
-    //          TCBWithStack *tcb = (TCBWithStack *)activeThreads[i];
-    //          if (tcb != nullptr)
-    //          {
-    //              uint32_t ** stackStart = (uint32_t**)tcb->stack;
-    //             for(uint32_t i = 0; i < 1024; i++){
-    //                 if((void *)stackStart >= gheith::array && (void *)stackStart < gheith::array + gheith::len * sizeof(int) && stackStart[i] != 0) //stackStart[i] != 0
-    //                 Debug::printf("s %x\n", stackStart[i]); //conservative; consider each possible "pointer" as we don't have sufficient info now
-    //             }
-    //             // uint32_t *ESP = (uint32_t *)tcb->saveArea.esp;
-    //             // // Debug::printf("esp %x\n", ESP);
 
-    //             // for (uint32_t *ptr = ESP; ptr < &stackStart[STACK_WORDS]; ptr++)
-    //             // {
-    //             //     uint32_t candidate = *ptr; //conservative; consider each possible pointer as we don't have sufficient info now
-    //             //     //Debug::printf("our canidate for deletion: %x\n", candidate);
-    //             //     if ((void *)candidate >= gheith::array && (void *)candidate < gheith::array + gheith::len * sizeof(int))
-    //             //     {
-    //             //         Debug::printf("found a match %x\n", candidate);
-    //             //         gheith::GC->markBlock((void *)candidate);
-    //             //     }
-    //             // }
-    //         }
-    //     }
-
-    // }
     void markPhase() {
-        // TCB** hold_actives = new TCB*[kConfig.totalProcs];
-        // for(uint32_t i = 0; i < kConfig.totalProcs; i++){
-        //     hold_actives[i] = activeThreads[i];
-        //     activeThreads[i] = idleThreads[i];
-        // }
 
         for (uint32_t i = 0; i < kConfig.totalProcs; i++) {
         
         //our world is stopped
             TCBWithStack *tcb = (TCBWithStack *)activeThreads[i];
-            // auto idle_now = idleThreads[i];
 
-            // activeThreads[i] = idleThreads[i];
-            // idleThreads[i] = tcb;
 
             if (tcb != nullptr && !tcb->isIdle) {
                 uint32_t **stackStart = (uint32_t**)tcb->stack;
@@ -197,21 +161,80 @@ namespace GC{
 
                 // Checking if the candidate pointer points inside the heap
                     if ((void *)candidate >= gheith::array && (void *)candidate < gheith::array + gheith::len * sizeof(int)) {
-                        //Debug::printf("s %x\n", candidate);
+                        Debug::printf("s %x\n", candidate);
                         gheith::GC->markBlock((void*)candidate);
-                        //gheith::init_get_potential_children(candidate);
 
                     }
                 }
+            }else if(tcb->isIdle){
+                all_objects.find((uintptr_t)tcb)->marked =true;
             }
-            // activeThreads[i] = tcb;
-            // idleThreads[i] = idle_now;
+
     }
-        // for(uint32_t i = 0; i < kConfig.totalProcs; i++){
-        //     activeThreads[i] = hold_actives[i];
-        // }
 
 }
+
+//   void markThreadStack(TCBWithStack *tcb)
+//     {
+//         uint32_t **stackStart = (uint32_t **)tcb->stack;
+//         uint32_t *stackEnd = (uint32_t *)&stackStart[STACK_WORDS];
+
+//         // Scanning from the start to the end of the stack
+//         for (uint32_t **ptr = stackStart; ptr < (uint32_t **)stackEnd; ptr++)
+//         {
+//             uint32_t candidate = (uint32_t)*ptr; // Dereferencing to get the potential pointer
+
+//             // Checking if the candidate pointer points inside the heap
+//             if ((void *)candidate >= gheith::array && (void *)candidate < gheith::array + gheith::len * sizeof(int))
+//             {
+//                 gheith::GC->markBlock((void *)candidate);
+//             }
+//         }
+
+//         // Additionally mark using ESP from TSS if applicable
+//         uint32_t esp = tcb->interruptEsp();
+//         if (esp >= (uint32_t)stackStart && esp < (uint32_t)stackEnd)
+//         {
+//             uint32_t *espPtr = (uint32_t *)esp;
+//             for (uint32_t *ptr = espPtr; ptr < stackEnd; ptr++)
+//             {
+//                 uint32_t candidate = *ptr;
+//                 if ((void *)candidate >= gheith::array && (void *)candidate < gheith::array + gheith::len * sizeof(int))
+//                 {
+//                     gheith::GC->markBlock((void *)candidate);
+//                 }
+//             }
+//         }
+//     }
+
+//     void markPhase()
+//     {
+//         // Loop through all processors to check stacks of both active and waiting threads
+//         for (uint32_t i = 0; i < kConfig.totalProcs; i++)
+//         {
+//             TCBWithStack *tcb = (TCBWithStack *)activeThreads[i];
+//             if (tcb != nullptr && !tcb->isIdle)
+//             {
+//                 //(tcb);
+//             }
+
+//             // Additionally, check waiting queue if world is stopped
+//             if (worldStopped)
+//             {
+//                 auto waitTCB = waitQ.head();
+//                 while (waitTCB != nullptr)
+//                 {
+//                     if (waitTCB != tcb)
+//                     { // Avoid marking the same thread twice if it's also active
+//                         //markThreadStack((TCBWithStack *)(waitTCB));
+//                     }
+//                     waitTCB = waitTCB->next;
+//                 }
+//             }
+//         }
+//     }
+
+  
 };
 void threadsInit()
 {
@@ -247,6 +270,7 @@ void threadsInit()
                 yield();
                 stopWorld();
                 markPhase();
+                //init_get_potential_children()
 
                 gheith::GC->sweep();
                 resumeWorld();

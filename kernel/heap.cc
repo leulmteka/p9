@@ -4,7 +4,7 @@
 #include "blocking_lock.h"
 #include "atomic.h"
 #include "GarbageCollector/MarkAndSweep.h"
-#include "LinkedList.h"
+//#include "LinkedList.h"
 /* A first-fit heap */
 
 namespace gheith
@@ -14,27 +14,7 @@ namespace gheith
     MarkAndSweep *GC = nullptr;
 
 
-    namespace object_metadata
-    {
-        typedef struct objectMeta
-        {
-            void *addr; // from malloc()'s call
-            size_t size;
-            bool marked;                         // false initially (in new)
-            BlockingLock *theLock;               // using the heap's lock
-            //Queue<objectMeta, BlockingLock> q{}; // child references
 
-            // queue stuff
-            objectMeta *next; // next in all_objects
-
-            // objectMeta* first_children; //all children
-            objectMeta* child_next;
-            //objectMeta *child;
-            //LinkedList<objectMeta, NoLock> children;
-
-        } objMeta;
-    };
-    using namespace object_metadata;
     int *array; // a "free" list
     int len;
     int safe = 0;
@@ -42,7 +22,7 @@ namespace gheith
     static BlockingLock *theLock = nullptr;
 
     //static Queue<objMeta, NoLock> all_objects{}; // no lock for now
-    static LinkedList<objMeta, InterruptSafeLock> all_objects{};
+    LinkedList<objMeta, InterruptSafeLock> all_objects{};
 
     static uint64_t memoryTracker;
     static int totalHeapSize;
@@ -354,8 +334,8 @@ void free(void *p)
     int blockSize = size(idx);
     adjustMemoryTracker(-blockSize * sizeof(int));
 
-    //    Debug::printf("THIS IS THE AMOUNT OF MEMORY ALLOCATED %d\n", memoryTracker);
-    //     Debug::printf("THIS IS THE AMOUNT OF MEMORY FREE %d\n", getAvailableMemory());
+    //    Debug::printf("THIS IS THE AMOUNT OF MEMORY ALLOCATED! %d\n", memoryTracker);
+    //     Debug::printf("THIS IS THE AMOUNT OF MEMORY FREE! %d\n", getAvailableMemory());
 
     int sz = size(idx);
 
@@ -385,17 +365,17 @@ void free(void *p)
 /*****************/
 
 //recursively mark children; DFS
-void markChildren(gheith::objectMeta *parent)
+void markChildren(objectMeta *parent)
 {
     using namespace gheith;
     objectMeta* child = parent->child_next;
-    Debug::printf("chi\n");
+    //Debug::printf("chi\n");
     while(child != nullptr){
         if(!child->marked){
             child->marked = true;
             Debug::printf("fouhdn children as well. parent: %x, child: %x\n", parent->addr, child->addr);
             
-        }
+        }else Debug::printf("child alr marked\n");
         markChildren(child);
         child = child->child_next;
     }
@@ -417,17 +397,19 @@ void MarkAndSweep::markBlock(void *ptr)
     if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int))
     {
         // Calculate index to see if the pointer is pointing to a valid object start
-        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int)  ; //-1?
+        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int)  -1; //-1?
 
         // Check if the index is within bounds and the slot is marked as taken
         if (gheith::isTaken(index))
         {   
 
             // Find the metadata for the object at the pointer address
-            gheith::objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+            objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+            if(meta)           init_get_potential_children(meta);
+
             if (meta && !meta->marked) // Check if metadata exists and object is not already marked
             {
-                //Debug::printf("found a match %x\n", ptr);
+                Debug::printf("found a match %x\n", ptr);
 
                 meta->marked = true; // Mark the object as reachable
                 markChildren(meta);  // Recursively mark all reachable children
@@ -439,23 +421,23 @@ void MarkAndSweep::markBlock(void *ptr)
 void MarkAndSweep::sweep()
 {
     
-    gheith::objectMeta *current = gheith::all_objects.getHead();
-    gheith::objectMeta *prev = nullptr;
+    objectMeta *current = gheith::all_objects.getHead();
+    objectMeta *prev = nullptr;
     while (current != nullptr)
     {
         if (!current->marked)
         {
             // Object not marked: it's unreachable, so free it
-            gheith::objectMeta *toDelete = current;
+            objectMeta *toDelete = current;
             void *addr = current->addr; // Save address to free
 
             // Advance the list before removing the current node
             current = current->next;
 
-            // Remove from the queue
+            // Remove from the list
             if (prev != nullptr)
             {
-                //Debug::printf("to remove: %x\n", addr);
+                Debug::printf("to remove: %x\n", addr);
                 prev->next = current; // Bypass the deleted node
                 if(prev->next)
                 Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
@@ -464,15 +446,16 @@ void MarkAndSweep::sweep()
             }
             else
             {
-                //Debug::printf("to remove: %x\n", addr);
-                //Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
-                
-            }
-            //Debug::printf("deleting.. %x\n",addr );
+                Debug::printf("to remove: %x\n", addr);
+                Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
+                //gheith::all_objects.remove(toDelete);
+                }
+            Debug::printf("deleting.. %x\n",addr );
             // Free the actual object memory
-            free(addr);
-            // Free the metadata
-            free(toDelete);
+
+            if(addr != nullptr && addr > (void*) 0x200314U) free(addr);
+            // // Free the metadata
+             free(toDelete);
         }
         else
         {
@@ -485,28 +468,33 @@ void MarkAndSweep::sweep()
 }
 
 using namespace gheith;
-    void init_get_potential_children(objectMeta *parent)
-    {
-        uintptr_t *potentialPointer = (uintptr_t *)parent->addr;
-        uintptr_t *end = (uintptr_t *)((char *)parent->addr + parent->size);
+void init_get_potential_children(objectMeta *parent) {
+    uintptr_t *potentialPointer = (uintptr_t *)parent->addr;
+    uintptr_t *end = (uintptr_t *)((char *)parent->addr + parent->size);
 
-        while (potentialPointer < end)
-        {
-            uintptr_t possibleAddr = *potentialPointer; // Dereference potentialPointer to check its content as an address
+    objectMeta *last_child = nullptr;
+
+    while (potentialPointer < end) {
+        uintptr_t possibleAddr = *potentialPointer; // Dereference potentialPointer to check its content as an address
+        if (possibleAddr >= (uintptr_t)gheith::array && possibleAddr < (uintptr_t)gheith::array + gheith::len * sizeof(int)) {
             objectMeta *childMeta = all_objects.find(possibleAddr);
-            if (childMeta)
-            {
-                Debug::printf("finding children..\n");
-                if(parent->child_next == nullptr){
-                    parent->child_next = childMeta;
-                }else{
-                    childMeta->child_next = parent->child_next;
-                    parent->child_next = childMeta;
+            if (childMeta) {
+                //Debug::printf("finding children..\n");
+                if (parent->child_next == nullptr) {
+                    parent->child_next = childMeta;  // First child
+                    last_child = childMeta;
+                } else {
+                    if (last_child != nullptr) {
+                        last_child->child_next = childMeta;
+                        last_child = childMeta;
+                    }
                 }
+                childMeta->child_next = nullptr;  // Ensure the newly added child points to null
             }
-            potentialPointer++;
         }
+        potentialPointer++;
     }
+}
 // every dynamically allocated object has to go through here
 void *operator new(size_t size)
 {

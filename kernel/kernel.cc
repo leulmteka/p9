@@ -15,9 +15,9 @@ namespace gheith {
 
 }
 struct  n{
-    int x;
+    //int x;
     void* next;
-    n(int x, void* next) : x(x), next(next){}
+    n(void* next) :next(next){}
 }typedef n;
 
 // void kernelMain(void) {
@@ -52,7 +52,7 @@ void kernelMain(void) {
 
 
    Debug::printf("*** First item of ptrs %x\n", ptrs);
-     n* en = new n(1, 0);
+     n* en = new n(ptrs);
      //en += 1;
     Debug::printf("en %x\n", en);
     // Debug::printf("en addr %x\n", &en);

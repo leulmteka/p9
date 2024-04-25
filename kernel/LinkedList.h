@@ -85,7 +85,7 @@ public:
     T* find(uintptr_t addr) {
         T* curr = head;
         while (curr != nullptr) {
-            if ((uintptr_t)(curr) == addr) {
+            if ((uintptr_t)(curr->addr) == addr) {
                 return curr;
             }
             curr = curr->next;
