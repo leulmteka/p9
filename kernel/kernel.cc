@@ -38,11 +38,11 @@ struct  n{
 void kernelMain(void) {
    Debug::printf("*** Start of Test\n");
     int i;
-    void* ptrs[1000];
+    void* ptrs[5000];
 
     
     // Allocating memory 1000 times
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < 5000; i++) {
         ptrs[i] = operator new(32);
     }
 

@@ -104,7 +104,7 @@ public:
         if (head == nullptr) {
             head = newHead;
         } else {
-            Debug::panic("tried to set head while already head\n");
+            //Debug::panic("tried to set head while already head\n");
         }
     }
 

@@ -5,8 +5,8 @@ iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | What just happened? Why am I here?
 | Discovering my identity and features
 |     CPUID: AuthenticAMD
@@ -22,23 +22,12 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | physical range 0x600000 0x7fe0000
 | pitInit freq 1000Hz
 | pitInit divider 59659
-| APIT running at 1000052945Hz
-| APIT counter=1000052 for 1000Hz
+| APIT running at 1000043068Hz
+| APIT counter=1000043 for 1000Hz
 | initializing TSS:ss0 for 0
 | 0 enabling interrupts, I'm scared
 *** Start of Test
-WE HAVE STOPPED THE WORLD
-LEFT MARK PHASE
-LEFT copy PHASE
-LEFT flip PHASE
-THE FROM SPACE STARTS AT 3670016
-THE FROM SPACE ENDS AT 6291444
-THE FROM SPACE SIZE IS 2621428
-THE TO SPACE STARTS AT 1048584
-THE TO SPACE ENDS AT 3670012
-THE TO SPACE SIZE IS 2621428
-THE HEAP SIZE IS 5242864
-*** First item of ptrs 1075520
-*** Total Memory Still Allocated After The Test (memory tracker): 46484
-*** Total Memory Free After The Test (heap size - mem tracker): 5196396
+*** First item of ptrs 1076220
+*** Total Memory Still Allocated After The Test (memory tracker): 426876
+*** Total Memory Free After The Test (heap size - mem tracker): 4816004
 core 0 requested shutdown

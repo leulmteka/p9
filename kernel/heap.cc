@@ -341,120 +341,51 @@ void *malloc(size_t bytes)
     return res;
 }
 
-void *gcMalloc(size_t bytes)
-{
-   using namespace gheith;
+void *gcMalloc(size_t bytes) {
+    using namespace gheith;
 
+    if (bytes == 0) {
+        return nullptr; // Return nullptr for zero-byte requests.
+    }
 
-   if (bytes == 0)
-   {
-       return nullptr; // Return nullptr for zero-byte requests.
-   }
+    // Calculate number of int-sized units needed, including metadata.
+    int ints = ((bytes + sizeof(int) - 1) / sizeof(int)) + 2;
+    if (ints < 4) {
+        ints = 4; // Enforce a minimum block size to handle metadata.
+    }
 
+    LockGuardP g{theLock}; // Acquire the lock to protect heap structures.
 
-   // Calculate number of int-sized units needed, including metadata.
-   int ints = ((bytes + sizeof(int) - 1) / sizeof(int)) + 2;
-   if (ints < 4)
-   {
-       ints = 4; // Enforce a minimum block size to handle metadata.
-   }
+    void *res = nullptr;
 
+    // Determine the correct space to search in based on GC phase.
+   // uint32_t *space = fromSpace < toSpace ? fromSpace : toSpace;
+    uint32_t *spaceEnd = fromSpace < toSpace ? toSpace : fromSpace + halfHeapSize / sizeof(uint32_t);
 
-   LockGuardP g{theLock}; // Acquire the lock to protect heap structures.
+    // Iterate over available blocks to find the first suitable one.
+    for (int p = avail; p != 0 && (uint32_t *)&array[p] < spaceEnd; p = next(p)) {
+        if (!isAvail(p)) {
+            Debug::panic("block is not available in malloc %p\n", p);
+        }
+        int sz = size(p);
+        if (sz >= ints) {
+            remove(p);
+            int extra = sz - ints;
+            if (extra >= 4) {
+                makeTaken(p, ints);
+                makeAvail(p + ints, extra); // Split the block if there's enough space left.
+            } else {
+                makeTaken(p, sz); // Use the entire block if not enough space to split.
+            }
+            res = &array[p + 1];
+            adjustMemoryTracker(ints * sizeof(int));
+            justAllocated += ints * sizeof(int);
+            return res;
+        }
+    }
 
-
-   void *res = nullptr;
-   int mx = 0x7FFFFFFF;
-   int it = 0;
-
-
-   if (fromSpace < toSpace)
-   {
-       // Iterate over available blocks to find a suitable one.
-       for (int p = avail; p != 0 && (uint32_t *)&array[p] < toSpace; p = next(p))
-       {
-           if (!isAvail(p))
-           {
-               Debug::panic("block is not available in malloc %p\n", p);
-           }
-           int sz = size(p);
-           if (sz >= ints && sz < mx)
-           {
-               mx = sz;
-               it = p;
-               if (sz == ints)
-                   break; // Perfect fit found, no need to search further.
-           }
-       }
-
-
-       if (it != 0)
-       {
-           remove(it);
-           int extra = mx - ints;
-           if (extra >= 4)
-           {
-               makeTaken(it, ints);
-               makeAvail(it + ints, extra); // Split the block if there's enough space left.
-           }
-           else
-           {
-               makeTaken(it, mx); // Use the entire block.
-           }
-           res = &array[it + 1];
-           adjustMemoryTracker(ints * sizeof(int));
-           justAllocated += ints * sizeof(int);
-           return res;
-       }
-       else
-       {
-           Debug::printf("Out of memory HERE\n");
-           return nullptr; // No suitable block found, report out of memory.
-       }
-   }
-   else
-   {
-       for (int p = (int)toSpace; p != 0 && (uint32_t *)&array[p] < fromSpace + halfHeapSize; p = next(p))
-       {
-           if (!isAvail(p))
-           {
-               Debug::panic("block is not available in malloc %p\n", p);
-           }
-           int sz = size(p);
-           if (sz >= ints && sz < mx)
-           {
-               mx = sz;
-               it = p;
-               if (sz == ints)
-                   break; // Perfect fit found, no need to search further.
-           }
-       }
-
-
-       if (it != 0)
-       {
-           remove(it);
-           int extra = mx - ints;
-           if (extra >= 4)
-           {
-               makeTaken(it, ints);
-               makeAvail(it + ints, extra); // Split the block if there's enough space left.
-           }
-           else
-           {
-               makeTaken(it, mx); // Use the entire block.
-           }
-           res = &array[it + 1];
-           adjustMemoryTracker(ints * sizeof(int));
-           justAllocated += ints * sizeof(int);
-           return res;
-       }
-       else
-       {
-           Debug::printf("Out of memory HERE\n");
-           return nullptr; // No suitable block found, report out of memory.
-       }
-   }
+    Debug::printf("Out of memory HERE\n");
+    return nullptr; // No suitable block found, report out of memory.
 }
 
 
@@ -659,7 +590,7 @@ void CopyingCollector::sweep()
             // Free the actual object memory
 
             
-            if(addr != nullptr ){ 
+            if(addr != nullptr && addr > (void*) 0x200314U){ 
                 uintptr_t index = ((uintptr_t)addr - (uintptr_t)gheith::array) / sizeof(int) ;
                 if(isTaken(index)  )
                     free(addr);
@@ -709,7 +640,7 @@ void CopyingCollector::sweep()
 void CopyingCollector::copy() {
   using namespace gheith;
   for (objectMeta *current = all_objects.getHead(); current != nullptr; current = current->next) {
-      if (current->marked && !current->forwarded) {
+      if(current->marked && (!current->forwarded)) {
           size_t sizeInBytes = current->size;
           void *newLocation = gcMalloc(sizeInBytes);
           if (!newLocation) {
@@ -717,7 +648,7 @@ void CopyingCollector::copy() {
           }
           current->newAddr = (uint32_t *)newLocation;
           current->forwarded = true;
-          setForwardingAddress((uint32_t *)current->addr, (uint32_t *)newLocation);
+          //setForwardingAddress((uint32_t *)current->addr, (uint32_t *)newLocation);
       }
   }
 }

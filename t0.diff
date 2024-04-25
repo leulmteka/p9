@@ -1,8 +1,8 @@
 1,4c1,53
 < *** Start of Test
-< *** First item of ptrs 1075520
-< *** Total Memory Still Allocated After The Test (memory tracker): 46484
-< *** Total Memory Free After The Test (heap size - mem tracker): 5196396
+< *** First item of ptrs 1076220
+< *** Total Memory Still Allocated After The Test (memory tracker): 426876
+< *** Total Memory Free After The Test (heap size - mem tracker): 4816004
 ---
 > *** 1
 > *** init

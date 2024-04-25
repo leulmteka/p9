@@ -131,8 +131,7 @@ namespace GC{
     }
     void resumeWorld()
     {
-        //bool was = 
-        Interrupts::disable();
+        bool was = Interrupts::disable();
 
         worldStopped.set(false);
 
@@ -142,7 +141,7 @@ namespace GC{
             schedule(tcb);
             tcb = waitQ.remove();
         }
-        Interrupts::restore(false);
+        Interrupts::restore(was);
     }
 
 //     void markPhase() {
@@ -293,63 +292,15 @@ void threadsInit()
 
 
                Debug::printf("WE HAVE STOPPED THE WORLD\n");
-               // uint32_t* small = gheith::GC->getFromSpace();
-               // uint32_t* big = gheith::GC->getFromSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               // Debug::printf("THE FROM SPACE STARTS AT %d\n", small);
-               // Debug::printf("THE FROM SPACE ENDS AT %d\n", big);
-               // Debug::printf("THE FROM SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small  );
 
-
-
-
-               // small = gheith::GC->getToSpace();
-               // big = gheith::GC->getToSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               // Debug::printf("THE TO SPACE STARTS AT %d\n",small );
-               // Debug::printf("THE TO SPACE ENDS AT %d\n", big);
-               // Debug::printf("THE TO SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small );
-
-
-               // Debug::printf("THE HEAP SIZE IS %d\n", gheith::GC->getHeapSize() * 2);
 
 
                markPhase();
                Debug::printf("LEFT MARK PHASE\n");
-               // small = gheith::GC->getFromSpace();
-               // big = gheith::GC->getFromSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               // Debug::printf("THE FROM SPACE STARTS AT %d\n", small);
-               // Debug::printf("THE FROM SPACE ENDS AT %d\n", big);
-               // Debug::printf("THE FROM SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small  );
 
-
-
-
-               // small = gheith::GC->getToSpace();
-               // big = gheith::GC->getToSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               // Debug::printf("THE TO SPACE STARTS AT %d\n",small );
-               // Debug::printf("THE TO SPACE ENDS AT %d\n", big);
-               // Debug::printf("THE TO SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small );
-
-
-               // Debug::printf("THE HEAP SIZE IS %d\n", gheith::GC->getHeapSize() * 2);
                gheith::GC->copy();
                Debug::printf("LEFT copy PHASE\n");
-               // small = gheith::GC->getFromSpace();
-               // big = gheith::GC->getFromSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               // Debug::printf("THE FROM SPACE STARTS AT %d\n", small);
-               // Debug::printf("THE FROM SPACE ENDS AT %d\n", big);
-               // Debug::printf("THE FROM SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small  );
 
-
-
-
-               // small = gheith::GC->getToSpace();
-               // big = gheith::GC->getToSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               // Debug::printf("THE TO SPACE STARTS AT %d\n",small );
-               // Debug::printf("THE TO SPACE ENDS AT %d\n", big);
-               // Debug::printf("THE TO SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small );
-
-
-               // Debug::printf("THE HEAP SIZE IS %d\n", gheith::GC->getHeapSize() * 2);
                gheith::GC->flip();
                Debug::printf("LEFT flip PHASE\n");
                uint32_t* small = gheith::GC->getFromSpace();
