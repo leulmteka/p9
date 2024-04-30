@@ -298,14 +298,14 @@ void *gcMalloc(size_t bytes) {
                 justAllocated += ints * sizeof(int);
                 break; // Exit after allocation.
             }else{
-                remove(p);
-                int extra = ints - sz;
-                if (extra >= 4) {
-                    makeTaken(p, sz);
-                    makeAvail(p + sz, extra); // Split the block if there's enough space left.
-                } else {
-                    makeTaken(p, sz); // Use the entire block if not enough space to split.
-                }
+                //remove(p);
+                // int extra = ints - sz;
+                // if (extra >= 4) {
+                //     makeTaken(p, sz);
+                //     makeAvail(p + sz, extra); // Split the block if there's enough space left.
+                // } else {
+                //     makeTaken(p, sz); // Use the entire block if not enough space to split.
+                // }
 
 
                //  makeTaken(p, sz);
@@ -321,9 +321,9 @@ void *gcMalloc(size_t bytes) {
         theLock->unlock();
     }
 
-    // if (res == nullptr) {
-    //     Debug::printf("Out of memory in gcMalloc. No block large enough for %d units.\n", ints);
-    // }
+    if (res == nullptr) {
+        Debug::printf("Out of memory in gcMalloc. No block large enough for %d units.\n", ints);
+    }
     return res;
 }
 
@@ -442,7 +442,7 @@ void CopyingCollector::markBlockCC(void *ptr)
     using namespace gheith;
     if ((ptr >= fromSpace && ptr < toSpace) || (ptr <= fromSpace && ptr > toSpace))
     {
-        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int) ; //-1? //////
+        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int) - 1; //-1?
 
         if (gheith::isTaken(index))
         {
@@ -459,30 +459,30 @@ void CopyingCollector::markBlockCC(void *ptr)
         }
     }
 
-    // if (ptr >= &data_start && ptr < &data_end)
-    // {
-    //     objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
-    //     if (meta)
-    //         init_get_potential_children(meta); // times out
+    if (ptr >= &data_start && ptr < &data_end)
+    {
+        objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+        if (meta)
+            init_get_potential_children(meta); // times out
 
-    //     if (meta && !meta->marked) // Check if metadata exists and object is not already marked
-    //     {
-    //         meta->marked = true; // Mark the object as reachable
-    //         markChildren(meta);  // Recursively mark all reachable children
-    //     }
-    // }
-    // if (ptr >= &bss_start && ptr < &bss_end)
-    // {
-    //     objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
-    //     if (meta)
-    //         init_get_potential_children(meta); // times out
+        if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+        {
+            meta->marked = true; // Mark the object as reachable
+            markChildren(meta);  // Recursively mark all reachable children
+        }
+    }
+    if (ptr >= &bss_start && ptr < &bss_end)
+    {
+        objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+        if (meta)
+            init_get_potential_children(meta); // times out
 
-    //     if (meta && !meta->marked) // Check if metadata exists and object is not already marked
-    //     {
-    //         meta->marked = true; // Mark the object as reachable
-    //         markChildren(meta);  // Recursively mark all reachable children
-    //     }
-    // }
+        if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+        {
+            meta->marked = true; // Mark the object as reachable
+            markChildren(meta);  // Recursively mark all reachable children
+        }
+    }
 }
 
 void CopyingCollector::clearSpace(uint32_t *start, uint32_t *end)
@@ -492,27 +492,27 @@ void CopyingCollector::clearSpace(uint32_t *start, uint32_t *end)
     bzero((void *)start, size);
 }
 
-// void freeBlock(int index, size_t size) {
-//     // Check for adjacent free blocks before and after and merge them if possible
-//     using namespace gheith;
-//     int leftIndex = left(index);
-//     int rightIndex = right(index);
+void freeBlock(int index, size_t size) {
+    // Check for adjacent free blocks before and after and merge them if possible
+    using namespace gheith;
+    int leftIndex = left(index);
+    int rightIndex = right(index);
 
-//     if (isAvail(leftIndex)) {
-//         // Merge with left block
-//         index = leftIndex;
-//         size += gheith::size(leftIndex);
-//         remove(leftIndex);
-//     }
+    if (isAvail(leftIndex)) {
+        // Merge with left block
+        index = leftIndex;
+        size += gheith::size(leftIndex);
+        remove(leftIndex);
+    }
 
-//     if (isAvail(rightIndex)) {
-//         // Merge with right block
-//         size += gheith::size(rightIndex);
-//         remove(rightIndex);
-//     }
+    if (isAvail(rightIndex)) {
+        // Merge with right block
+        size += gheith::size(rightIndex);
+        remove(rightIndex);
+    }
 
-//     gheith::makeAvail(index, size); // Mark the whole new merged block as available
-// }
+    gheith::makeAvail(index, size); // Mark the whole new merged block as available
+}
 
 
 void CopyingCollector::sweepCC()
@@ -590,22 +590,21 @@ void CopyingCollector::switchFT(){
     int temp = availTo;
     availTo = avail;
     avail = temp; //switch to allocating in toSpace
-    //availFrom = avail;
+    availFrom = avail;
 }
 
 void CopyingCollector::copyCC()
 {
     using namespace gheith;
-   //switchFT();
+   // switchFT();
     if (allObjectsSize == 0)
     {
         return;
     }
     if (all_objects.isEmpty())
     {
-        return;      
+        return;
     }
-     switchFT();
     for (objectMeta *current = all_objects.getHead(); current != nullptr; current = current->next)
     {
         if (current->marked && !current->forwarded)

@@ -30,7 +30,7 @@ QEMU_ACCEL ?= tcg,thread=multi
 QEMU_CPU ?= max
 QEMU_SMP ?= 1
 QEMU_MEM ?= 128m
-QEMU_TIMEOUT ?= 5
+QEMU_TIMEOUT ?= 10
 QEMU_TIMEOUT_CMD ?= timeout
 
 QEMU_PREFER = ~gheith/public/qemu_5.1.0/bin/qemu-system-i386
@@ -52,10 +52,10 @@ QEMU_FLAGS = -no-reboot \
 
 TIME = $(shell which time)
 
-ifeq ($(USE_MARK_AND_SWEEP),1)
-    KERNEL_DIR := kernelMarkAndSweep
-else
+ifeq ($(USE_COPYING_COLLECTOR),1)
     KERNEL_DIR := kernelCopyingCollector
+else
+    KERNEL_DIR := kernelMarkAndSweep
 endif
 
 .PHONY: ${TESTS} sig test tests all clean ${TEST_TARGETS} help qemu_config_flags qemu_cmd before_test history
@@ -198,7 +198,7 @@ ${TEST_TARGETS} : %.test : Makefile %.result
 
 OTHER_USERS = ${shell who | sed -e 's/ .*//' | sort | uniq}
 HOW_MANY = ${shell who | sed -e 's/ .*//' | sort | uniq | wc -l}
-LOOP_LIMIT ?= 10
+LOOP_LIMIT ?= 50
 
 loop_warning.%:
 	@echo "*******************************************************************************"

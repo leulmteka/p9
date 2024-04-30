@@ -1,0 +1,38 @@
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 1
+| memSize 0x7fe0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+| switched to new UART
+| physical range 0x600000 0x7fe0000
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000041060Hz
+| APIT counter=1000041 for 1000Hz
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+*** Start of Copying Collector Stress Test
+*** Start of Rapid Allocation
+*** Successfully Passed Rapid Allocation
+*** Start of Large Allocation
+*** Successfully Passed Large Allocation
+*** Start of Large & Rapid Allocation
+*** Successfully Passed Large & Rapid Allocation
+*** Successfull Garbage Collection
+*** End of Copying Collector Stress Test
+core 0 requested shutdown

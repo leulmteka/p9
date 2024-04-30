@@ -1,5 +1,9 @@
-*** Start of Mark And Sweep Test
-*** First item of ptrs 1076220
-*** Total Memory Still Allocated After The Test (memory tracker): 42968
-*** Total Memory Free After The Test (heap size - mem tracker): 5199912
-*** End of Test
+*** Start of Mark And Sweep Stress Test
+*** Start of Rapid Allocation
+*** Successfully Passed Rapid Allocation
+*** Start of Large Allocation
+*** Successfully Passed Large Allocation
+*** Start of Large & Rapid Allocation
+*** Successfully Passed Large & Rapid Allocation
+*** Successfull Garbage Collection
+*** End of Mark And Sweep Stress Test
