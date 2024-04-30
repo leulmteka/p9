@@ -37,34 +37,37 @@ struct  n{
 // }
 
 void kernelMain(void) {
-   Debug::printf("*** Start of Mark And Sweep Test\n");
+    Debug::printf("*** Start of Copying Collector Stress Test\n");
     int i;
     int* ptrs[1000];
 
     
-    // Allocating memory 1000 times
+    Debug::printf("*** Start of Rapid Allocation\n");
     for (i = 0; i < 1000; i++) {
         ptrs[i] = new int(32);
     }
+    Debug::printf("*** Successfully Passed Rapid Allocation\n");
 
 
-    Debug::printf("*** First item of ptrs %d\n", ptrs[0]);
-    Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker): %d\n", getMemoryTracker());
-    Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
+    Debug::printf("*** Start of Large Allocation\n");
+    int* ptrsTwo = new int[1000];
+    Debug::printf("*** Successfully Passed Large Allocation\n");
 
+    Debug::printf("*** Start of Large & Rapid Allocation\n");
+    int* ptrsThree[100];
+    for (int j = 0; j < 100; j++) {
+        ptrsThree[j] = new int(220);
+    }
+    Debug::printf("*** Successfully Passed Large & Rapid Allocation\n");
 
-    
+    ptrs[0]++;
+    ptrsTwo[0]++;
+    ptrsThree[0]++;
+    // Compared to Shared Pointers
+    if(getAvailableMemory() > 4915359){
+        Debug::printf("*** Successfull Garbage Collection\n");
+    }
+    //Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker): %d\n", getAvailableMemory());
 
-    // ptrs[0]++;
-    // int memTracker = getMemoryTracker();
-    // int availMem = getAvailableMemory();
-    // memTracker+=1;
-    // memTracker-=1;
-    // availMem+=1;
-    // availMem-=1;
-    // Debug::printf("*** Total Memory Still Allocated After The Test (memory tracker)\n");
-    // Debug::printf("*** Total Memory Free After The Test (heap size - mem tracker)\n");
-
-
-    Debug::printf("*** End of Test\n");
+    Debug::printf("*** End of Copying Collector Stress Test\n");
 }

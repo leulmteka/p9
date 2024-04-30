@@ -1,0 +1,9 @@
+*** Start of Copying Collector Stress Test
+*** Start of Rapid Allocation
+*** Successfully Passed Rapid Allocation
+*** Start of Large Allocation
+*** Successfully Passed Large Allocation
+*** Start of Large & Rapid Allocation
+*** Successfully Passed Large & Rapid Allocation
+*** Successfull Garbage Collection
+*** End of Copying Collector Stress Test

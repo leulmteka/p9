@@ -35,8 +35,10 @@
     the Copying Collector garbage collection algorithm. We did everything else together collaborating at the same time (reports, test cases, presentation, etc.).
 
 (5) How can we get/run your code?
+    The test case itself is in kernel.cc.
 	If you want to run Mark And Sweep, type the following into the terminal:
-	make USE_MARK_AND_SWEEP=1 t0.test
+	make markAndSweepStress.test
 	If you want to run Copying Collector, type the following into the terminal:
-	make t0.test
+	make USE_COPYING_COLLECTOR=1 copyingCollectorStress.test
+
 
