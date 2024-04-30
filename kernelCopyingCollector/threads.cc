@@ -131,8 +131,7 @@ namespace GC{
     }
     void resumeWorld()
     {
-        //bool was = 
-        Interrupts::disable();
+        bool was = Interrupts::disable();
 
         worldStopped.set(false);
 
@@ -142,7 +141,7 @@ namespace GC{
             schedule(tcb);
             tcb = waitQ.remove();
         }
-        Interrupts::restore(false);
+        Interrupts::restore(was);
     }
 
 //     void markPhase() {

@@ -10,12 +10,14 @@
     As we accessed each object, we copied it from the “from space” to the “to space”. As we copy each object, we also had to update all the references for 
     the child objects of the object. This process of copying objects and updating references, we implemented recursively. Once we copied all the object from 
     the “from space” to the “to space” and updated references, we flip the “from space” and the “to space”. Now, the old “from space” only contained garbage 
-    so we could sweep it. Similarly, for mark and sweep. For both of these, we implemented a stress test to gauge how much memory we ended up freeing with 
-    each algorithm and how much fragmentation we had. Since we are in an emulated environment, we couldn’t just simply do this with Valgrind. Instead, we 
-    implemented methods to see how the heap looked and we manually kept track of each allocation and deallocation, having explicit control over object 
-    lifecycle as the kernel is acting as it’s own garbage collector in this case.
+    so we could sweep it. Similarly, for mark and sweep, a set of "root" vairables were scanned (looking on the active thread's stacks and global/static variables - .data & .bss sections),
+    and were marked for deletion. Then in one swoop, comparing the marks with the actual contents of the heap, unreferenced objects are deleted, while marked ones stay
+    alive. All referenced dynamically allocated objects are found, using recursion once again (e.g. following tree nodes). Every single object has metadata that we keep
+    in a global linked list. We ended up thinking through it, and every single object on the heap has to call new, so we created a layer of indirection for this technique.
+    For both of these, we implemented a stress test to gauge how much memory we ended up freeing with each algorithm and how much fragmentation we had. Since we are in an emulated environment, we couldn’t just simply do this with Valgrind. Instead, we 
+    implemented methods to see how the heap looked and we manually kept track of each allocation and deallocation, having explicit control over object lifecycle as the kernel is acting as it’s own garbage 
+    collector in this case.
 
-[explain marking? Keeping track of live objects? Object meta? Accessing roots global variables and how we had to do it assembly]
 
 (3) What did you learn?
 	Through the challenges of this project, we learned quite a bit of valuable lessons. First of all–and the most obvious–we gained a deep understanding of 
@@ -35,8 +37,11 @@
     the Copying Collector garbage collection algorithm. We did everything else together collaborating at the same time (reports, test cases, presentation, etc.).
 
 (5) How can we get/run your code?
-	If you want to run Mark And Sweep, type the following into the terminal:
-	make USE_MARK_AND_SWEEP=1 t0.test
-	If you want to run Copying Collector, type the following into the terminal:
-	make t0.test
+	The test case itself is in kernel.cc.
+
+    If you want to run Mark And Sweep, type the following into the terminal:
+    make markAndSweepStress.test
+
+    If you want to run Copying Collector, type the following into the terminal:
+    make USE_COPYING_COLLECTOR=1 copyingCollectorStress.test
 

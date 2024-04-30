@@ -20,13 +20,13 @@ int SYS::exec(const char *path, int argc, const char *argv[])
 {
     using namespace gheith;
 
-    TCB *me = current();
-    Process* MeProcess = me->process;
+    //TCB *me = current();
+   //Process* MeProcess = me->process;
 
     if (path == nullptr)
     {
         // Debug::printf("*** HELLO 1\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
 
@@ -39,7 +39,7 @@ int SYS::exec(const char *path, int argc, const char *argv[])
     if (nodeForElf->is_dir())
     {
         // Debug::printf("*** HELLO 3\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
 
@@ -49,51 +49,51 @@ int SYS::exec(const char *path, int argc, const char *argv[])
     if (hdr.phoff == 0 || hdr.phnum == 0)
     {
         //  Debug::printf("*** HELLO 6\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
 
     if (hdr.ehsize != sizeof(ElfHeader))
     {
         //   Debug::printf("*** HELLO 7\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
 
         if (nodeForElf == nullptr || hdr.phoff == 0 || hdr.phnum == 0 || hdr.ehsize != sizeof(ElfHeader) || hdr.maigc0 != 0x7F || hdr.magic1 != 'E' || hdr.magic2 != 'L' || hdr.magic3 != 'F' || hdr.cls != 1 || hdr.encoding != 1 || hdr.version != 1 || hdr.type != 2 || hdr.abi != 0)
     {
         //   Debug::printf("*** HELLO 8\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     if (hdr.cls != 1)
     {
         //   Debug::printf("*** HELLO 9\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     if (hdr.encoding != 1)
     {
         //  Debug::printf("*** HELLO 10\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     if (hdr.version != 1)
     {
         //  Debug::printf("*** HELLO 11\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     if (hdr.type != 2)
     {
         //  Debug::printf("*** HELLO 13\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     if (hdr.abi != 0)
     {
         //  Debug::printf("*** HELLO 133\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     //current()->process->clear_private();
@@ -125,7 +125,7 @@ int SYS::exec(const char *path, int argc, const char *argv[])
     if (entry_point == (uint32_t)-1)
     {
         //  Debug::printf("*** HELLO 14\n");
-        MeProcess->exit(-1);
+          
         return -1;
     }
     // Debug::printf("*** HELLO 15\n");
@@ -299,13 +299,13 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         if (nodeForElf == nullptr || !nodeForElf->is_file())
         {
             //   Debug::printf("*** HELLO 26\n");
-            delete[] argv;
+            //delete[] argv;
             return -1;
         }
 
         ElfHeader hdr;
         nodeForElf->read(0, hdr);
-        if (hdr.maigc0 != 0x7F || hdr.magic1 != 'E' || hdr.magic2 != 'L' || hdr.magic3 != 'F')
+        if (nodeForElf == nullptr || hdr.phoff == 0 || hdr.phnum == 0 || hdr.ehsize != sizeof(ElfHeader) || hdr.maigc0 != 0x7F || hdr.magic1 != 'E' || hdr.magic2 != 'L' || hdr.magic3 != 'F' || hdr.cls != 1 || hdr.encoding != 1 || hdr.version != 1 || hdr.type != 2 || hdr.abi != 0)
         {
             // Debug::printf("*** HELLO 27\n");
             return -1;
@@ -319,7 +319,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         }
 
         int output = SYS::exec(path, argc, argv);
-        delete[] argv;
+        //delete[] argv;
         return output;
     }
     case 10: /* open */
@@ -334,7 +334,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         if (files == nullptr)
         {
             //   Debug::printf("*** HELLO 30\n");
-            current()->process->exit(-1);
+             
             return -1;
         }
 
@@ -389,7 +389,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         }
 
         if(!canAccess((uint32_t)buf) || !canAccess( (uint32_t)buf + (uint32_t)nbyte      )){
-            process->exit(-1);
+             
             return -1;
         }
         
@@ -397,7 +397,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         if (file == nullptr)
         {
             // Debug::printf("*** HELLO 37\n");
-            process->exit(-1);
+             
             return -1;
         }
         return file->read(buf, nbyte);
@@ -410,7 +410,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         if (fd == 1)
         {
           // Debug::printf("*** HELLO 38\n");
-            process->exit(-1);
+             
             return -1;
         }
 
@@ -418,7 +418,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
         if (file == nullptr)
         {
             // Debug::printf("*** HELLO 39\n");
-            process->exit(-1);
+             
             return -1;
         }
 
@@ -427,7 +427,7 @@ extern "C" int sysHandler(uint32_t eax, uint32_t *frame)
     }
     default:
         Debug::printf("*** 1000000000 unknown system call %d\n", eax);
-        // process->exit(-1);
+        //  
         // stop();
         return -1;
     }

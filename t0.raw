@@ -5,8 +5,7 @@ iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xxx.
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | What just happened? Why am I here?
 | Discovering my identity and features
 |     CPUID: AuthenticAMD
@@ -22,13 +21,13 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | physical range 0x600000 0x7fe0000
 | pitInit freq 1000Hz
 | pitInit divider 59659
-| APIT running at 1000046706Hz
-| APIT counter=1000046 for 1000Hz
+| APIT running at 1000058415Hz
+| APIT counter=1000058 for 1000Hz
 | initializing TSS:ss0 for 0
 | 0 enabling interrupts, I'm scared
 *** Start of Mark And Sweep Test
 *** First item of ptrs 1076220
-*** Total Memory Still Allocated After The Test (memory tracker): 59992
-*** Total Memory Free After The Test (heap size - mem tracker): 5182888
+*** Total Memory Still Allocated After The Test (memory tracker): 42968
+*** Total Memory Free After The Test (heap size - mem tracker): 5199912
 *** End of Test
 core 0 requested shutdown
