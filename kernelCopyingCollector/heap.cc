@@ -249,8 +249,8 @@ void heapInit(void *base, size_t bytes)
     theLock = new BlockingLock();
     GC = new CopyingCollector(base, bytes);
 
-    availFrom = avail;  // start of first available block in from-space
-    availTo = halfHeapSize;  // start of first available block in to-space
+    availFrom = avail;  
+    availTo = halfHeapSize; 
     avail = availFrom;
 
     memoryTracker = 0;
@@ -263,13 +263,12 @@ void *gcMalloc(size_t bytes) {
         return (void *)array;    
         }
 
-    int ints = ((bytes + 3) / 4) + 2; // Calculate the number of integer slots needed, including header.
-    if (ints < 4) ints = 4; // Enforce minimum block size.
+    int ints = ((bytes + 3) / 4) + 2;
+    if (ints < 4) ints = 4; 
 
     void *res = 0;
     {
-        //LockGuardP g{theLock}; // Use RAII-based lock guard to manage lock acquisition and release
-        //bool alreadyLocked = ;
+
         if (!theLock->isMine()) {
             theLock->lock();
         }
@@ -278,35 +277,23 @@ void *gcMalloc(size_t bytes) {
 
        // Debug::printf("Going into the for loop\n");
         for (int p = avail; p != 0 && (uint32_t *)&array[p] < spaceEnd; p = next(p)) {
-            // if (!isAvail(p)) {
-            //     Debug::panic("Block at %p is not available in gcMalloc\n", &array[p]);
-            //     continue; // Safeguard against corrupt free list
-            // }
-         //   Debug::printf("Passed if statement\n");
+        
             int sz = size(p);
             if (sz >= ints) {
                 remove(p);
                 int extra = sz - ints;
                 if (extra >= 4) {
                     makeTaken(p, ints);
-                    makeAvail(p + ints, extra); // Split the block if there's enough space left.
+                    makeAvail(p + ints, extra); // 
                 } else {
-                    makeTaken(p, sz); // Use the entire block if not enough space to split.
+                    makeTaken(p, sz); // U
                 }
                 res = &array[p + 1];
                 adjustMemoryTracker(ints * sizeof(int));
                 justAllocated += ints * sizeof(int);
                 break; // Exit after allocation.
             }else{
-                //remove(p);
-                // int extra = ints - sz;
-                // if (extra >= 4) {
-                //     makeTaken(p, sz);
-                //     makeAvail(p + sz, extra); // Split the block if there's enough space left.
-                // } else {
-                //     makeTaken(p, sz); // Use the entire block if not enough space to split.
-                // }
-
+                
 
                //  makeTaken(p, sz);
                 res = &array[p + 1];
@@ -315,7 +302,7 @@ void *gcMalloc(size_t bytes) {
                // continue;
             }
         }
-    } // Lock is automatically released here due to RAII
+    } 
 
     if (!theLock->isMine()) {
         theLock->unlock();
@@ -451,10 +438,10 @@ void CopyingCollector::markBlockCC(void *ptr)
             if (meta)
                 init_get_potential_children(meta); // times out
 
-            if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+            if (meta && !meta->marked) 
             {
-                meta->marked = true; // Mark the object as reachable
-                markChildren(meta);  // Recursively mark all reachable children
+                meta->marked = true; 
+                markChildren(meta);  
             }
         }
     }
@@ -465,22 +452,22 @@ void CopyingCollector::markBlockCC(void *ptr)
         if (meta)
             init_get_potential_children(meta); // times out
 
-        if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+        if (meta && !meta->marked) 
         {
-            meta->marked = true; // Mark the object as reachable
-            markChildren(meta);  // Recursively mark all reachable children
+            meta->marked = true; 
+            markChildren(meta);  
         }
     }
     if (ptr >= &bss_start && ptr < &bss_end)
     {
         objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
         if (meta)
-            init_get_potential_children(meta); // times out
+            init_get_potential_children(meta); 
 
-        if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+        if (meta && !meta->marked) 
         {
-            meta->marked = true; // Mark the object as reachable
-            markChildren(meta);  // Recursively mark all reachable children
+            meta->marked = true; 
+            markChildren(meta);  
         }
     }
 }
@@ -493,13 +480,11 @@ void CopyingCollector::clearSpace(uint32_t *start, uint32_t *end)
 }
 
 void freeBlock(int index, size_t size) {
-    // Check for adjacent free blocks before and after and merge them if possible
     using namespace gheith;
     int leftIndex = left(index);
     int rightIndex = right(index);
 
     if (isAvail(leftIndex)) {
-        // Merge with left block
         index = leftIndex;
         size += gheith::size(leftIndex);
         remove(leftIndex);
@@ -511,13 +496,12 @@ void freeBlock(int index, size_t size) {
         remove(rightIndex);
     }
 
-    gheith::makeAvail(index, size); // Mark the whole new merged block as available
+    gheith::makeAvail(index, size);
 }
 
 
 void CopyingCollector::sweepCC()
 {
-   // Debug::printf("stuck in sweep\n");
     using namespace gheith;
     objectMeta *current = all_objects.getHead();
     objectMeta *prev = nullptr;
@@ -525,20 +509,18 @@ void CopyingCollector::sweepCC()
     {
         if (!current->marked)
         {
-            // Object not marked: it's unreachable, so free it
             objectMeta *toDelete = current;
-            void *addr = current->addr; // Save address to free
+            void *addr = current->addr;
             current = current->next;
             if (prev != nullptr)
             {
-                prev->next = current; // Bypass the deleted node
+                prev->next = current; 
             }
             else
             {
                 allObjectsSize--;
                 gheith::all_objects.remove(toDelete);
-                //  int index = ((uintptr_t)addr - (uintptr_t)array) / sizeof(int);
-                //  freeBlock(index, toDelete->size);
+
             }
 
             if (addr != nullptr && addr > (void *)0x200314U)
@@ -555,7 +537,7 @@ void CopyingCollector::sweepCC()
             void *objAddress = current->addr;
             if (objAddress >= fromSpace && objAddress < fromSpace + halfHeapSize)
             {
-                free(objAddress); // Free the actual object if there's external resource allocation
+                free(objAddress);
             }
 
             objectMeta *toDelete = current;
@@ -577,7 +559,7 @@ void CopyingCollector::sweepCC()
             current->forwarded = false;
             current->marked = false;
             prev = current;          // Update prev only if not deleting the current node
-            current = current->next; // Move to the next node
+            current = current->next; 
         }
     }
 
@@ -610,9 +592,7 @@ void CopyingCollector::copyCC()
         if (current->marked && !current->forwarded)
         {
             size_t sizeInBytes = current->size;
-        //    Debug::printf("WE ARE CALLING GCMALLOC WITH %d\n", sizeInBytes);
-           // Debug::printf("NUMBER OF OBJECTS IN ALL OBJECTS %d\n", allObjectsSize);
-            //printHeapLayout();
+
             void *newLocation = gcMalloc(sizeInBytes);
             if (!newLocation)
             {
@@ -651,9 +631,8 @@ void init_get_potential_children(objectMeta *parent)
 
     while (potentialPointer < end)
     {
-        uintptr_t possibleAddr = *potentialPointer; // Dereference potentialPointer to check its content as an address
+        uintptr_t possibleAddr = *potentialPointer; 
 
-        // Check if the address falls within any of the managed object areas (heap, data, BSS)
         if ((possibleAddr >= (uintptr_t)gheith::array && possibleAddr < (uintptr_t)gheith::array + gheith::len * sizeof(int)) ||
             (possibleAddr >= (uintptr_t)&data_start && possibleAddr < (uintptr_t)&data_end) ||
             (possibleAddr >= (uintptr_t)&bss_start && possibleAddr < (uintptr_t)&bss_end))
@@ -662,7 +641,6 @@ void init_get_potential_children(objectMeta *parent)
             objectMeta *childMeta = all_objects.find(possibleAddr);
             if (childMeta)
             {
-                // Debug::printf("finding children..\n");
                 if (parent->child_next == nullptr)
                 {
                     parent->child_next = childMeta; // First child
@@ -672,11 +650,11 @@ void init_get_potential_children(objectMeta *parent)
                 {
                     if (last_child != nullptr)
                     {
-                        last_child->child_next = childMeta; // Linking children in a list
+                        last_child->child_next = childMeta; 
                         last_child = childMeta;
                     }
                 }
-                childMeta->child_next = nullptr; // Ensure the newly added child points to null
+                childMeta->child_next = nullptr;
             }
         }
         potentialPointer++;
@@ -689,15 +667,13 @@ void *operator new(size_t size)
     void *p = gcMalloc(size); // ptr to data
     if (p == 0)
         Debug::panic("out of memory");
-    // objMeta* metadata = new objMeta(p, size, false, theLock);
 
     if (GC)
-    {                                                                // heapInit has been called
-        objMeta *metadata = (objMeta *)gcMalloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
+    {                                                                
+        objMeta *metadata = (objMeta *)gcMalloc(sizeof(objectMeta)); 
         metadata->addr = p;
         metadata->marked = false;
         metadata->size = size;
-      //  metadata->theLock = theLock;
         metadata->child_next = nullptr;
 
         init_get_potential_children(metadata);
@@ -724,8 +700,8 @@ void *operator new[](size_t size)
     if (p == 0)
         Debug::panic("out of memory");
     if (GC)
-    {                                                                // heapInit has been called
-        objMeta *metadata = (objMeta *)gcMalloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
+    {                                                                
+        objMeta *metadata = (objMeta *)gcMalloc(sizeof(objectMeta)); 
 
         metadata->addr = p;
         metadata->marked = false;
