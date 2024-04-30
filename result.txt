@@ -1,0 +1,498 @@
+rm -rf *.diff *.raw *.out *.result *.kernel *.failure *.time *.data
+(make -C kernel clean)
+make[1]: Entering directory '/u/leulteka/cs439/projects/p8/p9/kernel'
+rm -rf build
+make[1]: Leaving directory '/u/leulteka/cs439/projects/p8/p9/kernel'
+compiling  crti.cc
+g++ -I. -c -MD -MF build/crti.d -o build/crti.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse crti.cc
+compiling  ide.cc
+g++ -I. -c -MD -MF build/ide.d -o build/ide.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse ide.cc
+compiling  snprintf.cc
+g++ -I. -c -MD -MF build/snprintf.d -o build/snprintf.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse snprintf.cc
+compiling  idt.cc
+g++ -I. -c -MD -MF build/idt.d -o build/idt.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse idt.cc
+compiling  u8250.cc
+g++ -I. -c -MD -MF build/u8250.d -o build/u8250.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse u8250.cc
+compiling  block_io.cc
+g++ -I. -c -MD -MF build/block_io.d -o build/block_io.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse block_io.cc
+compiling  future.cc
+g++ -I. -c -MD -MF build/future.d -o build/future.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse future.cc
+compiling  blocking_lock.cc
+g++ -I. -c -MD -MF build/blocking_lock.d -o build/blocking_lock.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse blocking_lock.cc
+compiling  pit.cc
+g++ -I. -c -MD -MF build/pit.d -o build/pit.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse pit.cc
+compiling  physmem.cc
+g++ -I. -c -MD -MF build/physmem.d -o build/physmem.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse physmem.cc
+compiling  process.cc
+g++ -I. -c -MD -MF build/process.d -o build/process.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse process.cc
+compiling  libk.cc
+g++ -I. -c -MD -MF build/libk.d -o build/libk.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse libk.cc
+compiling  atomic.cc
+g++ -I. -c -MD -MF build/atomic.d -o build/atomic.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse atomic.cc
+compiling  debug.cc
+g++ -I. -c -MD -MF build/debug.d -o build/debug.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse debug.cc
+compiling  threads.cc
+g++ -I. -c -MD -MF build/threads.d -o build/threads.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse threads.cc
+compiling  ext2.cc
+g++ -I. -c -MD -MF build/ext2.d -o build/ext2.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse ext2.cc
+compiling  sys.cc
+g++ -I. -c -MD -MF build/sys.d -o build/sys.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse sys.cc
+compiling  barrier.cc
+g++ -I. -c -MD -MF build/barrier.d -o build/barrier.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse barrier.cc
+compiling  elf.cc
+g++ -I. -c -MD -MF build/elf.d -o build/elf.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse elf.cc
+compiling  config.cc
+g++ -I. -c -MD -MF build/config.d -o build/config.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse config.cc
+compiling  heap.cc
+g++ -I. -c -MD -MF build/heap.d -o build/heap.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse heap.cc
+compiling  init.cc
+g++ -I. -c -MD -MF build/init.d -o build/init.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse init.cc
+compiling  smp.cc
+g++ -I. -c -MD -MF build/smp.d -o build/smp.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse smp.cc
+compiling  kernel.cc
+g++ -I. -c -MD -MF build/kernel.d -o build/kernel.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse kernel.cc
+compiling  vmm.cc
+g++ -I. -c -MD -MF build/vmm.d -o build/vmm.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse vmm.cc
+assembling mbr.S
+gcc -I. -MD -MF build/mbr.d -o build/mbr.o -m32 -c mbr.S
+assembling machine.S
+gcc -I. -MD -MF build/machine.d -o build/machine.o -m32 -c machine.S
+assembling context.s
+gcc -I. -MD -MF build/context.d -o build/context.o -m32 -c context.s
+compiling  crtn.cc
+g++ -I. -c -MD -MF build/crtn.d -o build/crtn.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse crtn.cc
+linking    kernel.kernel
+ld -T script.ld -N -m elf_i386 -e start -o build/kernel.kernel build/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/32/crtbegin.o build/ide.o build/snprintf.o build/idt.o build/u8250.o build/block_io.o build/future.o build/blocking_lock.o build/pit.o build/physmem.o build/process.o build/libk.o build/atomic.o build/debug.o build/threads.o build/ext2.o build/sys.o build/barrier.o build/elf.o build/config.o build/heap.o build/init.o build/smp.o build/kernel.o build/vmm.o build/mbr.o build/machine.o build/context.o /usr/lib/gcc/x86_64-linux-gnu/9/32/crtend.o build/crtn.o
+producing  build/kernel.bin
+objcopy -O binary build/kernel.kernel build/kernel.bin
+producing  build/kernel.img
+dd if=build/kernel.bin of=build/kernel.img bs=512 conv=sync > /dev/null 2>&1
+---------------------------------
+mkfs.ext2 -q -b 1024 -i 1024 -d ./t0.dir  -I 128 -r 0 -t ext2 t0.data 10m
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 4
+| memSize 0x7fd0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+sz1310720
+| switched to new UART
+| physical range 0x600000 0x7fd0000
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000044364Hz
+| APIT counter=1000044 for 1000Hz
+| initialize 1
+| reset 1
+|      eip:0x8000
+| initialize 2
+| reset 2
+|      eip:0x8000
+| initialize 3
+| initializing TSS:ss0 for 2
+| initializing TSS:ss0 for 1
+| reset 3
+|      eip:0x8000
+| 2 enabling interrupts, I'm scared
+| 1 enabling interrupts, I'm scared
+| initializing TSS:ss0 for 3
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+| 3 enabling interrupts, I'm scared
+s 2445f3
+s 2425c8
+found a match 2425c8
+s 2425c8
+found a match 2425c8
+s 242563
+s 242583
+s 240558
+found a match 240558
+s 242588
+s 240558
+found a match 240558
+s 240558
+found a match 240558
+to remove: 240204
+removed 240224
+to remove: 240244
+removed 240274
+to remove: 2402ec
+removed 240388
+to remove: 2403d8
+removed 240418
+to remove: 240438
+removed 240478
+to remove: 240498
+removed 2404d8
+to remove: 2404f8
+removed 240538
+to remove: 240558
+removed 2405a0
+to remove: 2425c8
+removed 242610
+to remove: 244638
+removed 244648
+to remove: 244668
+removed 244718
+to remove: 244738
+removed 24476c
+to remove: 24478c
+removed 24479c
+to remove: 2447bc
+removed 2447d0
+to remove: 2447f0
+removed 244838
+s 24004c
+found a match 24004c
+argv ptr: 245868
+s 244420
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 2444a8
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 244548
+s 24454c
+s 244548
+s 244578
+s 24457c
+s 244578
+s 24004c
+found a match 24004c
+s 24454c
+s 24454c
+s 24455c
+s 24455c
+s 244630
+s 100034
+found a match 100034
+s 100034
+found a match 100034
+s 2445f3
+s 2425c8
+found a match 2425c8
+s 2425c8
+found a match 2425c8
+s 242504
+s 242583
+s 242524
+s 242583
+s 240558
+found a match 240558
+s 242583
+s 242588
+s 240558
+found a match 240558
+s 240558
+found a match 240558
+s 24004c
+found a match 24004c
+s 245728
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 2457b0
+s 24004c
+found a match 24004c
+s 2457bb
+s 2447f0
+found a match 2447f0
+s 245850
+s 100014
+s 2457e0
+s 245850
+s 2457fc
+s 2447f0
+found a match 2447f0
+s 24586c
+s 24680c
+s 24586c
+s 245868
+s 246860
+found a match 246860
+s 2447f0
+found a match 2447f0
+s 2447f0
+found a match 2447f0
+*** Start of Test
+s 24004c
+found a match 24004c
+s 244420
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 2444a8
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 244548
+s 24454c
+s 244548
+s 244578
+s 24457c
+s 244578
+s 24004c
+found a match 24004c
+s 24454c
+s 24454c
+s 24455c
+s 24455c
+s 244630
+s 100034
+found a match 100034
+s 100034
+found a match 100034
+s 2445f3
+s 2425c8
+found a match 2425c8
+s 2425c8
+found a match 2425c8
+s 2424f8
+s 242518
+s 242583
+s 240558
+found a match 240558
+s 242583
+s 242588
+s 240558
+found a match 240558
+s 240558
+found a match 240558
+s 24004c
+found a match 24004c
+s 245728
+s 24004c
+found a match 24004c
+s 24004c
+found a match 24004c
+s 2457b0
+s 24004c
+found a match 24004c
+s 2457bb
+s 2447f0
+found a match 2447f0
+s 100014
+s 100014
+s 24ecc8
+found a match 24ecc8
+chi
+s 13fffd
+s 10000c
+found a match 10000c
+s 2457f0
+s 24ee28
+s 24ee08
+found a match 24ee08
+s 245810
+s 24f8b8
+found a match 24f8b8
+s 24586c
+s 2447f0
+found a match 2447f0
+s 24586c
+s 24680c
+s 2460e0
+s 24680c
+s 24586c
+s 245868
+s 246860
+found a match 246860
+s 246870
+found a match 246870
+s 2468b8
+found a match 2468b8
+s 246900
+found a match 246900
+s 246948
+found a match 246948
+s 246990
+found a match 246990
+s 2469d8
+found a match 2469d8
+s 246a20
+found a match 246a20
+s 246a68
+found a match 246a68
+s 246ab0
+found a match 246ab0
+s 246af8
+found a match 246af8
+s 246b40
+found a match 246b40
+s 246b88
+found a match 246b88
+s 246bd0
+found a match 246bd0
+s 246c18
+found a match 246c18
+s 246c60
+found a match 246c60
+s 246ca8
+found a match 246ca8
+s 246cf0
+found a match 246cf0
+s 246d38
+found a match 246d38
+s 246d80
+found a match 246d80
+s 246dc8
+found a match 246dc8
+s 246e10
+found a match 246e10
+s 246e58
+found a match 246e58
+s 246ea0
+found a match 246ea0
+s 246ee8
+found a match 246ee8
+s 246f30
+found a match 246f30
+s 246f78
+found a match 246f78
+s 246fc0
+found a match 246fc0
+s 247008
+found a match 247008
+s 247050
+found a match 247050
+s 247098
+found a match 247098
+s 2470e0
+found a match 2470e0
+s 247128
+found a match 247128
+s 247170
+found a match 247170
+s 2471b8
+found a match 2471b8
+s 247200
+found a match 247200
+s 247248
+found a match 247248
+s 247290
+found a match 247290
+s 2472d8
+found a match 2472d8
+s 247320
+found a match 247320
+s 247368
+found a match 247368
+s 2473b0
+found a match 2473b0
+s 2473f8
+found a match 2473f8
+s 247440
+found a match 247440
+s 247488
+found a match 247488
+s 2474d0
+found a match 2474d0
+s 247518
+found a match 247518
+s 247560
+found a match 247560
+s 2475a8
+found a match 2475a8
+s 2475f0
+found a match 2475f0
+s 247638
+found a match 247638
+s 247680
+found a match 247680
+s 2476c8
+found a match 2476c8
+s 247710
+found a match 247710
+s 247758
+found a match 247758
+s 2477a0
+found a match 2477a0
+s 2477e8
+found a match 2477e8
+s 247830
+found a match 247830
+s 247878
+found a match 247878
+s 2478c0
+found a match 2478c0
+s 247908
+found a match 247908
+s 247950
+found a match 247950
+s 247998
+found a match 247998
+s 2479e0
+found a match 2479e0
+s 247a28
+found a match 247a28
+s 247a70
+found a match 247a70
+s 247ab8
+found a match 247ab8
+s 247b00
+found a match 247b00
+s 247b48
+found a match 247b48
+s 247b90
+found a match 247b90
+s 247bd8
+found a match 247bd8
+s 247c20
+found a match 247c20
+s 247c68
+found a match 247c68
+s 247cb0
+found a match 247cb0
+s 247cf8
+found a match 247cf8
+*** First item of ptrs 24586c
+s 247d40
+found a match 247d40
+s 247d88
+found a match 247d88
+s 247dd0
+found a match 247dd0
+en 2581b0
+s 247e18
+found a match 247e18
+*** Total Memory Still Allocated After The Test (memory tracker): 82265
+s 247e60
+found a match 247e60
+s 247ea8
+found a match 247ea8
+s 247ef0
+found a match 247ef0
+*** Total Memory Free After The Test (heap size - mem tracker): 5160615
+s 247f38
+found a match 247f38
+s 247f80
+found a match 247f80
+core 3 requested shutdown
+s 247fc8
+found a match 247fc8

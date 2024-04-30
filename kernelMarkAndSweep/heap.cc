@@ -466,8 +466,9 @@ void MarkAndSweep::sweep()
             // Remove from the queue
             if (prev != nullptr)
             {
-                //Debug::printf("to remove: %x\n", addr);
+                Debug::printf("to remove: %x\n", addr);
                 prev->next = current; // Bypass the deleted node
+<<<<<<< HEAD:kernelMarkAndSweep/heap.cc
                 //if(prev->next)
                 //Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
                 //else
@@ -479,6 +480,19 @@ void MarkAndSweep::sweep()
                 //Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
                 gheith::all_objects.remove(toDelete);
                 }
+=======
+                if(prev->next)
+                Debug::printf("removed %x. prev next is %x\n", addr, prev->next->addr);
+                else
+                Debug::printf("removed %x. prev next is null\n", addr);
+            }
+            else
+            {
+                Debug::printf("to remove: %x\n", addr);
+                Debug::printf("removed %x\n",gheith::all_objects.remove(toDelete)); // Update head if the first element is being removed
+                
+            }
+>>>>>>> eb1055c (rn):kernel/heap.cc
             //Debug::printf("deleting.. %x\n",addr );
             // Free the actual object memory
 
@@ -562,6 +576,17 @@ void *operator new(size_t size)
         init_get_potential_children(metadata);
         all_objects.append(metadata);
 
+<<<<<<< HEAD:kernelMarkAndSweep/heap.cc
+=======
+
+        // Debug::printf("\n___starting meta data traversal__\n");
+        // while (head != nullptr)
+        // {
+        //     Debug::printf("addr %x\n", head->addr);
+        //     head = head->next;
+        // }
+        // Debug::printf("___ending meta data traversal__\n\n");
+>>>>>>> eb1055c (rn):kernel/heap.cc
     }
 
     return p;
