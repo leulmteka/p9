@@ -52,10 +52,10 @@ QEMU_FLAGS = -no-reboot \
 
 TIME = $(shell which time)
 
-ifeq ($(USE_MARK_AND_SWEEP),1)
-    KERNEL_DIR := kernelMarkAndSweep
-else
+ifeq ($(USE_COPYING_COLLECTOR),1)
     KERNEL_DIR := kernelCopyingCollector
+else
+    KERNEL_DIR := kernelMarkAndSweep
 endif
 
 .PHONY: ${TESTS} sig test tests all clean ${TEST_TARGETS} help qemu_config_flags qemu_cmd before_test history
