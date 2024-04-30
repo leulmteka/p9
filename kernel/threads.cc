@@ -22,7 +22,8 @@ namespace gheith
     Queue<TCB, InterruptSafeLock> readyQ{};
     Queue<TCB, InterruptSafeLock> zombies{};
 
-    Atomic<bool> worldStopped{false};
+        Atomic<bool> worldStopped{false};
+
     Queue<TCB, InterruptSafeLock> waitQ{};
 
     extern CopyingCollector *GC;
@@ -117,7 +118,8 @@ namespace GC{
     using namespace gheith;
     void stopWorld()
     {
-       bool was = Interrupts::disable();
+      // bool was = 
+       Interrupts::disable();
 
         worldStopped.set(true);
 
@@ -127,7 +129,7 @@ namespace GC{
             waitQ.add(tcb);
             tcb = readyQ.remove();
         }
-        Interrupts::restore(was);
+        //Interrupts::restore(was);
     }
     void resumeWorld()
     {
@@ -217,6 +219,7 @@ namespace GC{
             if (tcb != nullptr && !tcb->isIdle)
             {
                 //(;
+
                 markThreadStack(tcb);
             }
 
@@ -235,24 +238,24 @@ namespace GC{
             // }
         }
 
-            uint32_t* dataStart = (uint32_t*)&data_start;
-            uint32_t* dataEnd = (uint32_t*)&data_end;
-            uint32_t* bssStart = (uint32_t*)&bss_start;
-            uint32_t* bssEnd = (uint32_t*)&bss_end;
+            // uint32_t* dataStart = (uint32_t*)&data_start;
+            // uint32_t* dataEnd = (uint32_t*)&data_end;
+            // uint32_t* bssStart = (uint32_t*)&bss_start;
+            // uint32_t* bssEnd = (uint32_t*)&bss_end;
             
-            while(dataStart < dataEnd){
-                if(dataStart != 0){
-                    gheith::GC->markBlock((void *)dataStart);
-                }
-                dataStart++;
-            }
-            while(bssStart < bssEnd){
-                if(bssStart != 0){
-                    gheith::GC->markBlock((void *)bssStart);
-                } 
-                bssStart++;
+            // while(dataStart < dataEnd){
+            //     if(dataStart != 0){
+            //         gheith::GC->markBlock((void *)dataStart);
+            //     }
+            //     dataStart++;
+            // }
+            // while(bssStart < bssEnd){
+            //     if(bssStart != 0){
+            //         gheith::GC->markBlock((void *)bssStart);
+            //     } 
+            //     bssStart++;
 
-            }
+            // }
     }
 
   
@@ -289,37 +292,17 @@ void threadsInit()
        while (true) {
                yield();
                stopWorld();
-
-
-               Debug::printf("WE HAVE STOPPED THE WORLD\n");
-
-
-
+               //Debug::printf("WE HAVE STOPPED THE WORLD\n");
                markPhase();
-               Debug::printf("LEFT MARK PHASE\n");
-
+               //Debug::printf("LEFT MARK PHASE\n");
                gheith::GC->copy();
-               Debug::printf("LEFT copy PHASE\n");
 
                gheith::GC->flip();
-               Debug::printf("LEFT flip PHASE\n");
-               uint32_t* small = gheith::GC->getFromSpace();
-               uint32_t* big = gheith::GC->getFromSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               Debug::printf("THE FROM SPACE STARTS AT %d\n", small);
-               Debug::printf("THE FROM SPACE ENDS AT %d\n", big);
-               Debug::printf("THE FROM SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small  );
+                gheith::GC->cleanUpFromSpace();
+                            gheith::GC->updateReferences();
+                                              //gheith::/updateReferences();
 
 
-
-
-               small = gheith::GC->getToSpace();
-               big = gheith::GC->getToSpace() + gheith::GC->getHeapSize() / sizeof(uint32_t) - 1;
-               Debug::printf("THE TO SPACE STARTS AT %d\n",small );
-               Debug::printf("THE TO SPACE ENDS AT %d\n", big);
-               Debug::printf("THE TO SPACE SIZE IS %d\n",  (uint32_t)big - (uint32_t)small );
-
-
-               Debug::printf("THE HEAP SIZE IS %d\n", gheith::GC->getHeapSize() * 2);
                resumeWorld();
        } });
 

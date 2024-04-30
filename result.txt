@@ -1,0 +1,2149 @@
+rm -rf *.diff *.raw *.out *.result *.kernel *.failure *.time *.data
+(make -C kernel clean)
+make[1]: Entering directory '/u/leulteka/cs439/projects/p8/p9/kernel'
+rm -rf build
+make[1]: Leaving directory '/u/leulteka/cs439/projects/p8/p9/kernel'
+compiling  crti.cc
+g++ -I. -c -MD -MF build/crti.d -o build/crti.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse crti.cc
+compiling  ide.cc
+g++ -I. -c -MD -MF build/ide.d -o build/ide.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse ide.cc
+compiling  snprintf.cc
+g++ -I. -c -MD -MF build/snprintf.d -o build/snprintf.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse snprintf.cc
+compiling  idt.cc
+g++ -I. -c -MD -MF build/idt.d -o build/idt.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse idt.cc
+compiling  u8250.cc
+g++ -I. -c -MD -MF build/u8250.d -o build/u8250.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse u8250.cc
+compiling  block_io.cc
+g++ -I. -c -MD -MF build/block_io.d -o build/block_io.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse block_io.cc
+compiling  future.cc
+g++ -I. -c -MD -MF build/future.d -o build/future.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse future.cc
+compiling  blocking_lock.cc
+g++ -I. -c -MD -MF build/blocking_lock.d -o build/blocking_lock.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse blocking_lock.cc
+compiling  pit.cc
+g++ -I. -c -MD -MF build/pit.d -o build/pit.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse pit.cc
+compiling  physmem.cc
+g++ -I. -c -MD -MF build/physmem.d -o build/physmem.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse physmem.cc
+compiling  process.cc
+g++ -I. -c -MD -MF build/process.d -o build/process.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse process.cc
+compiling  libk.cc
+g++ -I. -c -MD -MF build/libk.d -o build/libk.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse libk.cc
+compiling  atomic.cc
+g++ -I. -c -MD -MF build/atomic.d -o build/atomic.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse atomic.cc
+compiling  debug.cc
+g++ -I. -c -MD -MF build/debug.d -o build/debug.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse debug.cc
+compiling  threads.cc
+g++ -I. -c -MD -MF build/threads.d -o build/threads.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse threads.cc
+compiling  ext2.cc
+g++ -I. -c -MD -MF build/ext2.d -o build/ext2.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse ext2.cc
+compiling  sys.cc
+g++ -I. -c -MD -MF build/sys.d -o build/sys.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse sys.cc
+compiling  barrier.cc
+g++ -I. -c -MD -MF build/barrier.d -o build/barrier.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse barrier.cc
+compiling  elf.cc
+g++ -I. -c -MD -MF build/elf.d -o build/elf.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse elf.cc
+compiling  config.cc
+g++ -I. -c -MD -MF build/config.d -o build/config.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse config.cc
+compiling  heap.cc
+g++ -I. -c -MD -MF build/heap.d -o build/heap.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse heap.cc
+compiling  init.cc
+g++ -I. -c -MD -MF build/init.d -o build/init.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse init.cc
+compiling  smp.cc
+g++ -I. -c -MD -MF build/smp.d -o build/smp.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse smp.cc
+compiling  kernel.cc
+g++ -I. -c -MD -MF build/kernel.d -o build/kernel.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse kernel.cc
+compiling  vmm.cc
+g++ -I. -c -MD -MF build/vmm.d -o build/vmm.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse vmm.cc
+assembling mbr.S
+gcc -I. -MD -MF build/mbr.d -o build/mbr.o -m32 -c mbr.S
+assembling machine.S
+gcc -I. -MD -MF build/machine.d -o build/machine.o -m32 -c machine.S
+assembling context.s
+gcc -I. -MD -MF build/context.d -o build/context.o -m32 -c context.s
+compiling  crtn.cc
+g++ -I. -c -MD -MF build/crtn.d -o build/crtn.o -std=c++17 -fno-exceptions -fno-rtti -m32 -ffreestanding -nostdlib -g -O3 -Wall -Werror -mno-sse crtn.cc
+linking    kernel.kernel
+ld -T script.ld -N -m elf_i386 -e start -o build/kernel.kernel build/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/32/crtbegin.o build/ide.o build/snprintf.o build/idt.o build/u8250.o build/block_io.o build/future.o build/blocking_lock.o build/pit.o build/physmem.o build/process.o build/libk.o build/atomic.o build/debug.o build/threads.o build/ext2.o build/sys.o build/barrier.o build/elf.o build/config.o build/heap.o build/init.o build/smp.o build/kernel.o build/vmm.o build/mbr.o build/machine.o build/context.o /usr/lib/gcc/x86_64-linux-gnu/9/32/crtend.o build/crtn.o
+producing  build/kernel.bin
+objcopy -O binary build/kernel.kernel build/kernel.bin
+producing  build/kernel.img
+dd if=build/kernel.bin of=build/kernel.img bs=512 conv=sync > /dev/null 2>&1
+---------------------------------
+mkfs.ext2 -q -b 1024 -i 1024 -d ./t0.dir  -I 128 -r 0 -t ext2 t0.data 10m
+c[?7l[2J[0mSeaBIOS (version rel-1.13.0-48-gd9c812dda519-prebuilt.qemu.org)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8F290+07EEF290 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xxxxxxxxxxxxxxxxx.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+| What just happened? Why am I here?
+| Discovering my identity and features
+|     CPUID: AuthenticAMD
+|     has SSE3
+|     has MONITOR/MWAIT
+|     running on hypervisor
+| totalProcs 1
+| memSize 0x7fe0000 127MB
+| localAPIC fee00000
+| ioAPIC fec00000
+| heap range 0x100000 0x600000
+heap start 1048576, heap end 6291456
+from: 1048584, to: 3670016, half: 655360, len: 1310720, arr: 6291456
+avail is 655362
+avail: 655362 avail from: 655362, avail to: 655364
+avail is 12
+avail: 12 avail from: 12, avail to: 655364
+avail is 16
+avail: 16 avail from: 16, avail to: 655364
+avail is 20
+avail: 20 avail from: 20, avail to: 655364
+| switched to new UART
+| physical range 0x600000 0x7fe0000
+avail is 30
+avail: 30 avail from: 30, avail to: 655364
+avail is 74
+avail: 74 avail from: 74, avail to: 655364
+avail is 84
+avail: 84 avail from: 84, avail to: 655364
+avail is 97
+avail: 97 avail from: 97, avail to: 655364
+avail is 107
+avail: 107 avail from: 107, avail to: 655364
+avail is 111
+avail: 111 avail from: 111, avail to: 655364
+avail is 121
+avail: 121 avail from: 121, avail to: 655364
+avail is 126
+avail: 126 avail from: 126, avail to: 655364
+avail is 136
+avail: 136 avail from: 136, avail to: 655364
+avail is 144
+avail: 144 avail from: 144, avail to: 655364
+avail is 154
+avail: 154 avail from: 154, avail to: 655364
+avail is 166
+avail: 166 avail from: 166, avail to: 655364
+avail is 176
+avail: 176 avail from: 176, avail to: 655364
+avail is 306
+avail: 306 avail from: 306, avail to: 655364
+avail is 176
+avail: 176 avail from: 176, avail to: 655364
+avail is 194
+avail: 194 avail from: 194, avail to: 655364
+avail is 204
+avail: 204 avail from: 204, avail to: 655364
+avail is 446
+avail: 446 avail from: 446, avail to: 655364
+avail is 316
+avail: 316 avail from: 316, avail to: 655364
+avail is 218
+avail: 218 avail from: 218, avail to: 655364
+avail is 228
+avail: 228 avail from: 228, avail to: 655364
+avail is 267
+avail: 267 avail from: 267, avail to: 655364
+avail is 277
+avail: 277 avail from: 277, avail to: 655364
+avail is 446
+avail: 446 avail from: 446, avail to: 655364
+avail is 316
+avail: 316 avail from: 316, avail to: 655364
+avail is 291
+avail: 291 avail from: 291, avail to: 655364
+avail is 301
+avail: 301 avail from: 301, avail to: 655364
+avail is 316
+avail: 316 avail from: 316, avail to: 655364
+avail is 326
+avail: 326 avail from: 326, avail to: 655364
+avail is 342
+avail: 342 avail from: 342, avail to: 655364
+avail is 352
+avail: 352 avail from: 352, avail to: 655364
+avail is 370
+avail: 370 avail from: 370, avail to: 655364
+avail is 380
+avail: 380 avail from: 380, avail to: 655364
+avail is 2430
+avail: 2430 avail from: 2430, avail to: 655364
+avail is 2440
+avail: 2440 avail from: 2440, avail to: 655364
+avail is 2458
+avail: 2458 avail from: 2458, avail to: 655364
+avail is 2468
+avail: 2468 avail from: 2468, avail to: 655364
+avail is 4518
+avail: 4518 avail from: 4518, avail to: 655364
+avail is 4528
+avail: 4528 avail from: 4528, avail to: 655364
+avail is 4532
+avail: 4532 avail from: 4532, avail to: 655364
+| pitInit freq 1000Hz
+| pitInit divider 59659
+| APIT running at 1000064117Hz
+| APIT counter=1000064 for 1000Hz
+| initializing TSS:ss0 for 0
+| 0 enabling interrupts, I'm scared
+avail is 4542
+avail: 4542 avail from: 4542, avail to: 655364
+avail is 4586
+avail: 4586 avail from: 4586, avail to: 655364
+avail is 4596
+avail: 4596 avail from: 4596, avail to: 655364
+avail is 4609
+avail: 4609 avail from: 4609, avail to: 655364
+avail is 4619
+avail: 4619 avail from: 4619, avail to: 655364
+avail is 4623
+avail: 4623 avail from: 4623, avail to: 655364
+avail is 4633
+avail: 4633 avail from: 4633, avail to: 655364
+avail is 4638
+avail: 4638 avail from: 4638, avail to: 655364
+avail is 4648
+avail: 4648 avail from: 4648, avail to: 655364
+avail is 4666
+avail: 4666 avail from: 4666, avail to: 655364
+avail is 4676
+avail: 4676 avail from: 4676, avail to: 655364
+avail is 6726
+avail: 6726 avail from: 6726, avail to: 655364
+*** Start of Test
+avail is 6736
+avail: 6736 avail from: 6736, avail to: 655364
+avail is 6740
+avail: 6740 avail from: 6740, avail to: 655364
+avail is 655364
+avail: 655364 avail from: 655364, avail to: 6750
+avail is 655368
+avail: 655368 avail from: 655368, avail to: 6750
+avail is 655378
+avail: 655378 avail from: 655378, avail to: 6750
+avail is 655382
+avail: 655382 avail from: 655382, avail to: 6750
+avail is 655392
+avail: 655392 avail from: 655392, avail to: 6750
+avail is 655396
+avail: 655396 avail from: 655396, avail to: 6750
+avail is 655406
+avail: 655406 avail from: 655406, avail to: 6750
+avail is 655410
+avail: 655410 avail from: 655410, avail to: 6750
+avail is 655420
+avail: 655420 avail from: 655420, avail to: 6750
+avail is 655424
+avail: 655424 avail from: 655424, avail to: 6750
+avail is 655434
+avail: 655434 avail from: 655434, avail to: 6750
+avail is 655438
+avail: 655438 avail from: 655438, avail to: 6750
+avail is 655448
+avail: 655448 avail from: 655448, avail to: 6750
+avail is 655452
+avail: 655452 avail from: 655452, avail to: 6750
+avail is 655462
+avail: 655462 avail from: 655462, avail to: 6750
+avail is 655466
+avail: 655466 avail from: 655466, avail to: 6750
+avail is 655476
+avail: 655476 avail from: 655476, avail to: 6750
+avail is 655480
+avail: 655480 avail from: 655480, avail to: 6750
+avail is 655490
+avail: 655490 avail from: 655490, avail to: 6750
+avail is 655494
+avail: 655494 avail from: 655494, avail to: 6750
+avail is 655504
+avail: 655504 avail from: 655504, avail to: 6750
+avail is 655508
+avail: 655508 avail from: 655508, avail to: 6750
+avail is 655518
+avail: 655518 avail from: 655518, avail to: 6750
+avail is 655522
+avail: 655522 avail from: 655522, avail to: 6750
+avail is 655532
+avail: 655532 avail from: 655532, avail to: 6750
+avail is 655536
+avail: 655536 avail from: 655536, avail to: 6750
+avail is 655546
+avail: 655546 avail from: 655546, avail to: 6750
+avail is 655550
+avail: 655550 avail from: 655550, avail to: 6750
+avail is 655560
+avail: 655560 avail from: 655560, avail to: 6750
+avail is 655564
+avail: 655564 avail from: 655564, avail to: 6750
+avail is 655574
+avail: 655574 avail from: 655574, avail to: 6750
+avail is 655578
+avail: 655578 avail from: 655578, avail to: 6750
+avail is 655588
+avail: 655588 avail from: 655588, avail to: 6750
+avail is 655592
+avail: 655592 avail from: 655592, avail to: 6750
+avail is 655602
+avail: 655602 avail from: 655602, avail to: 6750
+avail is 655606
+avail: 655606 avail from: 655606, avail to: 6750
+avail is 655616
+avail: 655616 avail from: 655616, avail to: 6750
+avail is 655620
+avail: 655620 avail from: 655620, avail to: 6750
+avail is 655630
+avail: 655630 avail from: 655630, avail to: 6750
+avail is 655634
+avail: 655634 avail from: 655634, avail to: 6750
+avail is 655644
+avail: 655644 avail from: 655644, avail to: 6750
+avail is 655648
+avail: 655648 avail from: 655648, avail to: 6750
+avail is 655658
+avail: 655658 avail from: 655658, avail to: 6750
+avail is 655662
+avail: 655662 avail from: 655662, avail to: 6750
+avail is 655672
+avail: 655672 avail from: 655672, avail to: 6750
+avail is 655676
+avail: 655676 avail from: 655676, avail to: 6750
+avail is 655686
+avail: 655686 avail from: 655686, avail to: 6750
+avail is 655690
+avail: 655690 avail from: 655690, avail to: 6750
+avail is 655700
+avail: 655700 avail from: 655700, avail to: 6750
+avail is 655704
+avail: 655704 avail from: 655704, avail to: 6750
+avail is 655714
+avail: 655714 avail from: 655714, avail to: 6750
+avail is 655718
+avail: 655718 avail from: 655718, avail to: 6750
+avail is 655728
+avail: 655728 avail from: 655728, avail to: 6750
+avail is 655732
+avail: 655732 avail from: 655732, avail to: 6750
+avail is 655742
+avail: 655742 avail from: 655742, avail to: 6750
+avail is 655746
+avail: 655746 avail from: 655746, avail to: 6750
+avail is 655756
+avail: 655756 avail from: 655756, avail to: 6750
+avail is 655760
+avail: 655760 avail from: 655760, avail to: 6750
+avail is 655770
+avail: 655770 avail from: 655770, avail to: 6750
+avail is 655774
+avail: 655774 avail from: 655774, avail to: 6750
+avail is 655784
+avail: 655784 avail from: 655784, avail to: 6750
+avail is 655788
+avail: 655788 avail from: 655788, avail to: 6750
+avail is 655798
+avail: 655798 avail from: 655798, avail to: 6750
+avail is 655802
+avail: 655802 avail from: 655802, avail to: 6750
+avail is 655812
+avail: 655812 avail from: 655812, avail to: 6750
+avail is 655816
+avail: 655816 avail from: 655816, avail to: 6750
+avail is 655826
+avail: 655826 avail from: 655826, avail to: 6750
+avail is 655830
+avail: 655830 avail from: 655830, avail to: 6750
+avail is 655840
+avail: 655840 avail from: 655840, avail to: 6750
+avail is 655844
+avail: 655844 avail from: 655844, avail to: 6750
+avail is 655854
+avail: 655854 avail from: 655854, avail to: 6750
+avail is 655858
+avail: 655858 avail from: 655858, avail to: 6750
+avail is 655868
+avail: 655868 avail from: 655868, avail to: 6750
+avail is 655872
+avail: 655872 avail from: 655872, avail to: 6750
+avail is 655882
+avail: 655882 avail from: 655882, avail to: 6750
+avail is 655886
+avail: 655886 avail from: 655886, avail to: 6750
+avail is 655896
+avail: 655896 avail from: 655896, avail to: 6750
+avail is 655900
+avail: 655900 avail from: 655900, avail to: 6750
+avail is 655910
+avail: 655910 avail from: 655910, avail to: 6750
+avail is 655914
+avail: 655914 avail from: 655914, avail to: 6750
+avail is 655924
+avail: 655924 avail from: 655924, avail to: 6750
+avail is 655928
+avail: 655928 avail from: 655928, avail to: 6750
+avail is 655938
+avail: 655938 avail from: 655938, avail to: 6750
+avail is 655942
+avail: 655942 avail from: 655942, avail to: 6750
+avail is 655952
+avail: 655952 avail from: 655952, avail to: 6750
+avail is 655956
+avail: 655956 avail from: 655956, avail to: 6750
+avail is 655966
+avail: 655966 avail from: 655966, avail to: 6750
+avail is 655970
+avail: 655970 avail from: 655970, avail to: 6750
+avail is 655980
+avail: 655980 avail from: 655980, avail to: 6750
+avail is 655984
+avail: 655984 avail from: 655984, avail to: 6750
+avail is 655994
+avail: 655994 avail from: 655994, avail to: 6750
+avail is 655998
+avail: 655998 avail from: 655998, avail to: 6750
+avail is 656008
+avail: 656008 avail from: 656008, avail to: 6750
+avail is 656012
+avail: 656012 avail from: 656012, avail to: 6750
+avail is 656022
+avail: 656022 avail from: 656022, avail to: 6750
+avail is 656026
+avail: 656026 avail from: 656026, avail to: 6750
+avail is 656036
+avail: 656036 avail from: 656036, avail to: 6750
+avail is 656040
+avail: 656040 avail from: 656040, avail to: 6750
+avail is 656050
+avail: 656050 avail from: 656050, avail to: 6750
+avail is 656054
+avail: 656054 avail from: 656054, avail to: 6750
+avail is 656064
+avail: 656064 avail from: 656064, avail to: 6750
+avail is 656068
+avail: 656068 avail from: 656068, avail to: 6750
+avail is 656078
+avail: 656078 avail from: 656078, avail to: 6750
+avail is 656082
+avail: 656082 avail from: 656082, avail to: 6750
+avail is 656092
+avail: 656092 avail from: 656092, avail to: 6750
+avail is 656096
+avail: 656096 avail from: 656096, avail to: 6750
+avail is 656106
+avail: 656106 avail from: 656106, avail to: 6750
+avail is 656110
+avail: 656110 avail from: 656110, avail to: 6750
+avail is 656120
+avail: 656120 avail from: 656120, avail to: 6750
+avail is 656124
+avail: 656124 avail from: 656124, avail to: 6750
+avail is 656134
+avail: 656134 avail from: 656134, avail to: 6750
+avail is 656138
+avail: 656138 avail from: 656138, avail to: 6750
+avail is 656148
+avail: 656148 avail from: 656148, avail to: 6750
+avail is 656152
+avail: 656152 avail from: 656152, avail to: 6750
+avail is 656162
+avail: 656162 avail from: 656162, avail to: 6750
+avail is 656166
+avail: 656166 avail from: 656166, avail to: 6750
+avail is 656176
+avail: 656176 avail from: 656176, avail to: 6750
+avail is 656180
+avail: 656180 avail from: 656180, avail to: 6750
+avail is 656190
+avail: 656190 avail from: 656190, avail to: 6750
+avail is 656194
+avail: 656194 avail from: 656194, avail to: 6750
+avail is 656204
+avail: 656204 avail from: 656204, avail to: 6750
+avail is 656208
+avail: 656208 avail from: 656208, avail to: 6750
+avail is 656218
+avail: 656218 avail from: 656218, avail to: 6750
+avail is 656222
+avail: 656222 avail from: 656222, avail to: 6750
+avail is 656232
+avail: 656232 avail from: 656232, avail to: 6750
+avail is 656236
+avail: 656236 avail from: 656236, avail to: 6750
+avail is 656246
+avail: 656246 avail from: 656246, avail to: 6750
+avail is 656250
+avail: 656250 avail from: 656250, avail to: 6750
+avail is 656260
+avail: 656260 avail from: 656260, avail to: 6750
+avail is 656264
+avail: 656264 avail from: 656264, avail to: 6750
+avail is 656274
+avail: 656274 avail from: 656274, avail to: 6750
+avail is 656278
+avail: 656278 avail from: 656278, avail to: 6750
+avail is 656288
+avail: 656288 avail from: 656288, avail to: 6750
+avail is 656292
+avail: 656292 avail from: 656292, avail to: 6750
+avail is 656302
+avail: 656302 avail from: 656302, avail to: 6750
+avail is 656306
+avail: 656306 avail from: 656306, avail to: 6750
+avail is 656316
+avail: 656316 avail from: 656316, avail to: 6750
+avail is 656320
+avail: 656320 avail from: 656320, avail to: 6750
+avail is 656330
+avail: 656330 avail from: 656330, avail to: 6750
+avail is 656334
+avail: 656334 avail from: 656334, avail to: 6750
+avail is 656344
+avail: 656344 avail from: 656344, avail to: 6750
+avail is 656348
+avail: 656348 avail from: 656348, avail to: 6750
+avail is 656358
+avail: 656358 avail from: 656358, avail to: 6750
+avail is 656362
+avail: 656362 avail from: 656362, avail to: 6750
+avail is 656372
+avail: 656372 avail from: 656372, avail to: 6750
+avail is 656376
+avail: 656376 avail from: 656376, avail to: 6750
+avail is 656386
+avail: 656386 avail from: 656386, avail to: 0
+avail is 656390
+avail: 656390 avail from: 656390, avail to: 0
+avail is 656400
+avail: 656400 avail from: 656400, avail to: 0
+avail is 656404
+avail: 656404 avail from: 656404, avail to: 0
+avail is 656414
+avail: 656414 avail from: 656414, avail to: 0
+avail is 656418
+avail: 656418 avail from: 656418, avail to: 0
+avail is 656428
+avail: 656428 avail from: 656428, avail to: 0
+avail is 656432
+avail: 656432 avail from: 656432, avail to: 0
+avail is 656442
+avail: 656442 avail from: 656442, avail to: 0
+avail is 656446
+avail: 656446 avail from: 656446, avail to: 0
+avail is 656456
+avail: 656456 avail from: 656456, avail to: 0
+avail is 656460
+avail: 656460 avail from: 656460, avail to: 0
+avail is 656470
+avail: 656470 avail from: 656470, avail to: 0
+avail is 656474
+avail: 656474 avail from: 656474, avail to: 0
+avail is 656484
+avail: 656484 avail from: 656484, avail to: 0
+avail is 656488
+avail: 656488 avail from: 656488, avail to: 0
+avail is 656498
+avail: 656498 avail from: 656498, avail to: 0
+avail is 656502
+avail: 656502 avail from: 656502, avail to: 0
+avail is 656512
+avail: 656512 avail from: 656512, avail to: 0
+avail is 656516
+avail: 656516 avail from: 656516, avail to: 0
+avail is 656526
+avail: 656526 avail from: 656526, avail to: 0
+avail is 656530
+avail: 656530 avail from: 656530, avail to: 0
+avail is 656540
+avail: 656540 avail from: 656540, avail to: 0
+avail is 656544
+avail: 656544 avail from: 656544, avail to: 0
+avail is 656554
+avail: 656554 avail from: 656554, avail to: 0
+avail is 656558
+avail: 656558 avail from: 656558, avail to: 0
+avail is 656568
+avail: 656568 avail from: 656568, avail to: 0
+avail is 656572
+avail: 656572 avail from: 656572, avail to: 0
+avail is 656582
+avail: 656582 avail from: 656582, avail to: 0
+avail is 656586
+avail: 656586 avail from: 656586, avail to: 0
+avail is 656596
+avail: 656596 avail from: 656596, avail to: 0
+avail is 656600
+avail: 656600 avail from: 656600, avail to: 0
+avail is 656610
+avail: 656610 avail from: 656610, avail to: 0
+avail is 656614
+avail: 656614 avail from: 656614, avail to: 0
+avail is 656624
+avail: 656624 avail from: 656624, avail to: 0
+avail is 656628
+avail: 656628 avail from: 656628, avail to: 0
+avail is 656638
+avail: 656638 avail from: 656638, avail to: 0
+avail is 656642
+avail: 656642 avail from: 656642, avail to: 0
+avail is 656652
+avail: 656652 avail from: 656652, avail to: 0
+avail is 656656
+avail: 656656 avail from: 656656, avail to: 0
+avail is 656666
+avail: 656666 avail from: 656666, avail to: 0
+avail is 656670
+avail: 656670 avail from: 656670, avail to: 0
+avail is 656680
+avail: 656680 avail from: 656680, avail to: 0
+avail is 656684
+avail: 656684 avail from: 656684, avail to: 0
+avail is 656694
+avail: 656694 avail from: 656694, avail to: 0
+avail is 656698
+avail: 656698 avail from: 656698, avail to: 0
+avail is 656708
+avail: 656708 avail from: 656708, avail to: 0
+avail is 656712
+avail: 656712 avail from: 656712, avail to: 0
+avail is 656722
+avail: 656722 avail from: 656722, avail to: 0
+avail is 656726
+avail: 656726 avail from: 656726, avail to: 0
+avail is 656736
+avail: 656736 avail from: 656736, avail to: 0
+avail is 656740
+avail: 656740 avail from: 656740, avail to: 0
+avail is 656750
+avail: 656750 avail from: 656750, avail to: 0
+avail is 656754
+avail: 656754 avail from: 656754, avail to: 0
+avail is 656764
+avail: 656764 avail from: 656764, avail to: 0
+avail is 656768
+avail: 656768 avail from: 656768, avail to: 0
+avail is 656778
+avail: 656778 avail from: 656778, avail to: 0
+avail is 656782
+avail: 656782 avail from: 656782, avail to: 0
+avail is 656792
+avail: 656792 avail from: 656792, avail to: 0
+avail is 656796
+avail: 656796 avail from: 656796, avail to: 0
+avail is 656806
+avail: 656806 avail from: 656806, avail to: 0
+avail is 656810
+avail: 656810 avail from: 656810, avail to: 0
+avail is 656820
+avail: 656820 avail from: 656820, avail to: 0
+avail is 656824
+avail: 656824 avail from: 656824, avail to: 0
+avail is 656834
+avail: 656834 avail from: 656834, avail to: 0
+avail is 656838
+avail: 656838 avail from: 656838, avail to: 0
+avail is 656848
+avail: 656848 avail from: 656848, avail to: 0
+avail is 656852
+avail: 656852 avail from: 656852, avail to: 0
+avail is 656862
+avail: 656862 avail from: 656862, avail to: 0
+avail is 656866
+avail: 656866 avail from: 656866, avail to: 0
+avail is 656876
+avail: 656876 avail from: 656876, avail to: 0
+avail is 656880
+avail: 656880 avail from: 656880, avail to: 0
+avail is 656890
+avail: 656890 avail from: 656890, avail to: 0
+avail is 656894
+avail: 656894 avail from: 656894, avail to: 0
+avail is 656904
+avail: 656904 avail from: 656904, avail to: 0
+avail is 656908
+avail: 656908 avail from: 656908, avail to: 0
+avail is 656918
+avail: 656918 avail from: 656918, avail to: 0
+avail is 656922
+avail: 656922 avail from: 656922, avail to: 0
+avail is 656932
+avail: 656932 avail from: 656932, avail to: 0
+avail is 656936
+avail: 656936 avail from: 656936, avail to: 0
+avail is 656946
+avail: 656946 avail from: 656946, avail to: 0
+avail is 656950
+avail: 656950 avail from: 656950, avail to: 0
+avail is 656960
+avail: 656960 avail from: 656960, avail to: 0
+avail is 656964
+avail: 656964 avail from: 656964, avail to: 0
+avail is 656974
+avail: 656974 avail from: 656974, avail to: 0
+avail is 656978
+avail: 656978 avail from: 656978, avail to: 0
+avail is 656988
+avail: 656988 avail from: 656988, avail to: 0
+avail is 656992
+avail: 656992 avail from: 656992, avail to: 0
+avail is 657002
+avail: 657002 avail from: 657002, avail to: 0
+avail is 657006
+avail: 657006 avail from: 657006, avail to: 0
+avail is 657016
+avail: 657016 avail from: 657016, avail to: 0
+avail is 657020
+avail: 657020 avail from: 657020, avail to: 0
+avail is 657030
+avail: 657030 avail from: 657030, avail to: 0
+avail is 657034
+avail: 657034 avail from: 657034, avail to: 0
+avail is 657044
+avail: 657044 avail from: 657044, avail to: 0
+avail is 657048
+avail: 657048 avail from: 657048, avail to: 0
+avail is 657058
+avail: 657058 avail from: 657058, avail to: 0
+avail is 657062
+avail: 657062 avail from: 657062, avail to: 0
+avail is 657072
+avail: 657072 avail from: 657072, avail to: 0
+avail is 657076
+avail: 657076 avail from: 657076, avail to: 0
+avail is 657086
+avail: 657086 avail from: 657086, avail to: 0
+avail is 657090
+avail: 657090 avail from: 657090, avail to: 0
+avail is 657100
+avail: 657100 avail from: 657100, avail to: 0
+avail is 657104
+avail: 657104 avail from: 657104, avail to: 0
+avail is 657114
+avail: 657114 avail from: 657114, avail to: 0
+avail is 657118
+avail: 657118 avail from: 657118, avail to: 0
+avail is 657128
+avail: 657128 avail from: 657128, avail to: 0
+avail is 657132
+avail: 657132 avail from: 657132, avail to: 0
+avail is 657142
+avail: 657142 avail from: 657142, avail to: 0
+avail is 657146
+avail: 657146 avail from: 657146, avail to: 0
+avail is 657156
+avail: 657156 avail from: 657156, avail to: 0
+avail is 657160
+avail: 657160 avail from: 657160, avail to: 0
+avail is 657170
+avail: 657170 avail from: 657170, avail to: 0
+avail is 657174
+avail: 657174 avail from: 657174, avail to: 0
+avail is 657184
+avail: 657184 avail from: 657184, avail to: 0
+avail is 657188
+avail: 657188 avail from: 657188, avail to: 0
+avail is 657198
+avail: 657198 avail from: 657198, avail to: 0
+avail is 657202
+avail: 657202 avail from: 657202, avail to: 0
+avail is 657212
+avail: 657212 avail from: 657212, avail to: 0
+avail is 657216
+avail: 657216 avail from: 657216, avail to: 0
+avail is 657226
+avail: 657226 avail from: 657226, avail to: 0
+avail is 657230
+avail: 657230 avail from: 657230, avail to: 0
+avail is 657240
+avail: 657240 avail from: 657240, avail to: 0
+avail is 657244
+avail: 657244 avail from: 657244, avail to: 0
+avail is 657254
+avail: 657254 avail from: 657254, avail to: 0
+avail is 657258
+avail: 657258 avail from: 657258, avail to: 0
+avail is 657268
+avail: 657268 avail from: 657268, avail to: 0
+avail is 657272
+avail: 657272 avail from: 657272, avail to: 0
+avail is 657282
+avail: 657282 avail from: 657282, avail to: 0
+avail is 657286
+avail: 657286 avail from: 657286, avail to: 0
+avail is 657296
+avail: 657296 avail from: 657296, avail to: 0
+avail is 657300
+avail: 657300 avail from: 657300, avail to: 0
+avail is 657310
+avail: 657310 avail from: 657310, avail to: 0
+avail is 657314
+avail: 657314 avail from: 657314, avail to: 0
+avail is 657324
+avail: 657324 avail from: 657324, avail to: 0
+avail is 657328
+avail: 657328 avail from: 657328, avail to: 0
+avail is 657338
+avail: 657338 avail from: 657338, avail to: 0
+avail is 657342
+avail: 657342 avail from: 657342, avail to: 0
+avail is 657352
+avail: 657352 avail from: 657352, avail to: 0
+avail is 657356
+avail: 657356 avail from: 657356, avail to: 0
+avail is 657366
+avail: 657366 avail from: 657366, avail to: 0
+avail is 657370
+avail: 657370 avail from: 657370, avail to: 0
+avail is 657380
+avail: 657380 avail from: 657380, avail to: 0
+avail is 657384
+avail: 657384 avail from: 657384, avail to: 0
+avail is 657394
+avail: 657394 avail from: 657394, avail to: 0
+avail is 657398
+avail: 657398 avail from: 657398, avail to: 0
+avail is 657408
+avail: 657408 avail from: 657408, avail to: 0
+avail is 657412
+avail: 657412 avail from: 657412, avail to: 0
+avail is 657422
+avail: 657422 avail from: 657422, avail to: 0
+avail is 657426
+avail: 657426 avail from: 657426, avail to: 0
+avail is 657436
+avail: 657436 avail from: 657436, avail to: 0
+avail is 657440
+avail: 657440 avail from: 657440, avail to: 0
+avail is 657450
+avail: 657450 avail from: 657450, avail to: 0
+avail is 657454
+avail: 657454 avail from: 657454, avail to: 0
+avail is 657464
+avail: 657464 avail from: 657464, avail to: 0
+avail is 657468
+avail: 657468 avail from: 657468, avail to: 0
+avail is 657478
+avail: 657478 avail from: 657478, avail to: 0
+avail is 657482
+avail: 657482 avail from: 657482, avail to: 0
+avail is 657492
+avail: 657492 avail from: 657492, avail to: 0
+avail is 657496
+avail: 657496 avail from: 657496, avail to: 0
+avail is 657506
+avail: 657506 avail from: 657506, avail to: 0
+avail is 657510
+avail: 657510 avail from: 657510, avail to: 0
+avail is 657520
+avail: 657520 avail from: 657520, avail to: 0
+avail is 657524
+avail: 657524 avail from: 657524, avail to: 0
+avail is 657534
+avail: 657534 avail from: 657534, avail to: 0
+avail is 657538
+avail: 657538 avail from: 657538, avail to: 0
+avail is 657548
+avail: 657548 avail from: 657548, avail to: 0
+avail is 657552
+avail: 657552 avail from: 657552, avail to: 0
+avail is 657562
+avail: 657562 avail from: 657562, avail to: 0
+avail is 657566
+avail: 657566 avail from: 657566, avail to: 0
+avail is 657576
+avail: 657576 avail from: 657576, avail to: 0
+avail is 657580
+avail: 657580 avail from: 657580, avail to: 0
+avail is 657590
+avail: 657590 avail from: 657590, avail to: 0
+avail is 657594
+avail: 657594 avail from: 657594, avail to: 0
+avail is 657604
+avail: 657604 avail from: 657604, avail to: 0
+avail is 657608
+avail: 657608 avail from: 657608, avail to: 0
+avail is 657618
+avail: 657618 avail from: 657618, avail to: 0
+avail is 657622
+avail: 657622 avail from: 657622, avail to: 0
+avail is 657632
+avail: 657632 avail from: 657632, avail to: 0
+avail is 657636
+avail: 657636 avail from: 657636, avail to: 0
+avail is 657646
+avail: 657646 avail from: 657646, avail to: 0
+avail is 657650
+avail: 657650 avail from: 657650, avail to: 0
+avail is 657660
+avail: 657660 avail from: 657660, avail to: 0
+avail is 657664
+avail: 657664 avail from: 657664, avail to: 0
+avail is 657674
+avail: 657674 avail from: 657674, avail to: 0
+avail is 657678
+avail: 657678 avail from: 657678, avail to: 0
+avail is 657688
+avail: 657688 avail from: 657688, avail to: 0
+avail is 657692
+avail: 657692 avail from: 657692, avail to: 0
+avail is 657702
+avail: 657702 avail from: 657702, avail to: 0
+avail is 657706
+avail: 657706 avail from: 657706, avail to: 0
+avail is 657716
+avail: 657716 avail from: 657716, avail to: 0
+avail is 657720
+avail: 657720 avail from: 657720, avail to: 0
+avail is 657730
+avail: 657730 avail from: 657730, avail to: 0
+avail is 657734
+avail: 657734 avail from: 657734, avail to: 0
+avail is 657744
+avail: 657744 avail from: 657744, avail to: 0
+avail is 657748
+avail: 657748 avail from: 657748, avail to: 0
+avail is 657758
+avail: 657758 avail from: 657758, avail to: 0
+avail is 657762
+avail: 657762 avail from: 657762, avail to: 0
+avail is 657772
+avail: 657772 avail from: 657772, avail to: 0
+avail is 657776
+avail: 657776 avail from: 657776, avail to: 0
+avail is 657786
+avail: 657786 avail from: 657786, avail to: 0
+avail is 657790
+avail: 657790 avail from: 657790, avail to: 0
+avail is 657800
+avail: 657800 avail from: 657800, avail to: 0
+avail is 657804
+avail: 657804 avail from: 657804, avail to: 0
+avail is 657814
+avail: 657814 avail from: 657814, avail to: 0
+avail is 657818
+avail: 657818 avail from: 657818, avail to: 0
+avail is 657828
+avail: 657828 avail from: 657828, avail to: 0
+avail is 657832
+avail: 657832 avail from: 657832, avail to: 0
+avail is 657842
+avail: 657842 avail from: 657842, avail to: 0
+avail is 657846
+avail: 657846 avail from: 657846, avail to: 0
+avail is 657856
+avail: 657856 avail from: 657856, avail to: 0
+avail is 657860
+avail: 657860 avail from: 657860, avail to: 0
+avail is 657870
+avail: 657870 avail from: 657870, avail to: 0
+avail is 657874
+avail: 657874 avail from: 657874, avail to: 0
+avail is 657884
+avail: 657884 avail from: 657884, avail to: 0
+avail is 657888
+avail: 657888 avail from: 657888, avail to: 0
+avail is 657898
+avail: 657898 avail from: 657898, avail to: 0
+avail is 657902
+avail: 657902 avail from: 657902, avail to: 0
+avail is 657912
+avail: 657912 avail from: 657912, avail to: 0
+avail is 657916
+avail: 657916 avail from: 657916, avail to: 0
+avail is 657926
+avail: 657926 avail from: 657926, avail to: 0
+avail is 657930
+avail: 657930 avail from: 657930, avail to: 0
+avail is 657940
+avail: 657940 avail from: 657940, avail to: 0
+avail is 657944
+avail: 657944 avail from: 657944, avail to: 0
+avail is 657954
+avail: 657954 avail from: 657954, avail to: 0
+avail is 657958
+avail: 657958 avail from: 657958, avail to: 0
+avail is 657968
+avail: 657968 avail from: 657968, avail to: 0
+avail is 657972
+avail: 657972 avail from: 657972, avail to: 0
+avail is 657982
+avail: 657982 avail from: 657982, avail to: 0
+avail is 657986
+avail: 657986 avail from: 657986, avail to: 0
+avail is 657996
+avail: 657996 avail from: 657996, avail to: 0
+avail is 658000
+avail: 658000 avail from: 658000, avail to: 0
+avail is 658010
+avail: 658010 avail from: 658010, avail to: 0
+avail is 658014
+avail: 658014 avail from: 658014, avail to: 0
+avail is 658024
+avail: 658024 avail from: 658024, avail to: 0
+avail is 658028
+avail: 658028 avail from: 658028, avail to: 0
+avail is 658038
+avail: 658038 avail from: 658038, avail to: 0
+avail is 658042
+avail: 658042 avail from: 658042, avail to: 0
+avail is 658052
+avail: 658052 avail from: 658052, avail to: 0
+avail is 658056
+avail: 658056 avail from: 658056, avail to: 0
+avail is 658066
+avail: 658066 avail from: 658066, avail to: 0
+avail is 658070
+avail: 658070 avail from: 658070, avail to: 0
+avail is 658080
+avail: 658080 avail from: 658080, avail to: 0
+avail is 658084
+avail: 658084 avail from: 658084, avail to: 0
+avail is 658094
+avail: 658094 avail from: 658094, avail to: 0
+avail is 658098
+avail: 658098 avail from: 658098, avail to: 0
+avail is 658108
+avail: 658108 avail from: 658108, avail to: 0
+avail is 658112
+avail: 658112 avail from: 658112, avail to: 0
+avail is 658122
+avail: 658122 avail from: 658122, avail to: 0
+avail is 658126
+avail: 658126 avail from: 658126, avail to: 0
+avail is 658136
+avail: 658136 avail from: 658136, avail to: 0
+avail is 658140
+avail: 658140 avail from: 658140, avail to: 0
+avail is 658150
+avail: 658150 avail from: 658150, avail to: 0
+avail is 658154
+avail: 658154 avail from: 658154, avail to: 0
+avail is 658164
+avail: 658164 avail from: 658164, avail to: 0
+avail is 658168
+avail: 658168 avail from: 658168, avail to: 0
+avail is 658178
+avail: 658178 avail from: 658178, avail to: 0
+avail is 658182
+avail: 658182 avail from: 658182, avail to: 0
+avail is 658192
+avail: 658192 avail from: 658192, avail to: 0
+avail is 658196
+avail: 658196 avail from: 658196, avail to: 0
+avail is 658206
+avail: 658206 avail from: 658206, avail to: 0
+avail is 658210
+avail: 658210 avail from: 658210, avail to: 0
+avail is 658220
+avail: 658220 avail from: 658220, avail to: 0
+avail is 658224
+avail: 658224 avail from: 658224, avail to: 0
+avail is 658234
+avail: 658234 avail from: 658234, avail to: 0
+avail is 658238
+avail: 658238 avail from: 658238, avail to: 0
+avail is 658248
+avail: 658248 avail from: 658248, avail to: 0
+avail is 658252
+avail: 658252 avail from: 658252, avail to: 0
+avail is 658262
+avail: 658262 avail from: 658262, avail to: 0
+avail is 658266
+avail: 658266 avail from: 658266, avail to: 0
+avail is 658276
+avail: 658276 avail from: 658276, avail to: 0
+avail is 658280
+avail: 658280 avail from: 658280, avail to: 0
+avail is 658290
+avail: 658290 avail from: 658290, avail to: 0
+avail is 658294
+avail: 658294 avail from: 658294, avail to: 0
+avail is 658304
+avail: 658304 avail from: 658304, avail to: 0
+avail is 658308
+avail: 658308 avail from: 658308, avail to: 0
+avail is 658318
+avail: 658318 avail from: 658318, avail to: 0
+avail is 658322
+avail: 658322 avail from: 658322, avail to: 0
+avail is 658332
+avail: 658332 avail from: 658332, avail to: 0
+avail is 658336
+avail: 658336 avail from: 658336, avail to: 0
+avail is 658346
+avail: 658346 avail from: 658346, avail to: 0
+avail is 658350
+avail: 658350 avail from: 658350, avail to: 0
+avail is 658360
+avail: 658360 avail from: 658360, avail to: 0
+avail is 658364
+avail: 658364 avail from: 658364, avail to: 0
+avail is 658374
+avail: 658374 avail from: 658374, avail to: 0
+avail is 658378
+avail: 658378 avail from: 658378, avail to: 0
+avail is 658388
+avail: 658388 avail from: 658388, avail to: 0
+avail is 658392
+avail: 658392 avail from: 658392, avail to: 0
+avail is 658402
+avail: 658402 avail from: 658402, avail to: 0
+avail is 658406
+avail: 658406 avail from: 658406, avail to: 0
+avail is 658416
+avail: 658416 avail from: 658416, avail to: 0
+avail is 658420
+avail: 658420 avail from: 658420, avail to: 0
+avail is 658430
+avail: 658430 avail from: 658430, avail to: 0
+avail is 658434
+avail: 658434 avail from: 658434, avail to: 0
+avail is 658444
+avail: 658444 avail from: 658444, avail to: 0
+avail is 658448
+avail: 658448 avail from: 658448, avail to: 0
+avail is 658458
+avail: 658458 avail from: 658458, avail to: 0
+avail is 658462
+avail: 658462 avail from: 658462, avail to: 0
+avail is 658472
+avail: 658472 avail from: 658472, avail to: 0
+avail is 658476
+avail: 658476 avail from: 658476, avail to: 0
+avail is 658486
+avail: 658486 avail from: 658486, avail to: 0
+avail is 658490
+avail: 658490 avail from: 658490, avail to: 0
+avail is 658500
+avail: 658500 avail from: 658500, avail to: 0
+avail is 658504
+avail: 658504 avail from: 658504, avail to: 0
+avail is 658514
+avail: 658514 avail from: 658514, avail to: 0
+avail is 658518
+avail: 658518 avail from: 658518, avail to: 0
+avail is 658528
+avail: 658528 avail from: 658528, avail to: 0
+avail is 658532
+avail: 658532 avail from: 658532, avail to: 0
+avail is 658542
+avail: 658542 avail from: 658542, avail to: 0
+avail is 658546
+avail: 658546 avail from: 658546, avail to: 0
+avail is 658556
+avail: 658556 avail from: 658556, avail to: 0
+avail is 658560
+avail: 658560 avail from: 658560, avail to: 0
+avail is 658570
+avail: 658570 avail from: 658570, avail to: 0
+avail is 658574
+avail: 658574 avail from: 658574, avail to: 0
+avail is 658584
+avail: 658584 avail from: 658584, avail to: 0
+avail is 658588
+avail: 658588 avail from: 658588, avail to: 0
+avail is 658598
+avail: 658598 avail from: 658598, avail to: 0
+avail is 658602
+avail: 658602 avail from: 658602, avail to: 0
+avail is 658612
+avail: 658612 avail from: 658612, avail to: 0
+avail is 658616
+avail: 658616 avail from: 658616, avail to: 0
+avail is 658626
+avail: 658626 avail from: 658626, avail to: 0
+avail is 658630
+avail: 658630 avail from: 658630, avail to: 0
+avail is 658640
+avail: 658640 avail from: 658640, avail to: 0
+avail is 658644
+avail: 658644 avail from: 658644, avail to: 0
+avail is 658654
+avail: 658654 avail from: 658654, avail to: 0
+avail is 658658
+avail: 658658 avail from: 658658, avail to: 0
+avail is 658668
+avail: 658668 avail from: 658668, avail to: 0
+avail is 658672
+avail: 658672 avail from: 658672, avail to: 0
+avail is 658682
+avail: 658682 avail from: 658682, avail to: 0
+avail is 658686
+avail: 658686 avail from: 658686, avail to: 0
+avail is 658696
+avail: 658696 avail from: 658696, avail to: 0
+avail is 658700
+avail: 658700 avail from: 658700, avail to: 0
+avail is 658710
+avail: 658710 avail from: 658710, avail to: 0
+avail is 658714
+avail: 658714 avail from: 658714, avail to: 0
+avail is 658724
+avail: 658724 avail from: 658724, avail to: 0
+avail is 658728
+avail: 658728 avail from: 658728, avail to: 0
+avail is 658738
+avail: 658738 avail from: 658738, avail to: 0
+avail is 658742
+avail: 658742 avail from: 658742, avail to: 0
+avail is 658752
+avail: 658752 avail from: 658752, avail to: 0
+avail is 658756
+avail: 658756 avail from: 658756, avail to: 0
+avail is 658766
+avail: 658766 avail from: 658766, avail to: 0
+avail is 658770
+avail: 658770 avail from: 658770, avail to: 0
+avail is 658780
+avail: 658780 avail from: 658780, avail to: 0
+avail is 658784
+avail: 658784 avail from: 658784, avail to: 0
+avail is 658794
+avail: 658794 avail from: 658794, avail to: 0
+avail is 658798
+avail: 658798 avail from: 658798, avail to: 0
+avail is 658808
+avail: 658808 avail from: 658808, avail to: 0
+avail is 658812
+avail: 658812 avail from: 658812, avail to: 0
+avail is 658822
+avail: 658822 avail from: 658822, avail to: 0
+avail is 658826
+avail: 658826 avail from: 658826, avail to: 0
+avail is 658836
+avail: 658836 avail from: 658836, avail to: 0
+avail is 658840
+avail: 658840 avail from: 658840, avail to: 0
+avail is 658850
+avail: 658850 avail from: 658850, avail to: 0
+avail is 658854
+avail: 658854 avail from: 658854, avail to: 0
+avail is 658864
+avail: 658864 avail from: 658864, avail to: 0
+avail is 658868
+avail: 658868 avail from: 658868, avail to: 0
+avail is 658878
+avail: 658878 avail from: 658878, avail to: 0
+avail is 658882
+avail: 658882 avail from: 658882, avail to: 0
+avail is 658892
+avail: 658892 avail from: 658892, avail to: 0
+avail is 658896
+avail: 658896 avail from: 658896, avail to: 0
+avail is 658906
+avail: 658906 avail from: 658906, avail to: 0
+avail is 658910
+avail: 658910 avail from: 658910, avail to: 0
+avail is 658920
+avail: 658920 avail from: 658920, avail to: 0
+avail is 658924
+avail: 658924 avail from: 658924, avail to: 0
+avail is 658934
+avail: 658934 avail from: 658934, avail to: 0
+avail is 658938
+avail: 658938 avail from: 658938, avail to: 0
+avail is 658948
+avail: 658948 avail from: 658948, avail to: 0
+avail is 658952
+avail: 658952 avail from: 658952, avail to: 0
+avail is 658962
+avail: 658962 avail from: 658962, avail to: 0
+avail is 658966
+avail: 658966 avail from: 658966, avail to: 0
+avail is 658976
+avail: 658976 avail from: 658976, avail to: 0
+avail is 658980
+avail: 658980 avail from: 658980, avail to: 0
+avail is 658990
+avail: 658990 avail from: 658990, avail to: 0
+avail is 658994
+avail: 658994 avail from: 658994, avail to: 0
+avail is 659004
+avail: 659004 avail from: 659004, avail to: 0
+avail is 659008
+avail: 659008 avail from: 659008, avail to: 0
+avail is 659018
+avail: 659018 avail from: 659018, avail to: 0
+avail is 659022
+avail: 659022 avail from: 659022, avail to: 0
+avail is 659032
+avail: 659032 avail from: 659032, avail to: 0
+avail is 659036
+avail: 659036 avail from: 659036, avail to: 0
+avail is 659046
+avail: 659046 avail from: 659046, avail to: 0
+avail is 659050
+avail: 659050 avail from: 659050, avail to: 0
+avail is 659060
+avail: 659060 avail from: 659060, avail to: 0
+avail is 659064
+avail: 659064 avail from: 659064, avail to: 0
+avail is 659074
+avail: 659074 avail from: 659074, avail to: 0
+avail is 659078
+avail: 659078 avail from: 659078, avail to: 0
+avail is 659088
+avail: 659088 avail from: 659088, avail to: 0
+avail is 659092
+avail: 659092 avail from: 659092, avail to: 0
+avail is 659102
+avail: 659102 avail from: 659102, avail to: 0
+avail is 659106
+avail: 659106 avail from: 659106, avail to: 0
+avail is 659116
+avail: 659116 avail from: 659116, avail to: 0
+avail is 659120
+avail: 659120 avail from: 659120, avail to: 0
+avail is 659130
+avail: 659130 avail from: 659130, avail to: 0
+avail is 659134
+avail: 659134 avail from: 659134, avail to: 0
+avail is 659144
+avail: 659144 avail from: 659144, avail to: 0
+avail is 659148
+avail: 659148 avail from: 659148, avail to: 0
+avail is 659158
+avail: 659158 avail from: 659158, avail to: 0
+avail is 659162
+avail: 659162 avail from: 659162, avail to: 0
+avail is 659172
+avail: 659172 avail from: 659172, avail to: 0
+avail is 659176
+avail: 659176 avail from: 659176, avail to: 0
+avail is 659186
+avail: 659186 avail from: 659186, avail to: 0
+avail is 659190
+avail: 659190 avail from: 659190, avail to: 0
+avail is 659200
+avail: 659200 avail from: 659200, avail to: 0
+avail is 659204
+avail: 659204 avail from: 659204, avail to: 0
+avail is 659214
+avail: 659214 avail from: 659214, avail to: 0
+avail is 659218
+avail: 659218 avail from: 659218, avail to: 0
+avail is 659228
+avail: 659228 avail from: 659228, avail to: 0
+avail is 659232
+avail: 659232 avail from: 659232, avail to: 0
+avail is 659242
+avail: 659242 avail from: 659242, avail to: 0
+avail is 659246
+avail: 659246 avail from: 659246, avail to: 0
+avail is 659256
+avail: 659256 avail from: 659256, avail to: 0
+avail is 659260
+avail: 659260 avail from: 659260, avail to: 0
+avail is 659270
+avail: 659270 avail from: 659270, avail to: 0
+avail is 659274
+avail: 659274 avail from: 659274, avail to: 0
+avail is 659284
+avail: 659284 avail from: 659284, avail to: 0
+avail is 659288
+avail: 659288 avail from: 659288, avail to: 0
+avail is 659298
+avail: 659298 avail from: 659298, avail to: 0
+avail is 659302
+avail: 659302 avail from: 659302, avail to: 0
+avail is 659312
+avail: 659312 avail from: 659312, avail to: 0
+avail is 659316
+avail: 659316 avail from: 659316, avail to: 0
+avail is 659326
+avail: 659326 avail from: 659326, avail to: 0
+avail is 659330
+avail: 659330 avail from: 659330, avail to: 0
+avail is 659340
+avail: 659340 avail from: 659340, avail to: 0
+avail is 659344
+avail: 659344 avail from: 659344, avail to: 0
+avail is 659354
+avail: 659354 avail from: 659354, avail to: 0
+avail is 659358
+avail: 659358 avail from: 659358, avail to: 0
+avail is 659368
+avail: 659368 avail from: 659368, avail to: 0
+avail is 659372
+avail: 659372 avail from: 659372, avail to: 0
+avail is 659382
+avail: 659382 avail from: 659382, avail to: 0
+avail is 659386
+avail: 659386 avail from: 659386, avail to: 0
+avail is 659396
+avail: 659396 avail from: 659396, avail to: 0
+avail is 659400
+avail: 659400 avail from: 659400, avail to: 0
+avail is 659410
+avail: 659410 avail from: 659410, avail to: 0
+avail is 659414
+avail: 659414 avail from: 659414, avail to: 0
+avail is 659424
+avail: 659424 avail from: 659424, avail to: 0
+avail is 659428
+avail: 659428 avail from: 659428, avail to: 0
+avail is 659438
+avail: 659438 avail from: 659438, avail to: 0
+avail is 659442
+avail: 659442 avail from: 659442, avail to: 0
+avail is 659452
+avail: 659452 avail from: 659452, avail to: 0
+avail is 659456
+avail: 659456 avail from: 659456, avail to: 0
+avail is 659466
+avail: 659466 avail from: 659466, avail to: 0
+avail is 659470
+avail: 659470 avail from: 659470, avail to: 0
+avail is 659480
+avail: 659480 avail from: 659480, avail to: 0
+avail is 659484
+avail: 659484 avail from: 659484, avail to: 0
+avail is 659494
+avail: 659494 avail from: 659494, avail to: 0
+avail is 659498
+avail: 659498 avail from: 659498, avail to: 0
+avail is 659508
+avail: 659508 avail from: 659508, avail to: 0
+avail is 659512
+avail: 659512 avail from: 659512, avail to: 0
+avail is 659522
+avail: 659522 avail from: 659522, avail to: 0
+avail is 659526
+avail: 659526 avail from: 659526, avail to: 0
+avail is 659536
+avail: 659536 avail from: 659536, avail to: 0
+avail is 659540
+avail: 659540 avail from: 659540, avail to: 0
+avail is 659550
+avail: 659550 avail from: 659550, avail to: 0
+avail is 659554
+avail: 659554 avail from: 659554, avail to: 0
+avail is 659564
+avail: 659564 avail from: 659564, avail to: 0
+avail is 659568
+avail: 659568 avail from: 659568, avail to: 0
+avail is 659578
+avail: 659578 avail from: 659578, avail to: 0
+avail is 659582
+avail: 659582 avail from: 659582, avail to: 0
+avail is 659592
+avail: 659592 avail from: 659592, avail to: 0
+avail is 659596
+avail: 659596 avail from: 659596, avail to: 0
+avail is 659606
+avail: 659606 avail from: 659606, avail to: 0
+avail is 659610
+avail: 659610 avail from: 659610, avail to: 0
+avail is 659620
+avail: 659620 avail from: 659620, avail to: 0
+avail is 659624
+avail: 659624 avail from: 659624, avail to: 0
+avail is 659634
+avail: 659634 avail from: 659634, avail to: 0
+avail is 659638
+avail: 659638 avail from: 659638, avail to: 0
+avail is 659648
+avail: 659648 avail from: 659648, avail to: 0
+avail is 659652
+avail: 659652 avail from: 659652, avail to: 0
+avail is 659662
+avail: 659662 avail from: 659662, avail to: 0
+avail is 659666
+avail: 659666 avail from: 659666, avail to: 0
+avail is 659676
+avail: 659676 avail from: 659676, avail to: 0
+avail is 659680
+avail: 659680 avail from: 659680, avail to: 0
+avail is 659690
+avail: 659690 avail from: 659690, avail to: 0
+avail is 659694
+avail: 659694 avail from: 659694, avail to: 0
+avail is 659704
+avail: 659704 avail from: 659704, avail to: 0
+avail is 659708
+avail: 659708 avail from: 659708, avail to: 0
+avail is 659718
+avail: 659718 avail from: 659718, avail to: 0
+avail is 659722
+avail: 659722 avail from: 659722, avail to: 0
+avail is 659732
+avail: 659732 avail from: 659732, avail to: 0
+avail is 659736
+avail: 659736 avail from: 659736, avail to: 0
+avail is 659746
+avail: 659746 avail from: 659746, avail to: 0
+avail is 659750
+avail: 659750 avail from: 659750, avail to: 0
+avail is 659760
+avail: 659760 avail from: 659760, avail to: 0
+avail is 659764
+avail: 659764 avail from: 659764, avail to: 0
+avail is 659774
+avail: 659774 avail from: 659774, avail to: 0
+avail is 659778
+avail: 659778 avail from: 659778, avail to: 0
+avail is 659788
+avail: 659788 avail from: 659788, avail to: 0
+avail is 659792
+avail: 659792 avail from: 659792, avail to: 0
+avail is 659802
+avail: 659802 avail from: 659802, avail to: 0
+avail is 659806
+avail: 659806 avail from: 659806, avail to: 0
+avail is 659816
+avail: 659816 avail from: 659816, avail to: 0
+avail is 659820
+avail: 659820 avail from: 659820, avail to: 0
+avail is 659830
+avail: 659830 avail from: 659830, avail to: 0
+avail is 659834
+avail: 659834 avail from: 659834, avail to: 0
+avail is 659844
+avail: 659844 avail from: 659844, avail to: 0
+avail is 659848
+avail: 659848 avail from: 659848, avail to: 0
+avail is 659858
+avail: 659858 avail from: 659858, avail to: 0
+avail is 659862
+avail: 659862 avail from: 659862, avail to: 0
+avail is 659872
+avail: 659872 avail from: 659872, avail to: 0
+avail is 659876
+avail: 659876 avail from: 659876, avail to: 0
+avail is 659886
+avail: 659886 avail from: 659886, avail to: 0
+avail is 659890
+avail: 659890 avail from: 659890, avail to: 0
+avail is 659900
+avail: 659900 avail from: 659900, avail to: 0
+avail is 659904
+avail: 659904 avail from: 659904, avail to: 0
+avail is 659914
+avail: 659914 avail from: 659914, avail to: 0
+avail is 659918
+avail: 659918 avail from: 659918, avail to: 0
+avail is 659928
+avail: 659928 avail from: 659928, avail to: 0
+avail is 659932
+avail: 659932 avail from: 659932, avail to: 0
+avail is 659942
+avail: 659942 avail from: 659942, avail to: 0
+avail is 659946
+avail: 659946 avail from: 659946, avail to: 0
+avail is 659956
+avail: 659956 avail from: 659956, avail to: 0
+avail is 659960
+avail: 659960 avail from: 659960, avail to: 0
+avail is 659970
+avail: 659970 avail from: 659970, avail to: 0
+avail is 659974
+avail: 659974 avail from: 659974, avail to: 0
+avail is 659984
+avail: 659984 avail from: 659984, avail to: 0
+avail is 659988
+avail: 659988 avail from: 659988, avail to: 0
+avail is 659998
+avail: 659998 avail from: 659998, avail to: 0
+avail is 660002
+avail: 660002 avail from: 660002, avail to: 0
+avail is 660012
+avail: 660012 avail from: 660012, avail to: 0
+avail is 660016
+avail: 660016 avail from: 660016, avail to: 0
+avail is 660026
+avail: 660026 avail from: 660026, avail to: 0
+avail is 660030
+avail: 660030 avail from: 660030, avail to: 0
+avail is 660040
+avail: 660040 avail from: 660040, avail to: 0
+avail is 660044
+avail: 660044 avail from: 660044, avail to: 0
+avail is 660054
+avail: 660054 avail from: 660054, avail to: 0
+avail is 660058
+avail: 660058 avail from: 660058, avail to: 0
+avail is 660068
+avail: 660068 avail from: 660068, avail to: 0
+avail is 660072
+avail: 660072 avail from: 660072, avail to: 0
+avail is 660082
+avail: 660082 avail from: 660082, avail to: 0
+avail is 660086
+avail: 660086 avail from: 660086, avail to: 0
+avail is 660096
+avail: 660096 avail from: 660096, avail to: 0
+avail is 660100
+avail: 660100 avail from: 660100, avail to: 0
+avail is 660110
+avail: 660110 avail from: 660110, avail to: 0
+avail is 660114
+avail: 660114 avail from: 660114, avail to: 0
+avail is 660124
+avail: 660124 avail from: 660124, avail to: 0
+avail is 660128
+avail: 660128 avail from: 660128, avail to: 0
+avail is 660138
+avail: 660138 avail from: 660138, avail to: 0
+avail is 660142
+avail: 660142 avail from: 660142, avail to: 0
+avail is 660152
+avail: 660152 avail from: 660152, avail to: 0
+avail is 660156
+avail: 660156 avail from: 660156, avail to: 0
+avail is 660166
+avail: 660166 avail from: 660166, avail to: 0
+avail is 660170
+avail: 660170 avail from: 660170, avail to: 0
+avail is 660180
+avail: 660180 avail from: 660180, avail to: 0
+avail is 660184
+avail: 660184 avail from: 660184, avail to: 0
+avail is 660194
+avail: 660194 avail from: 660194, avail to: 0
+avail is 660198
+avail: 660198 avail from: 660198, avail to: 0
+avail is 660208
+avail: 660208 avail from: 660208, avail to: 0
+avail is 660212
+avail: 660212 avail from: 660212, avail to: 0
+avail is 660222
+avail: 660222 avail from: 660222, avail to: 0
+avail is 660226
+avail: 660226 avail from: 660226, avail to: 0
+avail is 660236
+avail: 660236 avail from: 660236, avail to: 0
+avail is 660240
+avail: 660240 avail from: 660240, avail to: 0
+avail is 660250
+avail: 660250 avail from: 660250, avail to: 0
+avail is 660254
+avail: 660254 avail from: 660254, avail to: 0
+avail is 660264
+avail: 660264 avail from: 660264, avail to: 0
+avail is 660268
+avail: 660268 avail from: 660268, avail to: 0
+avail is 660278
+avail: 660278 avail from: 660278, avail to: 0
+avail is 660282
+avail: 660282 avail from: 660282, avail to: 0
+avail is 660292
+avail: 660292 avail from: 660292, avail to: 0
+avail is 660296
+avail: 660296 avail from: 660296, avail to: 0
+avail is 660306
+avail: 660306 avail from: 660306, avail to: 0
+avail is 660310
+avail: 660310 avail from: 660310, avail to: 0
+avail is 660320
+avail: 660320 avail from: 660320, avail to: 0
+avail is 660324
+avail: 660324 avail from: 660324, avail to: 0
+avail is 660334
+avail: 660334 avail from: 660334, avail to: 0
+avail is 660338
+avail: 660338 avail from: 660338, avail to: 0
+avail is 660348
+avail: 660348 avail from: 660348, avail to: 0
+avail is 660352
+avail: 660352 avail from: 660352, avail to: 0
+avail is 660362
+avail: 660362 avail from: 660362, avail to: 0
+avail is 660366
+avail: 660366 avail from: 660366, avail to: 0
+avail is 660376
+avail: 660376 avail from: 660376, avail to: 0
+avail is 660380
+avail: 660380 avail from: 660380, avail to: 0
+avail is 660390
+avail: 660390 avail from: 660390, avail to: 0
+avail is 660394
+avail: 660394 avail from: 660394, avail to: 0
+avail is 660404
+avail: 660404 avail from: 660404, avail to: 0
+avail is 660408
+avail: 660408 avail from: 660408, avail to: 0
+avail is 660418
+avail: 660418 avail from: 660418, avail to: 0
+avail is 660422
+avail: 660422 avail from: 660422, avail to: 0
+avail is 660432
+avail: 660432 avail from: 660432, avail to: 0
+avail is 660436
+avail: 660436 avail from: 660436, avail to: 0
+avail is 660446
+avail: 660446 avail from: 660446, avail to: 0
+avail is 660450
+avail: 660450 avail from: 660450, avail to: 0
+avail is 660460
+avail: 660460 avail from: 660460, avail to: 0
+avail is 660464
+avail: 660464 avail from: 660464, avail to: 0
+avail is 660474
+avail: 660474 avail from: 660474, avail to: 0
+avail is 660478
+avail: 660478 avail from: 660478, avail to: 0
+avail is 660488
+avail: 660488 avail from: 660488, avail to: 0
+avail is 660492
+avail: 660492 avail from: 660492, avail to: 0
+avail is 660502
+avail: 660502 avail from: 660502, avail to: 0
+avail is 660506
+avail: 660506 avail from: 660506, avail to: 0
+avail is 660516
+avail: 660516 avail from: 660516, avail to: 0
+avail is 660520
+avail: 660520 avail from: 660520, avail to: 0
+avail is 660530
+avail: 660530 avail from: 660530, avail to: 0
+avail is 660534
+avail: 660534 avail from: 660534, avail to: 0
+avail is 660544
+avail: 660544 avail from: 660544, avail to: 0
+avail is 660548
+avail: 660548 avail from: 660548, avail to: 0
+avail is 660558
+avail: 660558 avail from: 660558, avail to: 0
+avail is 660562
+avail: 660562 avail from: 660562, avail to: 0
+avail is 660572
+avail: 660572 avail from: 660572, avail to: 0
+avail is 660576
+avail: 660576 avail from: 660576, avail to: 0
+avail is 660586
+avail: 660586 avail from: 660586, avail to: 0
+avail is 660590
+avail: 660590 avail from: 660590, avail to: 0
+avail is 660600
+avail: 660600 avail from: 660600, avail to: 0
+avail is 660604
+avail: 660604 avail from: 660604, avail to: 0
+avail is 660614
+avail: 660614 avail from: 660614, avail to: 0
+avail is 660618
+avail: 660618 avail from: 660618, avail to: 0
+avail is 660628
+avail: 660628 avail from: 660628, avail to: 0
+avail is 660632
+avail: 660632 avail from: 660632, avail to: 0
+avail is 660642
+avail: 660642 avail from: 660642, avail to: 0
+avail is 660646
+avail: 660646 avail from: 660646, avail to: 0
+avail is 660656
+avail: 660656 avail from: 660656, avail to: 0
+avail is 660660
+avail: 660660 avail from: 660660, avail to: 0
+avail is 660670
+avail: 660670 avail from: 660670, avail to: 0
+avail is 660674
+avail: 660674 avail from: 660674, avail to: 0
+avail is 660684
+avail: 660684 avail from: 660684, avail to: 0
+avail is 660688
+avail: 660688 avail from: 660688, avail to: 0
+avail is 660698
+avail: 660698 avail from: 660698, avail to: 0
+avail is 660702
+avail: 660702 avail from: 660702, avail to: 0
+avail is 660712
+avail: 660712 avail from: 660712, avail to: 0
+avail is 660716
+avail: 660716 avail from: 660716, avail to: 0
+avail is 660726
+avail: 660726 avail from: 660726, avail to: 0
+avail is 660730
+avail: 660730 avail from: 660730, avail to: 0
+avail is 660740
+avail: 660740 avail from: 660740, avail to: 0
+avail is 660744
+avail: 660744 avail from: 660744, avail to: 0
+avail is 660754
+avail: 660754 avail from: 660754, avail to: 0
+avail is 660758
+avail: 660758 avail from: 660758, avail to: 0
+avail is 660768
+avail: 660768 avail from: 660768, avail to: 0
+avail is 660772
+avail: 660772 avail from: 660772, avail to: 0
+avail is 660782
+avail: 660782 avail from: 660782, avail to: 0
+avail is 660786
+avail: 660786 avail from: 660786, avail to: 0
+avail is 660796
+avail: 660796 avail from: 660796, avail to: 0
+avail is 660800
+avail: 660800 avail from: 660800, avail to: 0
+avail is 660810
+avail: 660810 avail from: 660810, avail to: 0
+avail is 660814
+avail: 660814 avail from: 660814, avail to: 0
+avail is 660824
+avail: 660824 avail from: 660824, avail to: 0
+avail is 660828
+avail: 660828 avail from: 660828, avail to: 0
+avail is 660838
+avail: 660838 avail from: 660838, avail to: 0
+avail is 660842
+avail: 660842 avail from: 660842, avail to: 0
+avail is 660852
+avail: 660852 avail from: 660852, avail to: 0
+avail is 660856
+avail: 660856 avail from: 660856, avail to: 0
+avail is 660866
+avail: 660866 avail from: 660866, avail to: 0
+avail is 660870
+avail: 660870 avail from: 660870, avail to: 0
+avail is 660880
+avail: 660880 avail from: 660880, avail to: 0
+avail is 660884
+avail: 660884 avail from: 660884, avail to: 0
+avail is 660894
+avail: 660894 avail from: 660894, avail to: 0
+avail is 660898
+avail: 660898 avail from: 660898, avail to: 0
+avail is 660908
+avail: 660908 avail from: 660908, avail to: 0
+avail is 660912
+avail: 660912 avail from: 660912, avail to: 0
+avail is 660922
+avail: 660922 avail from: 660922, avail to: 0
+avail is 660926
+avail: 660926 avail from: 660926, avail to: 0
+avail is 660936
+avail: 660936 avail from: 660936, avail to: 0
+avail is 660940
+avail: 660940 avail from: 660940, avail to: 0
+avail is 660950
+avail: 660950 avail from: 660950, avail to: 0
+avail is 660954
+avail: 660954 avail from: 660954, avail to: 0
+avail is 660964
+avail: 660964 avail from: 660964, avail to: 0
+avail is 660968
+avail: 660968 avail from: 660968, avail to: 0
+avail is 660978
+avail: 660978 avail from: 660978, avail to: 0
+avail is 660982
+avail: 660982 avail from: 660982, avail to: 0
+avail is 660992
+avail: 660992 avail from: 660992, avail to: 0
+avail is 660996
+avail: 660996 avail from: 660996, avail to: 0
+avail is 661006
+avail: 661006 avail from: 661006, avail to: 0
+avail is 661010
+avail: 661010 avail from: 661010, avail to: 0
+avail is 661020
+avail: 661020 avail from: 661020, avail to: 0
+avail is 661024
+avail: 661024 avail from: 661024, avail to: 0
+avail is 661034
+avail: 661034 avail from: 661034, avail to: 0
+avail is 661038
+avail: 661038 avail from: 661038, avail to: 0
+avail is 661048
+avail: 661048 avail from: 661048, avail to: 0
+avail is 661052
+avail: 661052 avail from: 661052, avail to: 0
+avail is 661062
+avail: 661062 avail from: 661062, avail to: 0
+avail is 661066
+avail: 661066 avail from: 661066, avail to: 0
+avail is 661076
+avail: 661076 avail from: 661076, avail to: 0
+avail is 661080
+avail: 661080 avail from: 661080, avail to: 0
+avail is 661090
+avail: 661090 avail from: 661090, avail to: 0
+avail is 661094
+avail: 661094 avail from: 661094, avail to: 0
+avail is 661104
+avail: 661104 avail from: 661104, avail to: 0
+avail is 661108
+avail: 661108 avail from: 661108, avail to: 0
+avail is 661118
+avail: 661118 avail from: 661118, avail to: 0
+avail is 661122
+avail: 661122 avail from: 661122, avail to: 0
+avail is 661132
+avail: 661132 avail from: 661132, avail to: 0
+avail is 661136
+avail: 661136 avail from: 661136, avail to: 0
+avail is 661146
+avail: 661146 avail from: 661146, avail to: 0
+avail is 661150
+avail: 661150 avail from: 661150, avail to: 0
+avail is 661160
+avail: 661160 avail from: 661160, avail to: 0
+avail is 661164
+avail: 661164 avail from: 661164, avail to: 0
+avail is 661174
+avail: 661174 avail from: 661174, avail to: 0
+avail is 661178
+avail: 661178 avail from: 661178, avail to: 0
+avail is 661188
+avail: 661188 avail from: 661188, avail to: 0
+avail is 661192
+avail: 661192 avail from: 661192, avail to: 0
+avail is 661202
+avail: 661202 avail from: 661202, avail to: 0
+avail is 661206
+avail: 661206 avail from: 661206, avail to: 0
+avail is 661216
+avail: 661216 avail from: 661216, avail to: 0
+avail is 661220
+avail: 661220 avail from: 661220, avail to: 0
+avail is 661230
+avail: 661230 avail from: 661230, avail to: 0
+avail is 661234
+avail: 661234 avail from: 661234, avail to: 0
+avail is 661244
+avail: 661244 avail from: 661244, avail to: 0
+avail is 661248
+avail: 661248 avail from: 661248, avail to: 0
+avail is 661258
+avail: 661258 avail from: 661258, avail to: 0
+avail is 661262
+avail: 661262 avail from: 661262, avail to: 0
+avail is 661272
+avail: 661272 avail from: 661272, avail to: 0
+avail is 661276
+avail: 661276 avail from: 661276, avail to: 0
+avail is 661286
+avail: 661286 avail from: 661286, avail to: 0
+avail is 661290
+avail: 661290 avail from: 661290, avail to: 0
+avail is 661300
+avail: 661300 avail from: 661300, avail to: 0
+avail is 661304
+avail: 661304 avail from: 661304, avail to: 0
+avail is 661314
+avail: 661314 avail from: 661314, avail to: 0
+avail is 661318
+avail: 661318 avail from: 661318, avail to: 0
+avail is 661328
+avail: 661328 avail from: 661328, avail to: 0
+avail is 661332
+avail: 661332 avail from: 661332, avail to: 0
+avail is 661342
+avail: 661342 avail from: 661342, avail to: 0
+avail is 661346
+avail: 661346 avail from: 661346, avail to: 0
+avail is 661356
+avail: 661356 avail from: 661356, avail to: 0
+avail is 661360
+avail: 661360 avail from: 661360, avail to: 0
+avail is 661370
+avail: 661370 avail from: 661370, avail to: 0
+avail is 661374
+avail: 661374 avail from: 661374, avail to: 0
+avail is 661384
+avail: 661384 avail from: 661384, avail to: 0
+avail is 661388
+avail: 661388 avail from: 661388, avail to: 0
+avail is 661398
+avail: 661398 avail from: 661398, avail to: 0
+avail is 661402
+avail: 661402 avail from: 661402, avail to: 0
+avail is 661412
+avail: 661412 avail from: 661412, avail to: 0
+avail is 661416
+avail: 661416 avail from: 661416, avail to: 0
+avail is 661426
+avail: 661426 avail from: 661426, avail to: 0
+avail is 661430
+avail: 661430 avail from: 661430, avail to: 0
+avail is 661440
+avail: 661440 avail from: 661440, avail to: 0
+avail is 661444
+avail: 661444 avail from: 661444, avail to: 0
+avail is 661454
+avail: 661454 avail from: 661454, avail to: 0
+avail is 661458
+avail: 661458 avail from: 661458, avail to: 0
+avail is 661468
+avail: 661468 avail from: 661468, avail to: 0
+avail is 661472
+avail: 661472 avail from: 661472, avail to: 0
+avail is 661482
+avail: 661482 avail from: 661482, avail to: 0
+avail is 661486
+avail: 661486 avail from: 661486, avail to: 0
+avail is 661496
+avail: 661496 avail from: 661496, avail to: 0
+avail is 661500
+avail: 661500 avail from: 661500, avail to: 0
+avail is 661510
+avail: 661510 avail from: 661510, avail to: 0
+avail is 661514
+avail: 661514 avail from: 661514, avail to: 0
+avail is 661524
+avail: 661524 avail from: 661524, avail to: 0
+avail is 661528
+avail: 661528 avail from: 661528, avail to: 0
+avail is 661538
+avail: 661538 avail from: 661538, avail to: 0
+avail is 661542
+avail: 661542 avail from: 661542, avail to: 0
+avail is 661552
+avail: 661552 avail from: 661552, avail to: 0
+avail is 661556
+avail: 661556 avail from: 661556, avail to: 0
+avail is 661566
+avail: 661566 avail from: 661566, avail to: 0
+avail is 661570
+avail: 661570 avail from: 661570, avail to: 0
+avail is 661580
+avail: 661580 avail from: 661580, avail to: 0
+avail is 661584
+avail: 661584 avail from: 661584, avail to: 0
+avail is 661594
+avail: 661594 avail from: 661594, avail to: 0
+avail is 661598
+avail: 661598 avail from: 661598, avail to: 0
+avail is 661608
+avail: 661608 avail from: 661608, avail to: 0
+avail is 661612
+avail: 661612 avail from: 661612, avail to: 0
+avail is 661622
+avail: 661622 avail from: 661622, avail to: 0
+avail is 661626
+avail: 661626 avail from: 661626, avail to: 0
+avail is 661636
+avail: 661636 avail from: 661636, avail to: 0
+avail is 661640
+avail: 661640 avail from: 661640, avail to: 0
+avail is 661650
+avail: 661650 avail from: 661650, avail to: 0
+avail is 661654
+avail: 661654 avail from: 661654, avail to: 0
+avail is 661664
+avail: 661664 avail from: 661664, avail to: 0
+avail is 661668
+avail: 661668 avail from: 661668, avail to: 0
+avail is 661678
+avail: 661678 avail from: 661678, avail to: 0
+avail is 661682
+avail: 661682 avail from: 661682, avail to: 0
+avail is 661692
+avail: 661692 avail from: 661692, avail to: 0
+avail is 661696
+avail: 661696 avail from: 661696, avail to: 0
+avail is 661706
+avail: 661706 avail from: 661706, avail to: 0
+avail is 661710
+avail: 661710 avail from: 661710, avail to: 0
+avail is 661720
+avail: 661720 avail from: 661720, avail to: 0
+avail is 661724
+avail: 661724 avail from: 661724, avail to: 0
+avail is 661734
+avail: 661734 avail from: 661734, avail to: 0
+avail is 661738
+avail: 661738 avail from: 661738, avail to: 0
+avail is 661748
+avail: 661748 avail from: 661748, avail to: 0
+avail is 661752
+avail: 661752 avail from: 661752, avail to: 0
+avail is 661762
+avail: 661762 avail from: 661762, avail to: 0
+avail is 661766
+avail: 661766 avail from: 661766, avail to: 0
+avail is 661776
+avail: 661776 avail from: 661776, avail to: 0
+avail is 661780
+avail: 661780 avail from: 661780, avail to: 0
+avail is 661790
+avail: 661790 avail from: 661790, avail to: 0
+avail is 661794
+avail: 661794 avail from: 661794, avail to: 0
+avail is 661804
+avail: 661804 avail from: 661804, avail to: 0
+avail is 661808
+avail: 661808 avail from: 661808, avail to: 0
+avail is 661818
+avail: 661818 avail from: 661818, avail to: 0
+avail is 661822
+avail: 661822 avail from: 661822, avail to: 0
+avail is 661832
+avail: 661832 avail from: 661832, avail to: 0
+avail is 661836
+avail: 661836 avail from: 661836, avail to: 0
+avail is 661846
+avail: 661846 avail from: 661846, avail to: 0
+avail is 661850
+avail: 661850 avail from: 661850, avail to: 0
+avail is 661860
+avail: 661860 avail from: 661860, avail to: 0
+avail is 661864
+avail: 661864 avail from: 661864, avail to: 0
+avail is 661874
+avail: 661874 avail from: 661874, avail to: 0
+avail is 661878
+avail: 661878 avail from: 661878, avail to: 0
+avail is 661888
+avail: 661888 avail from: 661888, avail to: 0
+avail is 661892
+avail: 661892 avail from: 661892, avail to: 0
+avail is 661902
+avail: 661902 avail from: 661902, avail to: 0
+avail is 661906
+avail: 661906 avail from: 661906, avail to: 0
+avail is 661916
+avail: 661916 avail from: 661916, avail to: 0
+avail is 661920
+avail: 661920 avail from: 661920, avail to: 0
+avail is 661930
+avail: 661930 avail from: 661930, avail to: 0
+avail is 661934
+avail: 661934 avail from: 661934, avail to: 0
+avail is 661944
+avail: 661944 avail from: 661944, avail to: 0
+avail is 661948
+avail: 661948 avail from: 661948, avail to: 0
+avail is 661958
+avail: 661958 avail from: 661958, avail to: 0
+avail is 661962
+avail: 661962 avail from: 661962, avail to: 0
+avail is 661972
+avail: 661972 avail from: 661972, avail to: 0
+avail is 661976
+avail: 661976 avail from: 661976, avail to: 0
+avail is 661986
+avail: 661986 avail from: 661986, avail to: 0
+avail is 661990
+avail: 661990 avail from: 661990, avail to: 0
+avail is 662000
+avail: 662000 avail from: 662000, avail to: 0
+avail is 662004
+avail: 662004 avail from: 662004, avail to: 0
+avail is 662014
+avail: 662014 avail from: 662014, avail to: 0
+avail is 662018
+avail: 662018 avail from: 662018, avail to: 0
+avail is 662028
+avail: 662028 avail from: 662028, avail to: 0
+avail is 662032
+avail: 662032 avail from: 662032, avail to: 0
+avail is 662042
+avail: 662042 avail from: 662042, avail to: 0
+avail is 662046
+avail: 662046 avail from: 662046, avail to: 0
+avail is 662056
+avail: 662056 avail from: 662056, avail to: 0
+avail is 662060
+avail: 662060 avail from: 662060, avail to: 0
+avail is 662070
+avail: 662070 avail from: 662070, avail to: 0
+avail is 662074
+avail: 662074 avail from: 662074, avail to: 0
+avail is 662084
+avail: 662084 avail from: 662084, avail to: 0
+avail is 662088
+avail: 662088 avail from: 662088, avail to: 0
+avail is 662098
+avail: 662098 avail from: 662098, avail to: 0
+avail is 662102
+avail: 662102 avail from: 662102, avail to: 0
+avail is 0
+avail: 0 avail from: 0, avail to: 0
+out of memory| processor 0 halting

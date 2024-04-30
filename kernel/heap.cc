@@ -16,15 +16,17 @@ namespace gheith
 
 
 
-    int *array; // a "free" list
+    int *array; 
+
     int len;
     int safe = 0;
     static int avail = 0; // head of free list
+    //static int availFrom = 0;
+    static int availTo = 0;
     static BlockingLock *theLock = nullptr;
 
     uint32_t *fromSpace;
    uint32_t *toSpace;
-   uint32_t *toSpaceFree;
    size_t halfHeapSize;
 
 
@@ -141,6 +143,7 @@ namespace gheith
         {
             /* at head */
             avail = nextIndex;
+            //availFrom = avail;
         }
         else
         {
@@ -153,7 +156,7 @@ namespace gheith
         }
     }
 
-    void makeAvail(int i, int ints)
+    void makeAvail(int i, int ints) //2, len - 4
     {
         array[i] = ints;
         array[footerFromHeader(i)] = ints;
@@ -181,47 +184,6 @@ namespace gheith
     {
         return array[i] < 0;
     }
-    void printHeap()
-    {
-        Debug::printf("Heap Layout:\n");
-        int p = 0;
-        while (p < len)
-        {
-            int blockSize = abs(size(p));
-            if (isAvail(p))
-            {
-                Debug::printf("| Free Block at %d: Size = %d\n", p, blockSize);
-            }
-            else
-            {
-                Debug::printf("| Taken Block at %d: Size = %d\n", p, blockSize);
-            }
-            p += blockSize;
-        }
-    }
-    void printMarks()
-    {
-        Debug::printf("Marking Status:\n");
-        for (int i = 0; i < len; i++)
-        {
-            if (isTaken(i))
-            {
-                if (GC->marks[i])
-                    Debug::printf("| Taken Block at %d: Size = %d, Marked = %s\n", i, size(i), GC->marks[i] ? "True" : "False");
-            }
-        }
-    }
-
-     void printHeapLayout()
-   {
-       using namespace gheith;
-       Debug::printf("Heap Layout at Initialization:\n");
-       Debug::printf("Total heap size: %d bytes\n", totalHeapSize);
-       Debug::printf("fromSpace: starts at %p, ends at %p, size: %lu bytes\n",
-                     fromSpace, (char *)fromSpace + halfHeapSize - 1, halfHeapSize);
-       Debug::printf("toSpace: starts at %p, ends at %p, size: %lu bytes\n",
-                     toSpace, (char *)toSpace + halfHeapSize - 1, halfHeapSize);
-   }
 
 
 };
@@ -244,35 +206,84 @@ int getJustAllocated()
     using namespace gheith;
     return justAllocated;
 }
+void printHeap()
+    {
+        using namespace gheith;
+        Debug::printf("Heap Layout:\n");
+        int p = 0;
+        while (p < len)
+        {
+            int blockSize = abs(size(p));
+            if (isAvail(p))
+            {
+                Debug::printf("| Free Block at %d: Size = %d\n", p, blockSize);
+            }
+            else
+            {
+                Debug::printf("| Taken Block at %d: Size = %d\n", p, blockSize);
+            }
+            p += blockSize;
+        }
+    }
+
+    void heapInit(void *base, size_t bytes) {
+        using namespace gheith;
+
+        Debug::printf("| heap range 0x%x 0x%x\n", (uint32_t)base, (uint32_t)base + bytes); //~500000 bytes
+
+        // Initialize the array and calculate its length in terms of integers
+        array = (int *)base;
+        len = bytes / sizeof(int);  // total number of integers in the heap
+
+        // Divide the heap into two halves
+        halfHeapSize = len / 2;  // half the number of integers
+        fromSpace = (uint32_t *)(array + 2);
+ toSpace = (uint32_t *)((array + halfHeapSize)) ;
+            Debug::printf("heap start %d, heap end %d\n", base, (uint32_t) base + bytes);
+        Debug::printf("from: %d, to: %d, half: %d, len: %d, arr: %d\n", fromSpace, toSpace, halfHeapSize, len, (uint32_t)base + bytes);
+
+        // makeTaken(halfHeapSize, 2);  // boundary block at the start of the to-space
+        // makeAvail(halfHeapSize + 2, halfHeapSize - 4);  // the initial available block in the to-space
+        // makeTaken(len - 2, 2);  // boundary block at the end of the heap
+
+        
+
+        // Initialize both spaces with a taken block at the beginning and end
+                makeTaken(0, 2);  // boundary block at the start of the heap
+        makeAvail(2, halfHeapSize - 4);  // the initial available block in the from-space
+        makeTaken(halfHeapSize - 2, 2);  // boundary block at the end of the from-space
 
 
-void heapInit(void *base, size_t bytes)
-{
-    using namespace gheith;
+        // makeTaken(halfHeapSize - 1, 2);  // boundary block at the end of the from-space
+        // makeAvail(halfHeapSize, halfHeapSize + 1);  // the initial available block in the from-space
+        // makeTaken(halfHeapSize + 1, 2);
 
-    Debug::printf("| heap range 0x%x 0x%x\n", (uint32_t)base, (uint32_t)base + bytes);
+        makeTaken((int)halfHeapSize, 2);  // boundary block at the start of the to-space
+        makeAvail((int)halfHeapSize + 2, len - 4);  // the initial available block in the to-space
+        makeTaken(len + 50, 2);  // boundary block at the end of the heap
 
-    /* can't say new becasue we're initializing the heap */
-    array = (int *)base;
-    len = bytes / 4;
-    makeTaken(0, 2);
-    makeAvail(2, len - 4);
-    makeTaken(len - 2, 2);
-
-    halfHeapSize = (len - 4) * sizeof(int) / 2;
-   fromSpace = (uint32_t *)(array + 2);
-   toSpace = fromSpace + halfHeapSize / sizeof(uint32_t);
-   toSpaceFree = toSpace;
+        //avail = 2;
+        // Set initial avail pointers
 
 
-    theLock = new BlockingLock();
-    GC = new CopyingCollector(base, bytes); // for now. instantiate mark and sweep GC
+        // makeTaken(0, 2);
+        // makeAvail(2, len - 4);
+        // makeTaken(len - 2, 2);
 
-    memoryTracker = 0;
-    totalHeapSize = len * sizeof(int); // change this
 
-    // maybe change to mallocs to avoid new ObjectAlloc's?
-}
+
+        //availFrom = 0;  // start of first available block in from-space
+        availTo = (int)halfHeapSize + 4;  // start of first available block in to-space
+        //availTo = (int)toSpace + 2;
+        //avail = availFrom;  // initially allocate from from-space
+        //Debug::printf("AVAIL IS %d\n", avail);
+        theLock = new BlockingLock();
+        GC = new CopyingCollector(base, bytes);  // initialize the garbage collector
+
+        memoryTracker = 0;
+        totalHeapSize = len * sizeof(int);
+
+    }
 
 void *malloc(size_t bytes)
 {
@@ -341,6 +352,81 @@ void *malloc(size_t bytes)
     return res;
 }
 
+void *ccmalloc(size_t bytes, uint32_t* fromSpace)
+{
+    using namespace gheith;
+    // Debug::printf("malloc(%d)\n",bytes);
+    if (bytes == 0)
+        return (void *)array;
+
+    int ints = ((bytes + 3) / 4) + 2;
+    if (ints < 4)
+        ints = 4;
+    Debug::printf("avail is %d\n", avail);
+    LockGuardP g{theLock};
+
+    void *res = 0;
+
+    // int mx = 0x7FFFFFFF;
+    int mx = (int) (fromSpace + halfHeapSize);
+    int it = 0;
+    
+    {
+        int countDown = 20;
+        int p = avail;
+        // availFrom = p;
+        Debug::printf("avail: %d avail from: %d, avail to: %d\n", avail, avail, availTo);
+        while (p != 0)
+        {
+            if (!isAvail(p))
+            {
+                Debug::printf("p invalid %d\n", p);
+                printHeap();
+                Debug::panic("block is not available in malloc %p\n", p);
+            }
+            int sz = size(p);
+
+            if (sz >= ints)
+            {
+                if (sz < mx)
+                {
+                    mx = sz;
+                    it = p;
+                }
+                countDown--;
+                if (countDown == 0)
+                    break;
+            }
+            p = next(p);
+            // availFrom = p;
+
+        }
+    }
+
+    if (it != 0)
+    {
+        remove(it);
+        int extra = mx - ints;
+        if (extra >= 4)
+        {
+            makeTaken(it, ints);
+            makeAvail(it + ints, extra);
+        }
+        else
+        {
+            makeTaken(it, mx);
+        }
+        res = &array[it + 1];
+        //adjustMemoryTracker(bytes);
+         adjustMemoryTracker(ints * sizeof(int)); //5221319
+
+        justAllocated+=bytes;
+    }
+
+    return res;
+}
+
+
 void *gcMalloc(size_t bytes) {
     using namespace gheith;
 
@@ -360,7 +446,8 @@ void *gcMalloc(size_t bytes) {
 
     // Determine the correct space to search in based on GC phase.
    // uint32_t *space = fromSpace < toSpace ? fromSpace : toSpace;
-    uint32_t *spaceEnd = fromSpace < toSpace ? toSpace : fromSpace + halfHeapSize / sizeof(uint32_t);
+    // uint32_t *spaceEnd = fromSpace < toSpace ? toSpace : fromSpace + halfHeapSize / sizeof(uint32_t);
+    uint32_t *spaceEnd = fromSpace + halfHeapSize ;
 
     // Iterate over available blocks to find the first suitable one.
     for (int p = avail; p != 0 && (uint32_t *)&array[p] < spaceEnd; p = next(p)) {
@@ -458,75 +545,112 @@ void markChildren(objectMeta *parent)
    }
 }
 
-uint32_t *CopyingCollector::getForwardingAddress(uint32_t *oldAddress)
-{
-   return (uint32_t *)*oldAddress;
-}
-
-
-bool CopyingCollector::isForwarded(uint32_t *address)
-{
-   return (*address & 1) != 0;
-}
-
-
-void CopyingCollector::setForwardingAddress(uint32_t *oldAddress, uint32_t *newAddress)
-{
-   // Assumes the lowest bit is used to indicate forwarding
-   *oldAddress = reinterpret_cast<uint32_t>(newAddress) | 1;
-}
 
 
 // Getter methods
-uint32_t *CopyingCollector::getFromSpace() { return gheith::fromSpace; }
-uint32_t *CopyingCollector::getToSpace() { return gheith::toSpace; }
-uint32_t *CopyingCollector::getToSpaceFree() { return gheith::toSpaceFree; }
-size_t CopyingCollector::getHeapSize() { return gheith::halfHeapSize; }
 
 
-void CopyingCollector::flip()
-{
-   sweep();
-   using namespace gheith;
-   uint32_t *temp = fromSpace;
-   fromSpace = toSpace;
-   toSpace = temp;
-   toSpaceFree = toSpace;
+void CopyingCollector::flip() {
+    using namespace gheith;
+
+    // Swap the spaces
+    uint32_t* tempSpace = fromSpace;
+    fromSpace = toSpace;
+    toSpace = tempSpace;
+
+    // Swap the avail pointers
+    // int tempAvail = avail;
+    // avail = availTo;
+    // availTo = tempAvail;
+
+    Debug::printf("Spaces flipped. New fromSpace starts at %d, New toSpace starts at %d\n", fromSpace, toSpace);
+    Debug::printf("New avail from: %d, New avail to: %d\n", avail, availTo);
 }
 
 
+// void CopyingCollector::markBlock(void *ptr)
+// {
+//    using namespace gheith;
+//    // Check the bounds to ensure 'ptr' points within the managed array space
+//    if ( (ptr >= fromSpace && ptr < toSpace)|| (ptr <= fromSpace && ptr > toSpace))
+//    {
+//        // Calculate index to see if the pointer is pointing to a valid object start
+//        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int) - 1; //-1?
+//        // Check if the index is within bounds and the slot is marked as taken
+//        if (gheith::isTaken(index))
+//        {
+//            // Find the metadata for the object at the pointer address
+//            objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+//            if (meta)
+//                init_get_potential_children(meta); // times out
+//            if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+//            {
+//                 Debug::printf("found a match %x\n", ptr);
+//                meta->marked = true; // Mark the object as reachable
+//                markChildren(meta);  // Recursively mark all reachable children
+//            }
+//        }
+//    }
+//     if(ptr >= &data_start && ptr < &data_end){
+//          objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+//             if(meta)           init_get_potential_children(meta); //times out
+//
+//             if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+//             {
+//                 //Debug::printf("found a match %x\n", ptr);
+//
+//                 meta->marked = true; // Mark the object as reachable
+//                 markChildren(meta);  // Recursively mark all reachable children
+//             }
+//     }
+//     if(ptr >= &bss_start && ptr < &bss_end){
+//          objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+//             if(meta)           init_get_potential_children(meta); //times out
+//
+//             if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+//             {
+//                 //Debug::printf("found a match %x\n", ptr);
+//
+//                 meta->marked = true; // Mark the object as reachable
+//                 markChildren(meta);  // Recursively mark all reachable children
+//             }
+//     }
+// }
 void CopyingCollector::markBlock(void *ptr)
 {
-   using namespace gheith;
-   // Check the bounds to ensure 'ptr' points within the managed array space
-   if ( (ptr >= fromSpace && ptr < toSpace)|| (ptr <= fromSpace && ptr > toSpace))
-   {
-       // Calculate index to see if the pointer is pointing to a valid object start
-       uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int) - 1; //-1?
+    // uintptr_t index = (((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int)) - 1; //header
 
+    // if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int)) //valid?
+    // {
+    //     if (gheith::isTaken(index))
+    //     {
+    //         //marks[index] = true; //reachable
+    //         all_objects.find((uintptr_t) ptr)->marked = true; //will this get duplicates?
+    //     }
+    // }
+    // Check the bounds to ensure 'ptr' points within the managed array space
+    if (ptr >= gheith::array && ptr < gheith::array + gheith::len * sizeof(int))
+    {
+        // Calculate index to see if the pointer is pointing to a valid object start
+        uintptr_t index = ((uintptr_t)ptr - (uintptr_t)gheith::array) / sizeof(int)  -1; //-1?
 
-       // Check if the index is within bounds and the slot is marked as taken
-       if (gheith::isTaken(index))
-       {
+        // Check if the index is within bounds and the slot is marked as taken
+        if (gheith::isTaken(index))
+        {   
 
+            // Find the metadata for the object at the pointer address
+            objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
+            if(meta)           init_get_potential_children(meta); //times out
 
-           // Find the metadata for the object at the pointer address
-           objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
-           if (meta)
-               init_get_potential_children(meta); // times out
+            if (meta && !meta->marked) // Check if metadata exists and object is not already marked
+            {
+                Debug::printf("found a match %x\n", ptr);
 
-
-           if (meta && !meta->marked) // Check if metadata exists and object is not already marked
-           {
-               // Debug::printf("found a match %x\n", ptr);
-
-
-               meta->marked = true; // Mark the object as reachable
-               markChildren(meta);  // Recursively mark all reachable children
-           }
-       }
-   }
-
+                meta->marked = true; // Mark the object as reachable
+                markChildren(meta);  // Recursively mark all reachable children
+            }
+        }
+    }
     if(ptr >= &data_start && ptr < &data_end){
          objectMeta *meta = gheith::all_objects.find((uintptr_t)ptr);
             if(meta)           init_get_potential_children(meta); //times out
@@ -552,7 +676,6 @@ void CopyingCollector::markBlock(void *ptr)
             }
     }
 }
-
 void CopyingCollector::sweep()
 {
     
@@ -637,43 +760,117 @@ void CopyingCollector::sweep()
     }
 }
 
+//switch from -> to, to -> from
+void CopyingCollector::switchFT(){
+    using namespace gheith;
+
+    int temp = availTo;
+    availTo = avail;
+    avail = temp; //switch to allocating in toSpace
+    //avail += 0x20;
+    //availFrom = avail;
+}
+// from - to
+// to -- from
+// 
 void CopyingCollector::copy() {
   using namespace gheith;
+  
+ switchFT();
   for (objectMeta *current = all_objects.getHead(); current != nullptr; current = current->next) {
       if(current->marked && (!current->forwarded)) {
           size_t sizeInBytes = current->size;
-          void *newLocation = gcMalloc(sizeInBytes);
-          if (!newLocation) {
+
+          //allocate in the toSpace now
+          void *newLocation = ccmalloc(sizeInBytes, toSpace);
+        //   Debug::printf("is taken? %d\n", isAvail());
+          if (newLocation == nullptr || newLocation == 0) {
               Debug::panic("Out of memory during GC copy phase");
           }
-          current->newAddr = (uint32_t *)newLocation;
+          current->newAddr = newLocation;
           current->forwarded = true;
-          //setForwardingAddress((uint32_t *)current->addr, (uint32_t *)newLocation);
+          memcpy(current->newAddr, current->addr, sizeInBytes);
+
+          Debug::printf("old status %d, new status %d\n", (current->addr),   (current->newAddr));
       }
   }
+
+//     uint32_t *temp = fromSpace;
+//    fromSpace = toSpace;
+//    toSpace = temp;
+// //              switchFT();
+//     int tempAvail = availTo;
+//     availTo = avail;
+//     avail = tempAvail;
+   
+// uint32_t *temp = fromSpace;
+//     fromSpace = toSpace;
+//     toSpace = temp;
+
+    // Swap the available space pointers
+
+    
+}
+void CopyingCollector::updateThreadStack(gheith::TCBWithStack *tcb) {
+    using namespace gheith;
+    uint32_t **stackStart = (uint32_t **)tcb->stack;
+    uint32_t *stackEnd = (uint32_t *)&stackStart[STACK_WORDS];
+
+    // Scanning from the start to the end of the stack
+    for (uint32_t **ptr = stackStart; ptr < (uint32_t **)stackEnd; ptr++) {
+        uint32_t candidate = (uint32_t)*ptr;  // Dereferencing to get the potential pointer
+        if ((void *)candidate >= array && (void *)candidate < array + len * sizeof(int)) {
+            objectMeta *meta = all_objects.find((uintptr_t)candidate);
+            if (meta && meta->forwarded) {  // Ensure the object was moved
+                *ptr = (uint32_t*)meta->newAddr;  // Update the stack pointer to new address
+            }
+        }
+    }
+}
+void CopyingCollector::updateReferences() {
+    using namespace gheith;
+
+    for (uint32_t i = 0; i < kConfig.totalProcs; i++) {
+        TCBWithStack *tcb = (TCBWithStack *)activeThreads[i];
+        if (tcb != nullptr && !tcb->isIdle) {
+            updateThreadStack(tcb);
+        }
+    }
+
+    for (objectMeta* current = all_objects.getHead(); current != nullptr; current = current->next) {
+        if (current->marked && current->forwarded) {
+            updateObjectReferences(current);
+        }
+    }
+}
+void CopyingCollector::updateObjectReferences(objectMeta* objMeta) {
+    using namespace gheith;
+    // Assuming each object has a known layout of fields which are pointers
+    objMeta->addr = objMeta->newAddr;
+    objMeta->newAddr = nullptr;
+}
+void CopyingCollector::cleanUpFromSpace() {
+    using namespace gheith;
+
+
+
+    for (objectMeta* current = all_objects.getHead(); current != nullptr; current = current->next) {
+        if (current->marked ) {
+            // uint32_t* toDel = (uint32_t*) current->addr;
+             Debug::printf("cleaning \n");
+            // //delete toDel;
+            //free(current->addr);
+        }
+    }
+ 
+
+    // Reset avail pointer to the start of from-space
 }
 
 
-void CopyingCollector::updateInternalReferences(objectMeta *meta, uint32_t *newLocation)
-{
-  // Assuming each object contains a set of pointers (or similar structures that need updating)
-  using namespace gheith;
-  uintptr_t *ptr = (uintptr_t *)(meta->addr);
-  for (size_t i = 0; i < meta->size; ++i)
-  {
-      uintptr_t possibleAddr = *ptr;
-      if (possibleAddr >= (uintptr_t)fromSpace && possibleAddr < (uintptr_t)fromSpace + halfHeapSize)
-      {
-          // This is a heap pointer and should be updated
-          objectMeta *childMeta = gheith::all_objects.find(possibleAddr);
-          if (childMeta && childMeta->forwarded)
-          {
-              *ptr = (uintptr_t)(childMeta->newAddr); // Update to new location
-          }
-      }
-      ++ptr;
-  }
-}
+
+
+
 
 
 using namespace gheith;
@@ -713,14 +910,14 @@ void init_get_potential_children(objectMeta *parent) {
 void *operator new(size_t size)
 {
 
-    void *p = gcMalloc(size); // ptr to data
+    void *p = ccmalloc(size, fromSpace); // ptr to data
     if (p == 0)
         Debug::panic("out of memory");
     // objMeta* metadata = new objMeta(p, size, false, theLock);
 
     if (GC)
     {                                                              // heapInit has been called
-        objMeta *metadata = (objMeta *)gcMalloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
+        objMeta *metadata = (objMeta *)ccmalloc(sizeof(objectMeta), fromSpace); // Dynamically allocate a new wrapper
         metadata->addr = p;
         metadata->marked = false;
         metadata->size = size;
@@ -748,12 +945,12 @@ void operator delete(void *p, size_t sz)
 
 void *operator new[](size_t size)
 {
-    void *p = gcMalloc(size);
+    void *p = ccmalloc(size, fromSpace); // ptr to data
     if (p == 0)
         Debug::panic("out of memory");
             if (GC)
     {                                                              // heapInit has been called
-    objMeta *metadata = (objMeta *)gcMalloc(sizeof(objectMeta)); // Dynamically allocate a new wrapper
+        objMeta *metadata = (objMeta *)ccmalloc(sizeof(objectMeta), fromSpace); // Dynamically allocate a new wrapper
 
     metadata->addr = p;
     metadata->marked = false;

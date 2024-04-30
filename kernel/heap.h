@@ -15,7 +15,7 @@ typedef struct objectMeta
     objectMeta *child_next;
 
     void *newAddr;
-    bool forwarded;
+    bool forwarded = false;
 } objMeta;
 
 template <typename T, typename LockType>

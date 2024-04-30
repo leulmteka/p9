@@ -32,6 +32,10 @@ public:
     ~CopyingCollector() {}
 
     void copy();
+    void updateObjectReferences(objectMeta* objMeta);
+    void cleanUpFromSpace();
+    void updateThreadStack(gheith::TCBWithStack *tcb); 
+
     //void *copy(void *obj);
     // {
     //     uint32_t *oldAddr = static_cast<uint32_t *>(obj);
@@ -112,6 +116,8 @@ public:
     //     // Assumes the lowest bit is used to indicate forwarding
     //     *oldAddress = reinterpret_cast<uint32_t>(newAddress) | 1;
     // }
+
+    void switchFT();
 };
 
 #endif
