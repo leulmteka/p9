@@ -1,10 +1,4 @@
-*** 1
-*** you can read files
-*** 2
-*** you can read files
-*** 3
-*** we  can read files
-*** 0
-*** 42
-*** 0
-*** passed 9 checks
+*** Start of Test
+*** First item of ptrs 1076180
+*** Total Memory Still Allocated After The Test (memory tracker): 114724
+*** Total Memory Free After The Test (heap size - mem tracker): 5128156

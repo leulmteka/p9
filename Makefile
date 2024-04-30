@@ -30,7 +30,7 @@ QEMU_ACCEL ?= tcg,thread=multi
 QEMU_CPU ?= max
 QEMU_SMP ?= 1
 QEMU_MEM ?= 128m
-QEMU_TIMEOUT ?= 10
+QEMU_TIMEOUT ?= 5
 QEMU_TIMEOUT_CMD ?= timeout
 
 QEMU_PREFER = ~gheith/public/qemu_5.1.0/bin/qemu-system-i386
@@ -43,14 +43,20 @@ QEMU_CONFIG_FLAGS = -accel ${QEMU_ACCEL} \
 
 QEMU_FLAGS = -no-reboot \
 	     ${QEMU_CONFIG_FLAGS} \
-	     -nographic\
-	     --monitor none \
-	     --serial file:$*.raw \
-             -drive file=kernel/build/kernel.img,index=0,media=disk,format=raw \
+             -nographic \
+             --monitor none \
+             --serial file:$*.raw \
+             -drive file=${KERNEL_DIR}/build/kernel.img,index=0,media=disk,format=raw \
              -drive file=$*.data,index=1,media=disk,format=raw \
-	     -device isa-debug-exit,iobase=0xf4,iosize=0x04
+             -device isa-debug-exit,iobase=0xf4,iosize=0x04
 
 TIME = $(shell which time)
+
+ifeq ($(USE_MARK_AND_SWEEP),1)
+    KERNEL_DIR := kernelMarkAndSweep
+else
+    KERNEL_DIR := kernelCopyingCollector
+endif
 
 .PHONY: ${TESTS} sig test tests all clean ${TEST_TARGETS} help qemu_config_flags qemu_cmd before_test history
 
@@ -158,11 +164,11 @@ qemu_config_flags:
 	@echo "${QEMU_CONFIG_FLAGS}"
 
 the_kernel :
-	@$(MAKE) -C kernel --no-print-directory build/kernel.img
+	@$(MAKE) -C $(KERNEL_DIR) --no-print-directory build/kernel.img
 
 clean:
-	rm -rf *.diff *.raw *.out *.result *.kernel *.failure *.time *.data
-	(make -C kernel clean)
+	$(MAKE) -C kernelCopyingCollector clean
+	$(MAKE) -C kernelMarkAndSweep clean
 
 ${TEST_RAWS} : %.raw : Makefile the_kernel %.data
 	@echo -n "$* ... "

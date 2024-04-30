@@ -1,8 +1,9 @@
-1,4c1,53
-< *** Start of Test
-< *** First item of ptrs 1075520
-< *** Total Memory Still Allocated After The Test (memory tracker): 46484
-< *** Total Memory Free After The Test (heap size - mem tracker): 5196396
+1,5c1,53
+< *** Start of Mark And Sweep Test
+< *** First item of ptrs 1076220
+< *** Total Memory Still Allocated After The Test (memory tracker): 59992
+< *** Total Memory Free After The Test (heap size - mem tracker): 5182888
+< *** End of Test
 ---
 > *** 1
 > *** init
